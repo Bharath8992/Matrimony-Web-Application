@@ -47,7 +47,19 @@ APPSOURCE/
 │── requirements.txt
 ```
 
----
+## 📸 Screenshots
+
+### 🏠 Home Page
+
+![Home Page](img/home%20page.png)
+
+### 👤 Profile Page
+
+![Profile Page](img/profile%20page.png)
+
+### 💳 Payment Page
+
+![Payment Page](img/payment.png)---
 
 ##  Screens
 
