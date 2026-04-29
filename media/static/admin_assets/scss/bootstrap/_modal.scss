@@ -1,0 +1,249 @@
+/*------ Modal -------*/
+
+.modal-header h4.modal-title {
+	font-weight: 300;
+}
+
+.modal-body label {
+	font-weight: 400;
+}
+
+.modal-open {
+	overflow: auto;
+	padding: 0 !important;
+	display: block;
+}
+
+.modal {
+	position: fixed;
+	inset: 0;
+	z-index: 9999;
+	display: none;
+	overflow: hidden;
+	outline: 0;
+	padding-inline-end: 0 !important;
+	margin: 0 !important;
+}
+
+.modal-open,
+.modal-backdrop.fade.show {
+	padding-inline-end: 0 !important;
+}
+
+.modal-open .modal {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.modal-dialog {
+	position: relative;
+	width: auto;
+	margin: 0.5rem;
+	pointer-events: none;
+}
+
+.modal {
+	&.fade .modal-dialog {
+		transition: -webkit-transform 0.3s ease-out;
+		transition: transform 0.3s ease-out;
+		transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+		-webkit-transform: translate(0, -25%);
+		transform: translate(0, -25%);
+	}
+
+	&.show .modal-dialog {
+		-webkit-transform: translate(0, 0);
+		transform: translate(0, 0);
+	}
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	.modal.fade .modal-dialog {
+		transition: none;
+	}
+}
+
+.modal-dialog-centered {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	min-height: calc(100% - (0.5rem * 2));
+}
+
+.modal-content {
+	position: relative;
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	width: 100%;
+	pointer-events: auto;
+	background-color: $white;
+	background-clip: padding-box;
+	border: 1px solid $border;
+	border-radius: 4px;
+	outline: 0;
+}
+
+.modal-backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 1055;
+	background-color: $default-color;
+
+	&.fade {
+		opacity: 0;
+	}
+
+	&.show {
+		opacity: 0.5;
+	}
+}
+
+.modal-header {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: start;
+	align-items: flex-start;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	padding: 1rem;
+	border-block-end: 0px solid $border;
+	border-start-start-radius: 3px;
+	border-start-end-radius: 3px;
+
+	.btn-close {
+		font-size: 10px;
+	}
+}
+
+.modal-title {
+	margin-block-end: 0;
+	line-height: 1.5;
+}
+
+.modal-body {
+	position: relative;
+	-ms-flex: 1 1 auto;
+	flex: 1 1 auto;
+	padding: 1rem;
+
+	p:last-child {
+		margin-block-end: 0;
+	}
+}
+
+.modal-footer {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+	padding: 1rem;
+	border-block-start: 1px solid $border;
+
+	> {
+		:not(:first-child) {
+			margin-inline-start: .25rem;
+		}
+
+		:not(:last-child) {
+			margin-inline-end: .25rem;
+		}
+	}
+}
+
+.modal-scrollbar-measure {
+	position: absolute;
+	inset-block-start: -9999px;
+	width: 50px;
+	height: 50px;
+	overflow: scroll;
+}
+
+@media (min-width: 576px) {
+	.modal-dialog {
+		max-width: 500px;
+		margin: 1.75rem auto;
+	}
+
+	.modal-dialog-centered {
+		min-height: calc(100% - (1.75rem * 2));
+	}
+
+	.modal-sm {
+		max-width: 300px;
+	}
+}
+
+@media (min-width: 992px) {
+	.modal-lg {
+		max-width: 800px;
+	}
+}
+
+.dtr-modal {
+	.dtr-modal-display {
+		position: absolute;
+		inset-block-start: 30px !important;
+		inset-block-end: 0;
+		inset-inline: 0;
+		width: 40% !important;
+		height: 60% !important;
+		overflow: auto;
+		margin: auto;
+		z-index: 102;
+		overflow: auto;
+		background-color: $white  !important;
+		border: 0 !important;
+		border-radius: 0 !important;
+		box-shadow: 0 1px 15px 1px rgba(208, 201, 243, 0.1) !important;
+	}
+
+	h2 {
+		font-size: 1.3rem !important;
+	}
+}
+
+.model-wrapper-demo {
+	padding: 50px 0;
+	background: #f9f9f9;
+}
+
+.btn-close {
+	width: 0.6em;
+	height: 0.6em;
+}
+
+.modal-fullscreen {
+    width: 100vw ;
+    max-width: none ;
+    height: 100%;
+    margin: 0 ;
+}
+
+.toast {
+    border: 1px solid $border;
+	box-shadow: 0 4px 25px 0 rgb(168 180 208 / 30%);
+}
+.offcanvas-header .btn-close {
+   font-size: 10px;
+}
+
+.toast-header .btn-close {
+    margin-inline-end: -0.075rem;
+    margin-inline-start: 0.75rem;
+}
+
+.toast.showing {
+	opacity: 1 !important;
+}
+.modal-open {
+	.select2-container {
+		z-index: 9999 !important;
+	}
+}
+
+/*------ Modal -------*/

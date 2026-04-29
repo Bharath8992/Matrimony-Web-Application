@@ -1,0 +1,36 @@
+[
+{
+    "model": "mck_admin_console.resource",
+    "pk": 1,
+    "fields": {
+        "resource_category": 1,
+        "name": "Uniform Building Permit  ",
+        "short_description": "Fill out the standard Uniform Building Permit and email to totalinspectionservices@gmail.com",
+        "type": "LINK",
+        "link": "https://newglarusvillage.com/__media/pdfs/forms_and_apps/building/Building%20Permit%204.2021.pdf",
+        "document": "",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-28T11:48:16.898",
+        "updated_on": "2025-02-28T14:51:24.988",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.resource",
+    "pk": 2,
+    "fields": {
+        "resource_category": 1,
+        "name": "Commercial Building Codes ",
+        "short_description": " Wisconsin Department of Safety and Professional Services (SPS) Commercial Building Codes.",
+        "type": "LINK",
+        "link": "https://docs.legis.wisconsin.gov/code/admin_code/sps/safety_and_buildings_and_environment/361_366",
+        "document": "",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-28T11:48:47.279",
+        "updated_on": "2025-02-28T14:51:53.392",
+        "datamode": "A"
+    }
+}
+]

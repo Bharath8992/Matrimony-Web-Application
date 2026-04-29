@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Square Box</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-u3ePw2xw0P7t0t6V2jv1n3R6nE1P0zQk5mM6v2n5m2sE1jz7l4w7f5tZ7p3J9TLwqG7i0vJq9Xo7Jk0+X3y0A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/animate.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/sib-styles.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/services.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+</head>
+<body>
+
+    {% include "includes/header.html" %}
+
+    {% include "includes/hero.html" %}
+    {% include "includes/property_display.html" %}
+    {% include "includes/services.html" %}
+    {% include "includes/hero_2.html" %}
+    {% include "includes/for_sale.html" %}
+    {% include "includes/about.html" %}
+    {% include "includes/ehansment.html" %}
+    {% include "includes/testimonial.html" %}
+    {% include "includes/citys.html" %}
+    {% include "includes/contact.html" %}
+    {% include "includes/property_type.html" %}
+    {% include "includes/footer_main.html" %}
+
+
+<script>
+    
+        // Testimonial Slider
+        const track = document.querySelector('.testimonial-track');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentIndex = 0;
+
+        function moveSlider(index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                moveSlider(index);
+            });
+        });
+
+        // Auto slide testimonials
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % dots.length;
+            moveSlider(currentIndex);
+        }, 5000);
+
+        // Dropdown menus for mobile
+        const navItems = document.querySelectorAll('.nav-links > li');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    const dropdown = item.querySelector('.dropdown');
+                    if (dropdown) {
+                        e.preventDefault();
+                        dropdown.classList.toggle('active');
+                    }
+                }
+            });
+        });
+
+</script>
+</body>
+</html>
+                
+                

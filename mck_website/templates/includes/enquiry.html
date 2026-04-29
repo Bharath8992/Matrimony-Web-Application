@@ -1,0 +1,1555 @@
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile - Red Gradient Theme</title>
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #d90429;
+            --dark-red: #9d0208;
+            --light-red: #ff5a5f;
+            --soft-red: #ffccd5;
+            --dark-bg: #1a1a2e;
+            --light-bg: #f8f9fa;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #2b2d42;
+            --text-light: #8d99ae;
+            --shadow: 0 10px 30px rgba(217, 4, 41, 0.15);
+            --radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1b2e 50%, #3c1e3e 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #ff5a5f, #d90429, #9d0208);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .header p {
+            color: var(--soft-red);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .profile-form-container {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, #ff5a5f, #d90429, #9d0208);
+        }
+        
+        .form-section {
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: var(--radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(217, 4, 41, 0.1);
+        }
+        
+        .section-icon {
+            background: linear-gradient(to right, #ff5a5f, #d90429);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .section-title h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            color: var(--dark-red);
+            font-weight: 600;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+        
+        .form-group label .required {
+            color: var(--primary-red);
+            margin-left: 3px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(217, 4, 41, 0.1);
+        }
+        
+        .form-control::placeholder {
+            color: #aaa;
+        }
+        
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .photo-upload-item {
+            text-align: center;
+        }
+        
+        .photo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 3px solid var(--soft-red);
+            background: linear-gradient(45deg, #ffccd5, #ff5a5f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .photo-preview .default-icon {
+            font-size: 3rem;
+            color: var(--light-red);
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            background: linear-gradient(to right, #ff5a5f, #d90429);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: none;
+            font-size: 0.9rem;
+            font-family: 'Poppins', sans-serif;
+            width: 100%;
+        }
+        
+        .upload-btn:hover {
+            background: linear-gradient(to right, #d90429, #9d0208);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(217, 4, 41, 0.3);
+        }
+        
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 5px;
+        }
+        
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .radio-option input, .checkbox-option input {
+            margin-right: 8px;
+            accent-color: var(--primary-red);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid rgba(217, 4, 41, 0.1);
+        }
+        
+        .btn {
+            padding: 14px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #ff5a5f, #d90429);
+            color: white;
+            box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(to right, #d90429, #9d0208);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(217, 4, 41, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(217, 4, 41, 0.05);
+            transform: translateY(-3px);
+        }
+        
+        .form-footer {
+            text-align: center;
+            color: var(--soft-red);
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .required-note {
+            color: var(--primary-red);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .profile-form-container {
+                padding: 25px;
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+        
+        .field-hint {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .income-slider-container {
+            margin-top: 10px;
+        }
+        
+        .slider-value {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .slider-value span {
+            font-weight: 600;
+            color: var(--primary-red);
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: #e0e0e0;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .success-message, .error-message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            display: none;
+        }
+        
+        .success-message {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            color: white;
+        }
+        
+        .error-message {
+            background: linear-gradient(to right, #f44336, #e5026b);
+            color: white;
+        }
+        
+        .success-message i, .error-message i {
+            font-size: 1.5rem;
+        }
+        
+        .btn-loading {
+            position: relative;
+            pointer-events: none;
+        }
+        
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spinner 0.8s linear infinite;
+        }
+        
+        @keyframes spinner {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .toggle-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(217, 4, 41, 0.05);
+            border-radius: 8px;
+        }
+        
+        .toggle-section label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .toggle-section input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-red);
+        }
+        
+        .conditional-fields {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-left: 3px solid var(--primary-red);
+            margin-top: 15px;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .time-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-red);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Complete Your Profile</h1>
+            <p>Provide comprehensive information to create a detailed profile. All fields help us serve you better.</p>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <strong>Profile saved successfully!</strong> Redirecting to payment page...
+            </div>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            <div>
+                <strong>Error!</strong> <span id="errorText">There was an error submitting your profile</span>
+            </div>
+        </div>
+        
+        <div class="profile-form-container">
+            <div class="required-note">
+                <i class="fas fa-asterisk"></i> <span>Required fields are marked with *</span>
+            </div>
+            
+            <form id="profileForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- SECTION 1: BASIC DETAILS -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h3>Basic Details</h3>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name <span class="required">*</span></label>
+                            <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Gender <span class="required">*</span></label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="gender" value="M" required> Male
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="gender" value="F"> Female
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="gender" value="O"> Other
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" class="form-control" id="dob" name="dob" min="1924-01-01">
+                            <small id="dob-error" class="text-danger d-none">You must be at least 18 years old to register.</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Birth Time</label>
+                            <div class="time-input">
+                                <input type="time" class="form-control" id="birth_time" name="birth_time">
+                            </div>
+                            <div class="field-hint">Enter your exact birth time if known</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Birth Place</label>
+                            <select class="form-control" id="birth_place" name="birth_place">
+                                <option value="">Select Birth Place</option>
+                                <option>Chennai</option>
+                                <option>Coimbatore</option>
+                                <option>Madurai</option>
+                                <option>Trichy</option>
+                                <option>Salem</option>
+                                <option>Vellore</option>
+                                <option>Tirunelveli</option>
+                                <option>Erode</option>
+                                <option>Thanjavur</option>
+                                <option>Thoothukudi</option>
+                                <option>Namakkal</option>
+                                <option>Karur</option>
+                                <option>Dharmapuri</option>
+                                <option>Krishnagiri</option>
+                                <option>Virudhunagar</option>
+                                <option>Nilgiris</option>
+                                <option>Kanchipuram</option>
+                                <option>Tiruppur</option>
+                                <option>Cuddalore</option>
+                                <option>Villupuram</option>
+                                <option>Dindigul</option>
+                                <option>Ramanathapuram</option>
+                                <option>Sivaganga</option>
+                                <option>Pudukkottai</option>
+                                <option>Nagapattinam</option>
+                                <option>Thiruvarur</option>
+                                <option>Thiruvallur</option>
+                                <option>Tiruvannamalai</option>
+                                <option>Kanyakumari</option>
+                                <option>Perambalur</option>
+                                <option>Ariyalur</option>
+                                <option>Ranipet</option>
+                                <option>Tirupathur</option>
+                                <option>Tenkasi</option>
+                                <option>Kallakurichi</option>
+                                <option>Mayiladuthurai</option>
+                                <option>Chengalpattu</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="is_currently_living" name="is_currently_living" value="true">
+                                <label for="is_currently_living">I am currently living at this location</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Current Location</label>
+                            <input type="text" class="form-control" id="current_location" name="current_location" placeholder="City, State, Country">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Height</label>
+                            <input type="text" class="form-control" id="height" name="height" placeholder="e.g., 5'10&quot;, 178 cm">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Weight</label>
+                            <input type="text" class="form-control" id="weight" name="weight" placeholder="e.g., 70 kg, 154 lbs">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Complexion</label>
+                            <input type="text" class="form-control" id="complexion" name="complexion" placeholder="e.g., Fair, Wheatish, Dark">
+                        </div>
+                        
+                        <!-- <div class="form-group">
+                            <label>Marital Status</label>
+                            <select class="form-control" id="marital_status" name="marital_status">
+                                <option value="">Select Status</option>
+                                <option value="S">Single</option>
+                                <option value="M">Married</option>
+                                <option value="D">Divorced</option>
+                                <option value="W">Widowed</option>
+                            </select>
+                        </div> -->
+                    </div>
+                </div>
+                
+                <!-- SECTION 2: RELIGION & HOROSCOPE -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-praying-hands"></i>
+                        </div>
+                        <h3>Religion & Horoscope</h3>
+                    </div>
+                    
+                    <div class="form-grid">
+    <div class="form-group">
+        <label>Religion</label>
+        <select class="form-control" id="religion" name="religion" onchange="filterCasteByReligion()">
+            <option value="">Select Religion</option>
+            <option value="Hindu">Hindu</option>
+            <option value="Muslim">Muslim</option>
+            <option value="Christian">Christian</option>
+            <option value="Sikh">Sikh</option>
+            <option value="Buddhist">Buddhist</option>
+            <option value="Jain">Jain</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Caste</label>
+        <select class="form-control" id="caste" name="caste" onchange="loadSubCastes()">
+            <option value="">Select Caste</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Sub Caste</label>
+        <select class="form-control" id="sub_caste" name="sub_caste">
+            <option value="">Select Sub Caste</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Gothram</label>
+        <input type="text" class="form-control" id="gothram" name="gothram" placeholder="Enter your gothram">
+    </div>
+
+    <div class="form-group">
+        <label>Rasi</label>
+        <select class="form-control" id="rasi" name="rasi">
+            <option value="">Select Rasi</option>
+            <option value="Mesham">Mesham (மேஷம்)</option>
+            <option value="Rishabam">Rishabam (ரிஷபம்)</option>
+            <option value="Midhunam">Midhunam (மிதுனம்)</option>
+            <option value="Kadagam">Kadagam (கடகம்)</option>
+            <option value="Simmam">Simmam (சிம்மம்)</option>
+            <option value="Kanni">Kanni (கன்னி)</option>
+            <option value="Thulam">Thulam (துலாம்)</option>
+            <option value="Viruchigam">Viruchigam (விருச்சிகம்)</option>
+            <option value="Dhanusu">Dhanusu (தனுசு)</option>
+            <option value="Magaram">Magaram (மகரம்)</option>
+            <option value="Kumbam">Kumbam (கும்பம்)</option>
+            <option value="Meenam">Meenam (மீனம்)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Nakshatra</label>
+        <select class="form-control" id="nakshatra" name="nakshatra">
+            <option value="">Select Nakshatra</option>
+            <option value="Ashwini">Ashwini (அஸ்வினி)</option>
+            <option value="Bharani">Bharani (பரணி)</option>
+            <option value="Karthigai">Karthigai (கார்த்திகை)</option>
+            <option value="Rohini">Rohini (ரோகிணி)</option>
+            <option value="Mirugashirisham">Mirugashirisham (மிருகசீரிஷம்)</option>
+            <option value="Thiruvadhirai">Thiruvadhirai (திருவாதிரை)</option>
+            <option value="Punarpoosam">Punarpoosam (புனர்பூசம்)</option>
+            <option value="Poosam">Poosam (பூசம்)</option>
+            <option value="Ayilyam">Ayilyam (ஆயில்யம்)</option>
+            <option value="Magam">Magam (மகம்)</option>
+            <option value="Pooram">Pooram (பூரம்)</option>
+            <option value="Uthiram">Uthiram (உத்திரம்)</option>
+            <option value="Hastham">Hastham (ஹஸ்தம்)</option>
+            <option value="Chithirai">Chithirai (சித்திரை)</option>
+            <option value="Swathi">Swathi (சுவாதி)</option>
+            <option value="Visakam">Visakam (விசாகம்)</option>
+            <option value="Anusham">Anusham (அனுஷம்)</option>
+            <option value="Kettai">Kettai (கேட்டை)</option>
+            <option value="Moolam">Moolam (மூலம்)</option>
+            <option value="Pooradam">Pooradam (பூராடம்)</option>
+            <option value="Uthiradam">Uthiradam (உத்திராடம்)</option>
+            <option value="Thiruvonam">Thiruvonam (திருவோணம்)</option>
+            <option value="Avittam">Avittam (அவிட்டம்)</option>
+            <option value="Sadayam">Sadayam (சதயம்)</option>
+            <option value="Poorattathi">Poorattathi (பூரட்டாதி)</option>
+            <option value="Uthirattathi">Uthirattathi (உத்திரட்டாதி)</option>
+            <option value="Revathi">Revathi (ரேவதி)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Lagnam</label>
+        <select class="form-control" id="laknam" name="laknam">
+            <option value="">Select Lagnam</option>
+            <option value="Mesham">Mesham (மேஷம்)</option>
+            <option value="Rishabam">Rishabam (ரிஷபம்)</option>
+            <option value="Midhunam">Midhunam (மிதுனம்)</option>
+            <option value="Kadagam">Kadagam (கடகம்)</option>
+            <option value="Simmam">Simmam (சிம்மம்)</option>
+            <option value="Kanni">Kanni (கன்னி)</option>
+            <option value="Thulam">Thulam (துலாம்)</option>
+            <option value="Viruchigam">Viruchigam (விருச்சிகம்)</option>
+            <option value="Dhanusu">Dhanusu (தனுசு)</option>
+            <option value="Magaram">Magaram (மகரம்)</option>
+            <option value="Kumbam">Kumbam (கும்பம்)</option>
+            <option value="Meenam">Meenam (மீனம்)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Dosham</label>
+        <select class="form-control" id="dosham" name="dosham">
+            <option value="">Select</option>
+            <option value="No Dosham">No Dosham</option>
+            <option value="Chevvai Dosham">Chevvai Dosham (செவ்வாய் தோஷம்)</option>
+            <option value="Rahu Dosham">Rahu Dosham (ராகு தோஷம்)</option>
+            <option value="Ketu Dosham">Ketu Dosham (கேது தோஷம்)</option>
+            <option value="Shani Dosham">Shani Dosham (சனி தோஷம்)</option>
+            <option value="Naga Dosham">Naga Dosham (நாக தோஷம்)</option>
+            <option value="Unknown">Unknown</option>
+        </select>
+    </div>
+</div>
+
+
+                </div>
+                
+                <!-- SECTION 3: EDUCATION & CAREER -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Education & Career</h3>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Education</label>
+                            <input type="text" class="form-control" id="education" name="education" placeholder="e.g., Bachelor's in Engineering, MBA">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Occupation</label>
+                            <input type="text" class="form-control" id="occupation" name="occupation" placeholder="e.g., Software Engineer, Doctor">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" class="form-control" id="company_name" name="company_name" placeholder="Where do you work?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Job Location</label>
+                            <input type="text" class="form-control" id="job_location" name="job_location" placeholder="City, Country">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Job Location Type</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="job_location_type" value="India" checked> India
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="job_location_type" value="Other"> Other Country
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="job_state_group">
+                            <label>Job State</label>
+                            <select class="form-control" id="job_state" name="job_state">
+                                <option value="">Select State</option>
+                                <option value="Tamil Nadu">Tamil Nadu</option>
+                                <option value="Kerala">Kerala</option>
+                                <option value="Karnataka">Karnataka</option>
+                                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                <option value="Telangana">Telangana</option>
+                                <option value="Maharashtra">Maharashtra</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="job_country_group" style="display: none;">
+                            <label>Job Country</label>
+                            <input type="text" class="form-control" id="job_country" name="job_country" placeholder="Enter country name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Annual Income (USD)</label>
+                            <div class="income-slider-container">
+                                <div class="slider-value">
+                                    <span>₹0</span>
+                                    <span id="incomeValue">₹50,000</span>
+                                    <span>₹500,000+</span>
+                                </div>
+                                <input type="range" id="annual_income" name="annual_income" min="0" max="500000" step="1000" value="50000">
+                            </div>
+                            <div class="field-hint">Move the slider to indicate your approximate annual income</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SECTION 4: FAMILY DETAILS -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-family"></i>
+                        </div>
+                        <h3>Family Details</h3>
+                    </div>
+                    
+                    <div class="toggle-section">
+                        <label>
+                            <input type="checkbox" id="has_father_details" name="has_father_details" value="Y">
+                            <i class="fas fa-user-tie"></i> Add Father's Details
+                        </label>
+                    </div>
+                    <div id="fatherDetails" class="conditional-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Father's Name</label>
+                                <input type="text" class="form-control" id="father_name" name="father_name" placeholder="Enter father's full name">
+                            </div>
+                            <div class="form-group">
+                                <label>Father's Occupation</label>
+                                <input type="text" class="form-control" id="father_occupation" name="father_occupation" placeholder="Father's profession">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="toggle-section">
+                        <label>
+                            <input type="checkbox" id="has_mother_details" name="has_mother_details" value="Y">
+                            <i class="fas fa-user-tie"></i> Add Mother's Details
+                        </label>
+                    </div>
+                    <div id="motherDetails" class="conditional-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Mother's Name</label>
+                                <input type="text" class="form-control" id="mother_name" name="mother_name" placeholder="Enter mother's full name">
+                            </div>
+                            <div class="form-group">
+                                <label>Mother's Occupation</label>
+                                <input type="text" class="form-control" id="mother_occupation" name="mother_occupation" placeholder="Mother's profession">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="toggle-section">
+                        <label>
+                            <input type="checkbox" id="has_siblings" name="has_siblings" value="Y">
+                            <i class="fas fa-users"></i> Add Siblings Information
+                        </label>
+                    </div>
+                    <div id="siblingsDetails" class="conditional-fields" style="display: none;">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Number of Brothers</label>
+                                <input type="number" class="form-control" id="no_of_brothers" name="no_of_brothers" min="0" max="20" placeholder="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Sisters</label>
+                                <input type="number" class="form-control" id="no_of_sisters" name="no_of_sisters" min="0" max="20" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SECTION 5: CONTACT INFORMATION -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-address-book"></i>
+                        </div>
+                        <h3>Contact Information</h3>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Phone Number <span class="required">*</span></label>
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="+1 (123) 456-7890" required>
+                            <div class="field-hint">Include country code</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>WhatsApp Number</label>
+                            <input type="tel" class="form-control" id="whatsapp_number" name="whatsapp_number" placeholder="+1 (123) 456-7890">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Address <span class="required">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea class="form-control" id="address" name="address" placeholder="Your complete address"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" class="form-control" id="state" name="state" placeholder="Enter your state">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" class="form-control" id="country" name="country" placeholder="Enter your country">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Pincode</label>
+                            <input type="text" class="form-control" id="pincode" name="pincode" placeholder="Enter pincode/zipcode">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SECTION 6: ABOUT & INTERESTS -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>About Me & Interests</h3>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Bio / About Yourself</label>
+                            <textarea class="form-control" id="bio" name="bio" placeholder="Tell us about yourself..." rows="4"></textarea>
+                            <div class="field-hint">Maximum 500 characters. <span id="charCount">0/500</span></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Hobbies & Interests</label>
+                            <textarea class="form-control" id="hobbies" name="hobbies" placeholder="e.g., Reading, Traveling, Sports, Music, Cooking..." rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SECTION 7: PROFILE PHOTOS -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Profile Photos</h3>
+                    </div>
+                    
+                    <div class="photo-grid">
+                        <!-- Photo 1 -->
+                        <div class="photo-upload-item">
+                            <div class="photo-preview" id="photo1Preview">
+                                <div class="default-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <img id="previewImage1" src="" alt="Preview">
+                            </div>
+                            <input type="file" id="photo1" name="photo1" accept="image/*" style="display: none;">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('photo1').click()">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Photo 1
+                            </button>
+                        </div>
+                        
+                        <!-- Photo 2 -->
+                        <div class="photo-upload-item">
+                            <div class="photo-preview" id="photo2Preview">
+                                <div class="default-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <img id="previewImage2" src="" alt="Preview">
+                            </div>
+                            <input type="file" id="photo2" name="photo2" accept="image/*" style="display: none;">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('photo2').click()">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Photo 2
+                            </button>
+                        </div>
+                        
+                        <!-- Photo 3 -->
+                        <div class="photo-upload-item">
+                            <div class="photo-preview" id="photo3Preview">
+                                <div class="default-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <img id="previewImage3" src="" alt="Preview">
+                            </div>
+                            <input type="file" id="photo3" name="photo3" accept="image/*" style="display: none;">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('photo3').click()">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Photo 3
+                            </button>
+                        </div>
+                        
+                        <!-- Photo 4 -->
+                        <div class="photo-upload-item">
+                            <div class="photo-preview" id="photo4Preview">
+                                <div class="default-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <img id="previewImage4" src="" alt="Preview">
+                            </div>
+                            <input type="file" id="photo4" name="photo4" accept="image/*" style="display: none;">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('photo4').click()">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Photo 4
+                            </button>
+                        </div>
+                        
+                        <!-- Photo 5 -->
+                        <div class="photo-upload-item">
+                            <div class="photo-preview" id="photo5Preview">
+                                <div class="default-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <img id="previewImage5" src="" alt="Preview">
+                            </div>
+                            <input type="file" id="photo5" name="photo5" accept="image/*" style="display: none;">
+                            <button type="button" class="upload-btn" onclick="document.getElementById('photo5').click()">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Photo 5
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hidden Fields -->
+                <input type="hidden" id="created_by" name="created_by" value="SYSTEM">
+                <input type="hidden" id="updated_by" name="updated_by" value="SYSTEM">
+                <input type="hidden" id="datamode" name="datamode" value="A">
+                
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset Form
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-save"></i> Save Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+const casteData = {
+    Hindu: {
+        "BC - Backward Class": [
+            "Agamudayar", "Ambalakarar", "Arcot Muslims (BC)", "Bestha", "Boyar",
+            "Chakkiliyar (Arunthathiyar)", "Chettiar (BC)", "Devanga Chettiar",
+            "Ezhavar", "Gandla", "Gramani", "Idaiyar", "Illaththu Pillai",
+            "Jangam", "Jogis", "Kaikolar (Sengunthar)", "Kallar",
+            "Karuneegar", "Kavuthiyar", "Kongu Vellala Gounder", "Krishnanvaka",
+            "Kudumbi", "Kulalar", "Kummara (Kumbarar)", "Kuravar",
+            "Mahratta (Non-Brahmin)", "Mal Servar", "Mannan", "Maravar",
+            "Meenavar", "Mudaliar (BC)", "Mukulathor", "Muthuraja",
+            "Naicker (BC)", "Nanjil Mudali", "Oddar", "Padyachi",
+            "Pallan", "Pattinavar", "Pillai (BC)", "Pooluvar",
+            "Rajput (BC)", "Reddy (BC)", "Saiva Pillai (Tirunelveli)",
+            "Senaithalaivar", "Sozhia Chetty", "Telugar (BC)",
+            "Thandan", "Tholkollar", "Toda", "Udayar",
+            "Valayar", "Vanniyar", "Veerakodi Vellala", "Velaar",
+            "Vellan Chettiar", "Vettuva Gounder", "Vishwakarma",
+            "Yadava (Konar)", "Other BC"
+        ],
+        "MBC - Most Backward Class": [
+            "Aasari (Vishwakarma)", "Ambalakarar", "Ambalakaran",
+            "Chakkiliyar", "Dhobi (Vannar)", "Eravallar",
+            "Gavara", "Gounder (MBC)", "Illuvar",
+            "Kadaiyan", "Kalinji Nadars", "Kalladi",
+            "Kanakkan Padanna", "Karpoora Chettiar", "Kavuthiyar",
+            "Koracha", "Korava", "Kottaikara Pillai",
+            "Kulala Gounder", "Kumbarar", "Kunnuvar",
+            "Kurumba", "Lambadi (Brinjari)", "Maravars (MBC)",
+            "Mela Kasukara", "Moopan", "Mudaliar (MBC)",
+            "Mudugar", "Muruvar", "Muthuvan",
+            "Nayiniyar", "Oddars (MBC)", "Oorali",
+            "Ottar", "Palli (Agnikula Kshatriya)", "Pannirandam Chettiar",
+            "Paravar", "Pattariyar", "Sembanad Mudaliar",
+            "Senguntha Mudaliar", "Settibalija", "Thottia Naicker",
+            "Thoraiyar", "Tigala", "Ullathar",
+            "Urali Gounder", "Valaiyar", "Vellalar (MBC)",
+            "Vettuva Gounder", "Viswabrahmin", "Other MBC"
+        ],
+        "OC - Open / Forward Caste": [
+            "Brahmin - Iyer", "Brahmin - Iyengar", "Brahmin - Gurukkal",
+            "Brahmin - Vadama", "Brahmin - Vathima", "Brahmin - Brihacharanam",
+            "Brahmin - Astasahasram", "Brahmin - Mudaliar Brahmin",
+            "Chettiar (Nattukotai)", "Gounder (OC)", "Kamma",
+            "Kondaikatti Vellalar", "Mudali (Arcot)", "Mudaliar (OC)",
+            "Nair", "Pillai (Vellala)", "Raja / Kshatriya",
+            "Reddy (OC)", "Saiva Vellalar", "Sourashtra",
+            "Vellalar", "Vysya", "Other OC"
+        ],
+        "SC - Scheduled Caste": [
+            "Adi Dravida", "Arunthathiyar", "Ayyanavar",
+            "Chakkiliyar", "Chakkiliyan", "Devendra Kula Vellalar",
+            "Domban", "Kalladi", "Koliyan",
+            "Kudumban", "Kuravan", "Madari",
+            "Madiga", "Maila", "Mannan (SC)",
+            "Moger", "Mundala", "Nalakeyavar",
+            "Nayadi", "Palla", "Pallan",
+            "Pannadi", "Paraiyar", "Pulayan",
+            "Raneyar", "Samagara", "Samban",
+            "Sapari", "Semman", "Thoti",
+            "Valluvan", "Vathiriyan", "Other SC"
+        ],
+        "ST - Scheduled Tribe": [
+            "Irular", "Kanikar", "Kattunayakan",
+            "Korachar", "Koravar", "Kotaiyar",
+            "Kota", "Kudiya / Melakudi", "Kurumba",
+            "Malai Arayan", "Malasar", "Malayali (Kolli Hills)",
+            "Mannan (ST)", "Maravars (ST)", "Muthuvan",
+            "Palliyar", "Paniyan", "Sholiga",
+            "Toda", "Uraly", "Vedda",
+            "Villuvan", "Other ST"
+        ]
+    },
+    Muslim: {
+        "Muslim - General": [
+            "Dekkani Muslim", "Illaththu Pillai Muslim", "Labbai",
+            "Marakkar", "Mappila (Moplah)", "Marakkayar",
+            "Memon", "Nattu Muslim", "Navayath",
+            "Rowther", "Sheik", "Sunni Muslim",
+            "Shia Muslim", "Syed", "Tamil Muslim",
+            "Urdu Speaking Muslim", "Other Muslim"
+        ]
+    },
+    Christian: {
+        "Christian - General": [
+            "Anglo Indian", "Catholic", "Church of South India (CSI)",
+            "Dalit Christian", "Evangelical", "Jacobite Christian",
+            "Karnataka Christian", "Latin Catholic", "Lutheran",
+            "Marthoma", "Methodist", "Nadar Christian",
+            "Pentecost", "Protestant", "Roman Catholic",
+            "Seventh Day Adventist", "Other Christian"
+        ]
+    },
+    Sikh: {
+        "Sikh - General": [
+            "Jat Sikh", "Khatri Sikh", "Mazhabi Sikh",
+            "Ramgarhia", "Ramdasia", "Other Sikh"
+        ]
+    },
+    Buddhist: {
+        "Buddhist - General": [
+            "Ambedkarite Buddhist", "Mahayana", "Theravada",
+            "Vajrayana", "Other Buddhist"
+        ]
+    },
+    Jain: {
+        "Jain - General": [
+            "Digambara", "Shwetambara", "Other Jain"
+        ]
+    },
+    Other: {
+        "Other Religion": ["Other"]
+    }
+};
+
+function filterCasteByReligion() {
+    const religion = document.getElementById('religion').value;
+    const casteSelect = document.getElementById('caste');
+    const subCasteSelect = document.getElementById('sub_caste');
+
+    casteSelect.innerHTML = '<option value="">Select Caste</option>';
+    subCasteSelect.innerHTML = '<option value="">Select Sub Caste</option>';
+
+    if (!religion || !casteData[religion]) return;
+
+    Object.keys(casteData[religion]).forEach(caste => {
+        const opt = document.createElement('option');
+        opt.value = caste;
+        opt.textContent = caste;
+        casteSelect.appendChild(opt);
+    });
+}
+
+function loadSubCastes() {
+    const religion = document.getElementById('religion').value;
+    const caste = document.getElementById('caste').value;
+    const subCasteSelect = document.getElementById('sub_caste');
+
+    subCasteSelect.innerHTML = '<option value="">Select Sub Caste</option>';
+
+    if (!religion || !caste || !casteData[religion] || !casteData[religion][caste]) return;
+
+    casteData[religion][caste].forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub;
+        opt.textContent = sub;
+        subCasteSelect.appendChild(opt);
+    });
+}
+</script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('profileForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        
+        // ============ GET CSRF TOKEN ============
+        function getCSRFToken() {
+            const name = "csrftoken";
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + "=")) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            if (!cookieValue) {
+                const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+                if (csrfMeta) {
+                    cookieValue = csrfMeta.getAttribute('content');
+                }
+            }
+            return cookieValue;
+        }
+        
+        // ============ INCOME SLIDER ============
+        const incomeSlider = document.getElementById('annual_income');
+        const incomeValue = document.getElementById('incomeValue');
+        
+        if (incomeSlider && incomeValue) {
+            const formatNumber = (num) => '₹' + parseInt(num).toLocaleString();
+            incomeValue.textContent = formatNumber(incomeSlider.value);
+            incomeSlider.addEventListener('input', function() {
+                incomeValue.textContent = formatNumber(this.value);
+            });
+        }
+        
+        // ============ BIO CHARACTER COUNTER ============
+        const bioTextarea = document.getElementById('bio');
+        const charCount = document.getElementById('charCount');
+        
+        if (bioTextarea && charCount) {
+            bioTextarea.addEventListener('input', function() {
+                let currentLength = this.value.length;
+                if (currentLength > 500) {
+                    this.value = this.value.substring(0, 500);
+                    currentLength = 500;
+                }
+                charCount.textContent = currentLength + '/500';
+            });
+            charCount.textContent = bioTextarea.value.length + '/500';
+        }
+        
+        // ============ JOB LOCATION TOGGLE ============
+        const jobLocationTypeIndia = document.querySelector('input[name="job_location_type"][value="India"]');
+        const jobLocationTypeOther = document.querySelector('input[name="job_location_type"][value="Other"]');
+        const jobStateGroup = document.getElementById('job_state_group');
+        const jobCountryGroup = document.getElementById('job_country_group');
+        
+        function toggleJobLocationFields() {
+            if (jobLocationTypeIndia && jobLocationTypeIndia.checked) {
+                jobStateGroup.style.display = 'block';
+                jobCountryGroup.style.display = 'none';
+                document.getElementById('job_country').value = '';
+            } else if (jobLocationTypeOther && jobLocationTypeOther.checked) {
+                jobStateGroup.style.display = 'none';
+                jobCountryGroup.style.display = 'block';
+                document.getElementById('job_state').value = '';
+            }
+        }
+        
+        if (jobLocationTypeIndia && jobLocationTypeOther) {
+            jobLocationTypeIndia.addEventListener('change', toggleJobLocationFields);
+            jobLocationTypeOther.addEventListener('change', toggleJobLocationFields);
+            toggleJobLocationFields();
+        }
+        
+        // ============ TOGGLE SECTIONS ============
+        function setupToggle(checkboxId, sectionId, fieldIds) {
+            const checkbox = document.getElementById(checkboxId);
+            const section = document.getElementById(sectionId);
+            if (checkbox && section) {
+                checkbox.addEventListener('change', function() {
+                    section.style.display = this.checked ? 'block' : 'none';
+                });
+            }
+        }
+        
+        setupToggle('has_father_details', 'fatherDetails', ['father_name', 'father_occupation']);
+        setupToggle('has_mother_details', 'motherDetails', ['mother_name', 'mother_occupation']);
+        setupToggle('has_siblings', 'siblingsDetails', ['no_of_brothers', 'no_of_sisters']);
+        
+        // ============ PHOTO PREVIEWS ============
+        for (let i = 1; i <= 5; i++) {
+            const fileInput = document.getElementById(`photo${i}`);
+            const previewImage = document.getElementById(`previewImage${i}`);
+            const photoPreview = document.getElementById(`photo${i}Preview`);
+            
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    if (this.files && this.files[0]) {
+                        const file = this.files[0];
+                        if (file.size > 5 * 1024 * 1024) {
+                            showError(`Photo ${i} exceeds 5MB limit`);
+                            this.value = '';
+                            return;
+                        }
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            if (previewImage) {
+                                previewImage.src = e.target.result;
+                                previewImage.style.display = 'block';
+                            }
+                            if (photoPreview) {
+                                const defaultIcon = photoPreview.querySelector('.default-icon');
+                                if (defaultIcon) defaultIcon.style.display = 'none';
+                            }
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        }
+        
+        // ============ FORM VALIDATION ============
+        function validateForm() {
+            const fullName = document.getElementById('full_name').value.trim();
+            const genderSelected = document.querySelector('input[name="gender"]:checked');
+            const phone = document.getElementById('phone').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            if (!fullName) {
+                showError('Please enter your full name');
+                document.getElementById('full_name').focus();
+                return false;
+            }
+            if (!genderSelected) {
+                showError('Please select your gender');
+                return false;
+            }
+            if (!phone) {
+                showError('Please enter your phone number');
+                document.getElementById('phone').focus();
+                return false;
+            }
+            if (!email) {
+                showError('Please enter your email address');
+                document.getElementById('email').focus();
+                return false;
+            }
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError('Please enter a valid email address');
+                document.getElementById('email').focus();
+                return false;
+            }
+            return true;
+        }
+        
+        // ============ SHOW ERROR ============
+        function showError(message) {
+            if (errorMessage && errorText) {
+                errorText.textContent = message;
+                errorMessage.style.display = "flex";
+                errorMessage.scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 5000);
+            } else {
+                alert('Error: ' + message);
+            }
+        }
+        
+        // ============ FORM SUBMISSION ============
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) return;
+            
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+            
+            if (successMessage) successMessage.style.display = 'none';
+            if (errorMessage) errorMessage.style.display = 'none';
+            
+            const formData = new FormData(form);
+            
+            // Handle checkboxes
+            formData.set('is_currently_living', document.getElementById('is_currently_living').checked ? 'true' : 'false');
+            formData.set('has_father_details', document.getElementById('has_father_details').checked ? 'Y' : 'N');
+            formData.set('has_mother_details', document.getElementById('has_mother_details').checked ? 'Y' : 'N');
+            formData.set('has_siblings', document.getElementById('has_siblings').checked ? 'Y' : 'N');
+            
+            const jobLocationType = document.querySelector('input[name="job_location_type"]:checked');
+            if (jobLocationType) {
+                formData.set('job_location_type', jobLocationType.value);
+            }
+            
+            try {
+                const csrfToken = getCSRFToken();
+                if (!csrfToken) throw new Error('CSRF token not found');
+                
+                // IMPORTANT: Use the correct URL name from your URL patterns
+                const saveUrl = "{% url 'vlr_website:mck_ajax_profile_save' %}";
+                console.log('Saving to:', saveUrl);
+                
+                const response = await fetch(saveUrl, {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRFToken": csrfToken,
+                        "X-Requested-With": "XMLHttpRequest"
+                    },
+                    credentials: 'same-origin'
+                });
+                
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('application/json')) {
+                    const text = await response.text();
+                    console.error('HTML response:', text.substring(0, 200));
+                    throw new Error('Server returned HTML. Check URL and view.');
+                }
+                
+                const data = await response.json();
+                console.log('Response:', data);
+                
+                if (data.success === true) {
+                    if (successMessage) {
+                        successMessage.style.display = "flex";
+                        successMessage.scrollIntoView({ behavior: 'smooth' });
+                        setTimeout(() => {
+                            window.location.href = data.redirect_url || "{% url 'vlr_website:payment_gateway' %}";
+                        }, 2000);
+                    }
+                } else {
+                    showError(data.message || "Error saving profile");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError("Error: " + error.message);
+            } finally {
+                submitBtn.classList.remove("btn-loading");
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // ============ RESET BUTTON ============
+        const resetBtn = document.getElementById('resetBtn');
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                if (confirm('Reset form?')) {
+                    form.reset();
+                    document.getElementById('fatherDetails').style.display = 'none';
+                    document.getElementById('motherDetails').style.display = 'none';
+                    document.getElementById('siblingsDetails').style.display = 'none';
+                    document.getElementById('has_father_details').checked = false;
+                    document.getElementById('has_mother_details').checked = false;
+                    document.getElementById('has_siblings').checked = false;
+                    toggleJobLocationFields();
+                }
+            });
+        }
+        
+        console.log('✅ Form initialized');
+    });
+    </script>
+
+    <script>
+  document.getElementById('dob').addEventListener('change', function () {
+    const errorEl = document.getElementById('dob-error');
+    const selected = new Date(this.value);
+    const today = new Date();
+    const minAge = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+
+    if (selected > minAge) {
+      errorEl.classList.remove('d-none');
+      this.value = '';
+    } else {
+      errorEl.classList.add('d-none');
+    }
+  });
+</script>
+
+</body>
+</html>
+{% endblock %}

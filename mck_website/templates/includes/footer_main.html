@@ -1,0 +1,110 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Wedding Matrimony</title>
+    <!--== META TAGS ==-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#f6af04">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <!--== FAV ICON(BROWSER TAB ICON) ==-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="images/fav.ico" type="image/x-icon">
+    <!--== CSS FILES ==-->
+   
+    <link rel="stylesheet" href="{% static 'web/bootstrap.css' %}">
+    <link rel="stylesheet" href=" {% static 'web/font-awesome.min.css' %}">
+    <link rel="stylesheet" href=" {% static 'web/animate.min.css' %}">
+    <link rel="stylesheet" href=" {% static 'web/style.css' %}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+</head>
+
+<body>
+<!-- FOOTER -->
+    <section class="wed-hom-footer">
+        <div class="container">
+            <div class="row foot-supp">
+                <h2><span>Free support:</span> +91 9940116169 &nbsp;&nbsp;|&nbsp;&nbsp; <span>Email:</span>
+                    srivarammanamalai1997@gmail.com</h2>
+            </div>
+            <div class="row wed-foot-link wed-foot-link-1">
+                <div class="col-md-4">
+                    <h4>Get In Touch</h4>
+                    <p>Address: No. 39, Old No. 81, Sami Naicken Street, Chintadripet, Chennai – 600002</p>
+                    <p>Phone: <a href="tel:+917904462944">+91 9940116169</a></p>
+                    <p>Email: <a href="mailto:srivarammanamalai1997@gmail.com">srivarammanamalai1997@gmail.com</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h4>HELP &amp; SUPPORT</h4>
+                    <ul>
+                       
+                        <li><a href="{% url 'mck_website:mck_property_page' %}">Advanced Search us</a>
+                        
+                        <li><a href="{% url 'mck_website:community_match' %}">Perfect Match</a>
+                        </li>
+                        <li><a href="{% url 'mck_website:gallery' %}">Gallery</a>
+                        </li>
+                        </li>
+                        <li><a href="{% url 'mck_website:sucess-storeis' %}">Success Stories</a>
+                        </li>
+                        <li><a href="{% url 'mck_website:contact-us' %}">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4 fot-soc">
+                    <h4>SOCIAL MEDIA</h4>
+                    <ul>
+                        <li><a href="#!"><img src="https://i.pinimg.com/736x/22/4a/5b/224a5bbfa24b910dd937b062a2b8bcf9.jpg" alt="" loading="lazy"></a></li>
+                        <li><a href="#!"><img src="https://i.pinimg.com/736x/99/26/4d/99264d4441b917087b8dc7ee46c10ba1.jpg" alt="" loading="lazy"></a></li>
+                        <li><a href="#!"><img src="https://i.pinimg.com/1200x/b8/c8/46/b8c846a25866985a5719049b9f0c5890.jpg" alt="" loading="lazy"></a></li>
+                        <li><a href="#!"><img src="https://i.pinimg.com/1200x/f0/8c/52/f08c524d147f46398cb54013ee7013ee.jpg" alt="" loading="lazy"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END -->
+
+    <!-- COPYRIGHTS -->
+    <section>
+        <div class="cr">
+            <div class="container">
+                <div class="row">
+                    <p style="font-size:14px; color:#666;">
+  © <span id="cry">2026</span> 
+  <a href="#!" target="_blank">srivarammanamalai.com</a> · 
+  All rights reserved · 
+  Crafted  by 
+  <a href="https://www.mckbytes.com/" target="_blank" style="font-weight:600;">
+    Mckbytes
+  </a>
+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+     
+    <script src="{% static 'webjs/jquery.min.js' %}"></script>
+    <script src="{% static 'webjs/popper.min.js' %}"></script>
+    <script src="{% static 'webjs/bootstrap.min.js' %}"></script>
+    <script src="{% static 'webjs/select-opt.js' %}"></script>
+    <script src="{% static 'webjs/slick.js' %}"></script>
+    <script src="{% static 'webjs/custom.js' %}"></script>
+</body>
+
+</html>

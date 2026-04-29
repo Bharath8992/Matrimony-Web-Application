@@ -1,0 +1,14 @@
+[
+{
+    "model": "mck_admin_console.resourcecategory",
+    "pk": 1,
+    "fields": {
+        "name": "General",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-28T11:47:26.149",
+        "updated_on": "2025-02-28T11:47:26.149",
+        "datamode": "A"
+    }
+}
+]

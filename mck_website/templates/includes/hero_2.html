@@ -1,0 +1,152 @@
+<style>
+    .fixed-bg {
+        background-image: url('https://i.pinimg.com/1200x/99/c9/54/99c954fe61d60100c58611588f101e9a.jpg');
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
+        min-height: 70vh;
+        width: 100%;
+        position: relative;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+        color: #fff;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+        font-size: 2rem;
+        color: #fff;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+
+    .tagline {
+        font-size: 1.4rem;
+        color: #fff;
+        margin-bottom: 40px;
+        max-width: 800px;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .btn {
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background: #ffbf00;
+        color: #080808;
+        border: 2px solid #ffbf00;
+    }
+
+    .btn-primary:hover {
+        background: #050505;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #ffbf00;
+        color: #080808;
+        border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+        background: white;
+        color: #0a0a0a;
+    }
+
+    /* 🔹 RESPONSIVE DESIGN */
+    @media (max-width: 992px) {
+        h1 {
+            font-size: 2.8rem;
+        }
+        h2 {
+            font-size: 1.6rem;
+        }
+        .tagline {
+            font-size: 1.2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .fixed-bg {
+            background-attachment: scroll; /* prevents jitter on iOS */
+        }
+        h1 {
+            font-size: 2.2rem;
+        }
+        h2 {
+            font-size: 1.4rem;
+        }
+        .tagline {
+            font-size: 1rem;
+            max-width: 95%;
+        }
+        .buttons {
+            flex-direction: column;
+            gap: 15px;
+        }
+        .btn {
+            width: 220px;
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.8rem;
+        }
+        h2 {
+            font-size: 1.2rem;
+        }
+        .tagline {
+            font-size: 0.95rem;
+        }
+        .btn {
+            width: 200px;
+            padding: 12px 25px;
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+<div class="fixed-bg">
+    <div class="overlay">
+        <h1>Square Box</h1>
+        <h2>Find Your Dream Property</h2>
+        <p class="tagline">Looking to Buy a new property or Sell an existing one? RealHomes provides an easy solution!</p>
+        <div class="buttons">
+            <a href="{% url 'mck_website:mck_property_create_page' %}" class="btn-custom">Submit Property</a>
+            <a href="{% url 'mck_website:mck_property_page' %}" class="btn-custom">Browse Properties</a>
+        </div>
+    </div>
+</div>

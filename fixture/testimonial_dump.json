@@ -1,0 +1,53 @@
+[
+{
+    "model": "mck_admin_console.testimonial",
+    "pk": 1,
+    "fields": {
+        "name": "Lauren Freeman",
+        "short_description": "Village Administrator, Village of New Glarus",
+        "description": "The Village of New Glarus relies on Total Inspection Services for all of our building inspection needs. Their team is knowledgeable, responsive, and a pleasure to work with. I value their collaborative approach with developers and all building permit applicants, which helps streamline the development process in our community.",
+        "photo": "",
+        "tags": "",
+        "star": 5,
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T16:58:05.567",
+        "updated_on": "2025-02-27T16:58:05.567",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.testimonial",
+    "pk": 2,
+    "fields": {
+        "name": "Stephanie Adams",
+        "short_description": "Clerk/Treasurer, Village of Monticello",
+        "description": "The Village of Monticello has worked with Total Inspection Services for a number of years and has always found them to be professional and accommodating. They have proved to be a great partner to encourage growth and renewal in our community.",
+        "photo": "",
+        "tags": "",
+        "star": 5,
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:11:30.718",
+        "updated_on": "2025-02-27T17:12:21.690",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.testimonial",
+    "pk": 3,
+    "fields": {
+        "name": "Neal Gehin",
+        "short_description": "Gehin Custom Homes LLC, Belleville, WI",
+        "description": "I have been working with Total Inspection services for many years and would highly recommend their services as Scott and his team are very professional. They always are quick to respond to emails / calls / text and are always on top of all inspections including final occupancy.",
+        "photo": "",
+        "tags": "",
+        "star": 5,
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:12:08.179",
+        "updated_on": "2025-02-27T17:12:08.179",
+        "datamode": "A"
+    }
+}
+]

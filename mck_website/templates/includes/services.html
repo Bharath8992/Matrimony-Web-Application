@@ -1,0 +1,149 @@
+{% load static %}
+<style>
+.services {
+    background: #fff;
+    
+    text-align: center;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 50px;
+    color: #222;
+}
+
+.services-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 60px;
+}
+
+.service-item {
+    text-align: center;
+    transition: transform 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+}
+
+.service-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    color: #29abff;
+    transition: color 0.3s ease;
+}
+
+.service-item:hover .service-icon {
+    color: #29abff;
+}
+
+.service-item h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-line {
+        gap: 40px;
+    }
+    .section-title {
+        font-size: 24px;
+    }
+}
+.service-icon {
+    width: 70px;  
+    height: 70px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 15px; /* rounded corners for modern look */
+    transition: transform 0.3s ease;
+}
+
+.service-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* keep aspect ratio */
+    transition: transform 0.3s ease;
+}
+
+.service-item:hover .service-icon img {
+    transform: scale(1.1); /* zoom effect on hover */
+}
+
+</style>
+<section class="services">
+  <div class="container">
+    <h2 class="section-title">Our Services</h2>
+    <div class="services-line">
+
+      <!-- Buy -->
+      <a href="{% url 'mck_website:mck_property_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="https://cdn-icons-png.flaticon.com/512/619/619034.png" alt="Buy">
+        </div>
+        <h3>Buy</h3>
+      </a>
+
+      <!-- Rent -->
+      <a href="{% url 'mck_website:mck_property_create_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/sell-or-rent-property.png' %}" alt="Rent">
+        </div>
+        <h3>Rent</h3>
+      </a>
+
+      <!-- Maintenance -->
+      <a href="{% url 'mck_website:property_maintenance_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/property-management.png' %}" alt="Maintenance">
+
+        </div>
+        <h3>Maintenance</h3>
+      </a>
+
+      <!-- Legal Services -->
+      <a href="{% url 'mck_website:property_legal_services_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/property-legal-services.png' %}" alt="Legal Services">
+        </div>
+        <h3>Legal Services</h3>
+      </a>
+
+      <!-- Fencing -->
+      <a href="{% url 'mck_website:fencing_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/fencing.png' %}" alt="Fencing">
+        </div>
+        <h3>Fencing</h3>
+      </a>
+
+      <!-- Land Levelling -->
+      <a href="{% url 'mck_website:land_levelling_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/b.jpg' %}" alt="Land Levelling">
+        </div>
+        <h3>Land Levelling</h3>
+      </a>    
+
+      <!-- Solar -->
+      <a href="{% url 'mck_website:solar_page' %}" class="service-item">
+        <div class="service-icon">
+          <img src="{% static 'images/section/solar.png' %}" alt="Solar">
+        </div>
+        <h3>Solar</h3>
+      </a>
+
+    </div>
+  </div>
+</section>
+

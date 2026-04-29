@@ -1,0 +1,1582 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <style>
+             :root {
+      --primary: #ffd200;
+      --secondary: #000;
+      --accent: #ffbf00;
+      --light: #f8f9fa;
+      --dark: #111;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+      /* ================= AUTH SECTION ================= */
+    .auth-required-section {
+      padding: 80px 0;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+    .auth-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .auth-icon {
+      font-size: 64px;
+      color: #3498db;
+      margin-bottom: 20px;
+    }
+    .auth-title {
+      color: #2c3e50;
+      font-weight: 700;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+    .auth-message {
+      color: #7f8c8d;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+    .auth-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-auth {
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn-login {
+      background-color: #3498db;
+      color: white;
+      border: 2px solid #3498db;
+    }
+    .btn-login:hover {
+      background-color: #2980b9;
+      border-color: #2980b9;
+      transform: translateY(-2px);
+    }
+    .btn-signup {
+      background-color: white;
+      color: #3498db;
+      border: 2px solid #3498db;
+    }
+    .btn-signup:hover {
+      background-color: #f8fafc;
+      color: #2980b9;
+      border-color: #2980b9;
+      transform: translateY(-2px);
+    }
+
+    
+   
+     /* Hero */
+    .hero {
+      margin-top:18px;
+      background: linear-gradient(135deg, rgba(255,210,0,0.12) 0%, rgba(0,80,158,0.03) 100%);
+      padding: 48px 0;
+      border-radius: var(--radius);
+      box-shadow: 0 12px 40px rgba(2,6,23,0.04);
+      overflow:hidden;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 480px;
+      gap:32px;
+      align-items: center;
+      max-width: var(--max-width);
+      margin:0 auto;
+      padding:36px var(--container-pad);
+    }
+    .hero-left h2{
+      margin:0 0 12px 0;
+      font-size:2.1rem;
+      line-height:1.03;
+      color:var(--dark);
+      font-weight:800;
+      letter-spacing:-0.02em;
+    }
+    .hero-left p{
+      margin:0 0 18px 0;
+      color:#394455;
+      max-width:60ch;
+      font-size:1rem;
+    }
+    .hero-actions{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; margin-top:6px; }
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:12px 20px;
+      border-radius:10px;
+      font-weight:700;
+      box-shadow: 0 8px 20px rgba(0,80,158,0.12);
+      transition: transform .18s ease, background .18s ease;
+    }
+    .btn-primary:hover{ transform:translateY(-3px); background:#003b7a;}
+    .btn-ghost{
+      background:transparent;
+      border:2px solid rgba(17,17,17,0.06);
+      color:var(--dark);
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:700;
+    }
+    /* hero image card */
+    .hero-card{
+      background: linear-gradient(180deg, #fff, #fbfbfb);
+      border-radius: 12px;
+      overflow:hidden;
+      box-shadow: 0 8px 30px rgba(17,17,17,0.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:320px;
+    }
+    .hero-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    /* Inline hero form - compact and modern */
+    .hero-form{
+      margin-top:20px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 12px;
+      padding:14px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      border:1px solid rgba(17,17,17,0.04);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.03);
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+    .hero-form:hover{ box-shadow: 0 18px 48px rgba(2,6,23,0.05); transform: translateY(-2px); }
+    .hero-form .form-input{
+      flex:1;
+      min-width:140px;
+      padding:12px 14px;
+      border-radius:8px;
+      border:1px solid #e6e9ef;
+      font-size:0.95rem;
+    }
+    .hero-form button{
+      background:var(--primary);
+      color:var(--dark);
+      font-weight:700;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      transition: transform .12s ease;
+    }
+    .hero-form button:hover{ transform: translateY(-2px); }
+
+        /* Main Container Styles */
+        .property-creation-container {
+            padding: 30px 0;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .property-form-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        /* Form Header Styles */
+        .form-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-title {
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .form-title i {
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        .form-subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+        /* Form Section Styles */
+        .form-section {
+            margin-bottom: 30px;
+            border: 1px solid #e0e6ed;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, rgba(255,210,1,1.12) 0%, rgba(0,80,158,0.03) 100%);
+            /* background-color: #f8fafc; */
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e6ed;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-number {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .section-title {
+            margin: 0;
+            font-size: 20px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .section-title i {
+            color: #3498db;
+            margin-right: 10px;
+        }
+
+        .section-body {
+            padding: 25px;
+        }
+
+        /* Form Input Styles */
+        .form-label {
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-control, .form-select {
+            height: 45px;
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .input-group-text {
+            background-color: #f8f9fa;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        /* Property Type Specific Fields */
+        .property-type-fields {
+            display: none;
+            padding: 15px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #3498db;
+        }
+
+        /* Rent/Sell Toggle Styles */
+        .listing-type-toggle {
+            display: flex;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e0e6ed;
+            margin-bottom: 20px;
+        }
+
+        .listing-type-option {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: #f8f9fa;
+        }
+
+        .listing-type-option.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .listing-type-option:not(.active):hover {
+            background-color: #e9ecef;
+        }
+
+        .listing-type-option i {
+            margin-right: 8px;
+        }
+
+        /* Price field styling based on selection */
+        .price-field.sale .input-group-text {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .price-field.rent .input-group-text {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        /* File Upload Styles */
+        .file-upload-wrapper {
+            margin-bottom: 15px;
+        }
+
+        .file-upload-container {
+            position: relative;
+        }
+
+        .upload-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+        }
+
+        .upload-area:hover {
+            border-color: #3498db;
+            background-color: #f0f7fd;
+        }
+
+        .upload-area.dragover {
+            border-color: #3498db;
+            background-color: #e3f2fd;
+        }
+
+        .upload-area i {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .upload-area p {
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .upload-area small {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        .file-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .preview-item {
+            background: #f8f9fa;
+            border-radius: 6px;
+            padding: 10px;
+            border: 1px solid #e0e6ed;
+            font-size: 13px;
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #2c3e50;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background-color: #3498db;
+            border-color: #3498db;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:disabled {
+            background-color: #bdc3c7;
+            border-color: #bdc3c7;
+            transform: none;
+        }
+
+        /* Error Message Styles */
+        .alert-danger {
+            background-color: #fef2f2;
+            border-color: #fee2e2;
+            color: #dc2626;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .invalid-feedback {
+            color: #dc2626;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .was-validated .form-control:invalid, 
+        .was-validated .form-select:invalid {
+            border-color: #dc2626;
+        }
+
+        .was-validated .form-control:invalid:focus, 
+        .was-validated .form-select:invalid:focus {
+            box-shadow: 0 0 0 0.25rem rgba(220, 38, 38, 0.25);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .property-form-card {
+                padding: 20px;
+            }
+            
+            .form-title {
+                font-size: 24px;
+            }
+            
+            .section-body {
+                padding: 15px;
+            }
+            
+            .file-preview-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .listing-type-toggle {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .property-form-card {
+                padding: 15px;
+            }
+            
+            .form-title {
+                font-size: 22px;
+            }
+            
+            .section-header {
+                padding: 12px 15px;
+            }
+            
+            .upload-area {
+                padding: 20px;
+            }
+            
+            .btn-primary {
+                width: 100%;
+            }
+        }
+
+        
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .benefit-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .maintenance-approach {
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(255,210,0,0.05) 0%, rgba(0,80,158,0.02) 100%);
+        }
+        
+        .approach-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .approach-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .approach-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .approach-subtitle {
+            font-size: 1.2rem;
+            color: #394455;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .approach-card {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(17,17,17,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approach-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(17,17,17,0.12);
+        }
+        
+        .approach-card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .approach-card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .approach-card:hover .approach-card-img img {
+            transform: scale(1.05);
+        }
+        
+        .approach-card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .approach-card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .approach-card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+        
+        .approach-card-desc {
+            color: #394455;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .approach-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .approach-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(17,17,17,0.05);
+            display: flex;
+            align-items: center;
+        }
+        
+        .approach-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .approach-features li i {
+            color: var(--accent);
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        .faq-section {
+            margin: 40px 0;
+        }
+
+        .faq-item {
+            margin-bottom: 15px;
+            border: 1px solid #e0e6ed;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 15px 20px;
+            background: #f8fafc;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 15px 20px;
+            background: white;
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+
+     <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <h1>Property Rent And Sell</h1>
+          <p>Strategic planning, implementation, and maintenance of maintenance solutions for a sustainable future. </p>
+          <div class="hero-buttons d-flex gap-3">
+            <!-- <a href="#contact" class="btn btn-primary">Get Free Consultation</a>
+            <a href="#services" class="btn btn-outline-primary">Our Services</a> -->
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="https://i.pinimg.com/1200x/1d/5c/9c/1d5c9c11b561c3623aa6ed6c7637d7c1.jpg" class="img-fluid rounded-3" alt="Solar Roadmap">
+        </div>
+      </div>
+    </div>
+  </section>
+    
+  {% if user.is_authenticated %}
+    <div class="property-creation-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="property-form-card">
+                        <div class="form-header text-center mb-4">
+                            <h2 class="form-title"><i class="fas fa-home"></i> Create New Property Listing</h2>
+                            <p class="form-subtitle">Fill in the details below to list your property</p>
+                        </div>
+                        <form id="property_form" method="POST" action="{% url 'vlr_website:mck_ajax_property_save' %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        
+                            <!-- Error Message Display -->
+                            <div class="alert alert-danger" id="form_error" style="display:none;"></div>
+
+                            <!-- Section 1: Listing Type -->
+                            <div class="form-section">
+                                <div class="section-header">
+                                    <div class="section-number">1</div>
+                                    <h3 class="section-title"><i class="fas fa-tag"></i> Listing Type</h3>
+                                </div>
+                                <div class="section-body">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label class="form-label">Are you looking to? <span class="text-danger">*</span></label>
+                                            <div class="listing-type-toggle">
+                                                <div class="listing-type-option active" data-type="sale">
+                                                    <i class="fas fa-money-bill-wave"></i> Sell Property
+                                                </div>
+                                                <div class="listing-type-option" data-type="rent">
+                                                    <i class="fas fa-key"></i> Rent Property
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="listing_type" id="listing_type" value="sale" required>
+                                            <div class="invalid-feedback">Please select listing type</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 2: Basic Information -->
+                            <div class="form-section">
+                                <div class="section-header">
+                                    <div class="section-number">2</div>
+                                    <h3 class="section-title"><i class="fas fa-info-circle"></i> Basic Information</h3>
+                                </div>
+                                <div class="section-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Property Type<span class="text-danger">*</span></label>
+                                            <select name="property_type" id="property_type" class="form-select" required>
+                                                <option value="">Select Option</option>
+                                                <option value="APARTMENT">Apartment</option>
+                                                <option value="VILLA">Villa</option>
+                                                <!-- <option value="house">House</option> -->
+                                                <option value="PLOT">Land/Plot</option>
+                                                <option value="COMMERCIAL">Commercial</option>
+                                                <option value="INDEPENDENT_HOUSE">House</option>
+                                                <!-- <option value="townhouse">Townhouse</option> -->
+                                            </select>
+                                            <div class="invalid-feedback">Please select property type</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Property Type Specific Fields -->
+                                    <div id="property_type_fields">
+                                        <!-- Apartment Fields -->
+                                        <div class="property-type-fields" id="APARTMENT_fields">
+                                            <h5 class="mb-3"><i class="fas fa-building me-2"></i>Apartment Details</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Floor Number</label>
+                                                    <input type="number" name="floor_number" class="form-control" placeholder="e.g., 5">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Total Floors in Building</label>
+                                                    <input type="number" name="total_floors" class="form-control" placeholder="e.g., 15">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Age of Building</label>
+                                                    <input type="number" name="building_age" class="form-control" placeholder="Years">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Maintenance Charges</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" name="maintenance_charges" class="form-control" placeholder="Monthly charges">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Villa Fields -->
+                                        <div class="property-type-fields" id="VILLA_fields">
+                                            <h5 class="mb-3"><i class="fas fa-home me-2"></i>Villa Details</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Plot Area (sq yd)</label>
+                                                    <input type="number" name="plot_area" class="form-control" placeholder="Plot area in square box">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Built-up Area (sq ft)</label>
+                                                    <input type="number" name="builtup_area" class="form-control" placeholder="Built-up area">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Facing Direction</label>
+                                                    <select name="facing_direction" class="form-select">
+                                                        <option value="">Select Direction</option>
+                                                        <option value="east">East</option>
+                                                        <option value="west">West</option>
+                                                        <option value="north">North</option>
+                                                        <option value="south">South</option>
+                                                        <option value="north-east">North-East</option>
+                                                        <option value="north-west">North-West</option>
+                                                        <option value="south-east">South-East</option>
+                                                        <option value="south-west">South-West</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Garden Area</label>
+                                                    <input type="number" name="garden_area" class="form-control" placeholder="Garden area in sq ft">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Land/Plot Fields -->
+                                        <div class="property-type-fields" id="PLOT_fields">
+                                            <h5 class="mb-3"><i class="fas fa-map me-2"></i>Land Details</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Plot Area (sq yd)</label>
+                                                    <input type="number" name="plot_area" class="form-control" placeholder="Plot area in square box">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Length (ft)</label>
+                                                    <input type="number" name="plot_length" class="form-control" placeholder="Length in feet">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Width (ft)</label>
+                                                    <input type="number" name="plot_width" class="form-control" placeholder="Width in feet">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Facing Direction</label>
+                                                    <select name="facing_direction" class="form-select">
+                                                        <option value="">Select Direction</option>
+                                                        <option value="east">East</option>
+                                                        <option value="west">West</option>
+                                                        <option value="north">North</option>
+                                                        <option value="south">South</option>
+                                                        <option value="north-east">North-East</option>
+                                                        <option value="north-west">North-West</option>
+                                                        <option value="south-east">South-East</option>
+                                                        <option value="south-west">South-West</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Water Availability</label>
+                                                    <select name="water_availability" class="form-select">
+                                                        <option value="">Select Option</option>
+                                                        <option value="good">Good</option>
+                                                        <option value="average">Average</option>
+                                                        <option value="poor">Poor</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Soil Type</label>
+                                                    <select name="soil_type" class="form-select">
+                                                        <option value="">Select Type</option>
+                                                        <option value="alluvial">Alluvial</option>
+                                                        <option value="black">Black</option>
+                                                        <option value="red">Red</option>
+                                                        <option value="laterite">Laterite</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Commercial Fields -->
+                                        <div class="property-type-fields" id="COMMERCIAL_fields">
+                                            <h5 class="mb-3"><i class="fas fa-store me-2"></i>Commercial Property Details</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Commercial Type</label>
+                                                    <select name="commercial_type" class="form-select">
+                                                        <option value="">Select Type</option>
+                                                        <option value="retail">Retail Shop</option>
+                                                        <option value="showroom">Showroom</option>
+                                                        <option value="warehouse">Warehouse</option>
+                                                        <option value="industrial">Industrial</option>
+                                                        <option value="hospitality">Hospitality</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Floor Height (ft)</label>
+                                                    <input type="number" name="floor_height" class="form-control" placeholder="Floor height in feet">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Loading Capacity</label>
+                                                    <input type="number" name="loading_capacity" class="form-control" placeholder="Weight per sq ft">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Parking Capacity</label>
+                                                    <input type="number" name="parking_capacity" class="form-control" placeholder="Number of vehicles">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Office Space Fields -->
+                                        <div class="property-type-fields" id="office_fields">
+                                            <h5 class="mb-3"><i class="fas fa-briefcase me-2"></i>Office Space Details</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Office Type</label>
+                                                    <select name="office_type" class="form-select">
+                                                        <option value="">Select Type</option>
+                                                        <option value="private">Private Office</option>
+                                                        <option value="coworking">Co-working Space</option>
+                                                        <option value="executive">Executive Suite</option>
+                                                        <option value="virtual">Virtual Office</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Furnishing Type</label>
+                                                    <select name="furnishing_type" class="form-select">
+                                                        <option value="">Select Type</option>
+                                                        <option value="fully">Fully Furnished</option>
+                                                        <option value="semi">Semi Furnished</option>
+                                                        <option value="unfurnished">Unfurnished</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Conference Rooms</label>
+                                                    <input type="number" name="conference_rooms" class="form-control" placeholder="Number of conference rooms">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Reception Area</label>
+                                                    <select name="reception_area" class="form-select">
+                                                        <option value="">Select Option</option>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Townhouse Fields -->
+                                        <div class="property-type-fields" id="INDEPENDENT_HOUSE_fields">
+                                            <h5 class="mb-3"><i class="fas fa-house-user me-2"></i>Townhouse Details</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Units in Complex</label>
+                                                    <input type="number" name="units_in_complex" class="form-control" placeholder="Total units">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Corner Unit</label>
+                                                    <select name="corner_unit" class="form-select">
+                                                        <option value="">Select Option</option>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">End Unit</label>
+                                                    <select name="end_unit" class="form-select">
+                                                        <option value="">Select Option</option>
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no">No</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Homeowners Association Fee</label>
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">₹</span>
+                                                        <input type="number" name="hoa_fee" class="form-control" placeholder="Monthly fee">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 3: Property Details -->
+                            <div class="form-section">
+                                <div class="section-header">
+                                    <div class="section-number">3</div>
+                                    <h3 class="section-title"><i class="fas fa-home"></i> Property Details</h3>
+                                </div>
+                                <div class="section-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Title <span class="text-danger">*</span></label>
+                                            <input type="text" name="title" class="form-control" required placeholder="e.g., Beautiful 3-Bedroom Villa">
+                                            <div class="invalid-feedback">Please enter title</div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <label class="form-label">Address <span class="text-danger">*</span></label>
+                                            <input type="text" name="address" class="form-control" required placeholder="Full address">
+                                            <div class="invalid-feedback">Please enter address</div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <label class="form-label">City <span class="text-danger">*</span></label>
+                                            <input type="text" name="city" class="form-control" required>
+                                            <div class="invalid-feedback">Please enter city</div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">State <span class="text-danger">*</span></label>
+                                            <input type="text" name="state" class="form-control" required>
+                                            <div class="invalid-feedback">Please enter state</div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">ZipCode <span class="text-danger">*</span></label>
+                                            <input type="number" name="zipcode" class="form-control" required>
+                                            <div class="invalid-feedback">Please enter zipcode</div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label">Description <span class="text-danger">*</span></label>
+                                            <textarea name="description" class="form-control" rows="3" required placeholder="Describe your property in detail"></textarea>
+                                            <div class="invalid-feedback">Please enter description</div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 price-field sale">
+                                            <label class="form-label">Price <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">₹</span>
+                                                <input type="number" name="price" class="form-control" step="0.01" required placeholder="Expected price">
+                                                <span class="input-group-text sale-text">Sale</span>
+                                            </div>
+                                            <div class="invalid-feedback">Please enter price</div>
+                                        </div>
+                                        
+                                        <!-- <div class="col-md-6">
+                                            <label class="form-label">Bedrooms<span class="text-danger">*</span></label>
+                                            <select name="bedrooms" class="form-select" >
+                                                <option value="">Select bedrooms</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select bedrooms</div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <label class="form-label">Square Feet<span class="text-danger">*</span></label>
+                                            <input type="number" name="sqft" class="form-control"  placeholder="Total area in sqft">
+                                            <div class="invalid-feedback">Please enter square footage</div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label class="form-label">Garage<span class="text-danger">*</span></label>
+                                            <select name="garage" class="form-select" >
+                                                <option value="">Select garage spaces</option>
+                                                <option value="0">None</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                            <div class="invalid-feedback">Please select garage spaces</div>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 4: Photos -->
+                            <div class="form-section">
+                                <div class="section-header">
+                                    <div class="section-number">4</div>
+                                    <h3 class="section-title"><i class="fas fa-camera"></i> Property Photos</h3>
+                                </div>
+                                <div class="section-body">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label class="form-label">Upload Photos <span class="text-danger">*</span></label>
+                                            <div class="file-upload-wrapper">
+                                                <div class="file-upload-container">
+                                                    <input type="file" name="photo" class="form-control d-none" id="property_photos" multiple required>
+                                                    <div class="upload-area" id="upload_area">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                        <p>Drag & drop files here or click to browse</p>
+                                                        <small class="text-muted">(Maximum 10 photos, 5MB each)</small>
+                                                    </div>
+                                                </div>
+                                                <div class="invalid-feedback">Please upload at least one photo</div>
+                                                <div id="file-preview" class="file-preview-grid mt-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-actions text-center mt-4">
+                                <button type="submit" class="btn btn-primary btn-lg px-5 py-3" id="submit_btn">
+                                    <i class="fas fa-save me-2"></i> Save Property
+                                </button>
+                            </div>
+                        </form>
+                         {{ block.super }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% else %}
+  <section class="auth-required-section">
+      <div class="container">
+        <div class="auth-card">
+          <div class="auth-icon"><i class="fas fa-lock"></i></div>
+          <h2 class="auth-title">Authentication Required</h2>
+          <p class="auth-message">Please login or create an account to list your property.</p>
+          <div class="auth-buttons">
+            <a href="{% url 'mck_auth:website_signin' %}" class="btn-auth btn-login"><i class="fas fa-sign-in-alt me-2"></i> Login</a>
+            <a href="{% url 'mck_auth:website_signup' %}" class="btn-auth btn-signup"><i class="fas fa-user-plus me-2"></i> Create Account</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+<section class="seller-approach">
+  <div class="container">
+    <div class="approach-header">
+      <h2 class="approach-title">Why Sellers Trust Our Platform</h2>
+      <p class="approach-subtitle">
+        We provide property owners with the right tools, insights, and support to
+        maximize visibility, maintain property value, and ensure a smooth selling
+        process.
+      </p>
+    </div>
+
+    <div class="approach-grid">
+      <!-- Smart Property Presentation -->
+      <div class="approach-card">
+        <div class="approach-card-img">
+          <img
+            src="https://i.pinimg.com/736x/fe/81/4b/fe814b3926c9c777f6efdedefcbbc00b.jpg"
+            alt="Smart Presentation"
+          />
+        </div>
+        <div class="approach-card-content">
+          <h3 class="approach-card-title">
+            <span class="approach-card-icon"><i class="fas fa-home"></i></span>
+            Smart Property Presentation
+          </h3>
+          <p class="approach-card-desc">
+            We help you showcase your property with professional listings that
+            highlight the best features, attracting serious buyers.
+          </p>
+          <ul class="approach-features">
+            <li><i class="fas fa-check-circle"></i> High-quality images & details</li>
+            <li><i class="fas fa-check-circle"></i> Optimized property descriptions</li>
+            <li><i class="fas fa-check-circle"></i> Location highlights</li>
+            <li><i class="fas fa-check-circle"></i> Professional presentation tips</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Faster Selling Support -->
+      <div class="approach-card">
+        <div class="approach-card-img">
+          <img
+            src="https://i.pinimg.com/736x/02/3d/fb/023dfb534c8982bddd97cac94d26a440.jpg"
+            alt="Faster Selling Support"
+          />
+        </div>
+        <div class="approach-card-content">
+          <h3 class="approach-card-title">
+            <span class="approach-card-icon"><i class="fas fa-bolt"></i></span>
+            Faster Selling Support
+          </h3>
+          <p class="approach-card-desc">
+            From listing to closing, our platform ensures sellers receive quick
+            responses, buyer leads, and real-time updates.
+          </p>
+          <ul class="approach-features">
+            <li><i class="fas fa-check-circle"></i> Real-time inquiries</li>
+            <li><i class="fas fa-check-circle"></i> Lead notifications</li>
+            <li><i class="fas fa-check-circle"></i> support team</li>
+            <li><i class="fas fa-check-circle"></i> Easy communication tools</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Value Assurance -->
+      <div class="approach-card">
+        <div class="approach-card-img">
+          <img
+            src="https://i.pinimg.com/1200x/52/83/10/528310ee24695d52115300dcb67a1557.jpg"
+            alt="Value Assurance"
+          />
+        </div>
+        <div class="approach-card-content">
+          <h3 class="approach-card-title">
+            <span class="approach-card-icon"><i class="fas fa-award"></i></span>
+            Value Assurance
+          </h3>
+          <p class="approach-card-desc">
+            We guide you to price your property correctly and maintain its value
+            while ensuring buyers see it as a trustworthy investment.
+          </p>
+          <ul class="approach-features">
+            <li><i class="fas fa-check-circle"></i> Market-based pricing tools</li>
+            <li><i class="fas fa-check-circle"></i> Verified property checks</li>
+            <li><i class="fas fa-check-circle"></i> Professional valuation support</li>
+            <li><i class="fas fa-check-circle"></i> Buyer confidence guarantee</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Security Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="text-center">Your Security is Our Priority</h2>
+                <!-- <p>We implement robust measures to protect your information and property</p> -->
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Data Privacy</h3>
+                    <p>Your personal information is encrypted and never shared without your permission.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3>Verified Visitors</h3>
+                    <p>We screen all potential buyers/tenants before they visit your property.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3>Controlled Viewings</h3>
+                    <h6>You maintain full control over when your property can be viewed.</h6>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+<!-- FAQ Section -->
+                   <div class="faq-section container">
+  <h3 class="mb-4">Frequently Asked Questions for Sellers</h3>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      How do I create a property listing?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Simply fill out the property create form with accurate details such as title, price, location, and images. Once submitted, your listing will be reviewed and published on our platform for buyers to view.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      How long will my property listing stay active?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Listings typically remain active for 90 days by default. You can extend, edit, or remove your listing anytime from your dashboard.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Do I need to pay to list my property?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Basic property listings are free. However, we also offer premium plans that give your property higher visibility, featured placement, and faster lead generation.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      How will buyers contact me?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Interested buyers can reach out to you directly via the contact options provided on your listing. You will also receive instant notifications and inquiries through your registered email or dashboard.
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      Can I edit or update my property details after publishing?
+      <i class="fas fa-chevron-down"></i>
+    </div>
+    <div class="faq-answer">
+      Yes, you can edit your property details anytime from your dashboard. Changes are updated in real-time to ensure buyers always see the most accurate information.
+    </div>
+  </div>
+</div>
+
+
+
+{% include "includes/property_display.html" %}
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+    $(document).ready(function() {
+        // Property type change handler
+        $('#property_type').on('change', function() {
+            const selectedType = $(this).val();
+            
+            // Hide all property type fields
+            $('.property-type-fields').hide();
+            
+            // Show fields for selected property type
+            if (selectedType) {
+                $('#' + selectedType + '_fields').show();
+            }
+        });
+        
+        // Rent/Sell toggle functionality
+        $('.listing-type-option').on('click', function() {
+            const type = $(this).data('type');
+            
+            // Update active state
+            $('.listing-type-option').removeClass('active');
+            $(this).addClass('active');
+            
+            // Update hidden input
+            $('#listing_type').val(type);
+            
+            // Update price field styling and label
+            const priceField = $('.price-field');
+            const priceText = $('.input-group-text.sale-text');
+            
+            priceField.removeClass('sale rent');
+            priceField.addClass(type);
+            
+            if (type === 'sale') {
+                priceText.html('Sale');
+                priceText.css({
+                    'background-color': '#28a745',
+                    'color': 'white'
+                });
+            } else {
+                priceText.html('Rent');
+                priceText.css({
+                    'background-color': '#ffc107',
+                    'color': '#212529'
+                });
+            }
+        });
+
+        // File upload preview
+        const fileInput = $('#property_photos');
+        const uploadArea = $('#upload_area');
+        const filePreview = $('#file-preview');
+        
+        // Handle file selection
+        fileInput.on('change', function() {
+            filePreview.empty();
+            const files = this.files;
+            
+            if (files.length > 10) {
+                showError("You can upload a maximum of 10 photos");
+                fileInput.val('');
+                return;
+            }
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                // Check file size (5MB max)
+                if (file.size > 5 * 1024 * 1024) {
+                    showError("File " + file.name + " is too large (max 5MB)");
+                    fileInput.val('');
+                    filePreview.empty();
+                    return;
+                }
+                
+                // Create preview item
+                const previewItem = $('<div class="preview-item"></div>');
+                const fileName = $('<div class="file-name"></div>').text(file.name);
+                const fileSize = $('<div class="file-size"></div>').text(formatFileSize(file.size));
+                
+                previewItem.append(fileName).append(fileSize);
+                filePreview.append(previewItem);
+            }
+        });
+        
+        // Drag and drop functionality
+        uploadArea.on('dragover', function(e) {
+            e.preventDefault();
+            $(this).addClass('dragover');
+        });
+        
+        uploadArea.on('dragleave', function(e) {
+            e.preventDefault();
+            $(this).removeClass('dragover');
+        });
+        
+        uploadArea.on('drop', function(e) {
+            e.preventDefault();
+            $(this).removeClass('dragover');
+            fileInput[0].files = e.originalEvent.dataTransfer.files;
+            fileInput.trigger('change');
+        });
+        
+        // Click to browse
+        uploadArea.on('click', function() {
+            fileInput.click();
+        });
+        
+        // Form submission
+        $('#property_form').on('submit', function(e) {
+            e.preventDefault();
+            const form = $(this);
+            const submitBtn = $('#submit_btn');
+            
+            // Disable submit button
+            submitBtn.prop('disabled', true);
+            
+            // Validate form
+            if (!form[0].checkValidity()) {
+                form.addClass('was-validated');
+                submitBtn.prop('disabled', false);
+                return;
+            }
+            
+            // Create FormData
+            const formData = new FormData(form[0]);
+            
+            // AJAX request
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    if (response.status === "success") {
+                        alert("Property saved successfully!");
+                        window.location.href = "{% url 'vlr_website:home_page' %}";
+                    } else {
+                        showError(response.message || "Failed to save property");
+                    }
+                },
+                error: function(xhr) {
+                    let errorMessage = "An error occurred while saving the property";
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+                    showError(errorMessage);
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false);
+                }
+            });
+        });
+        
+        // Helper function to format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i]);
+        }
+        
+        // Helper function to show error messages
+        function showError(message) {
+            const errorDiv = $('#form_error');
+            errorDiv.text(message).show();
+            $('html, body').animate({
+                scrollTop: errorDiv.offset().top - 100
+            }, 500);
+        }
+    });
+    // FAQ toggle
+        $('.faq-question').on('click', function() {
+            $(this).siblings('.faq-answer').slideToggle();
+            $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
+        });
+
+     
+    </script>
+    
+ 
+{% endblock %} 

@@ -1,0 +1,62 @@
+[
+{
+    "model": "mck_admin_console.teams",
+    "pk": 1,
+    "fields": {
+        "name": "Scott Jelle",
+        "designation": "Owner, Inspector, and Zoning Administrato",
+        "photo": "",
+        "description": "",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-28T11:52:38.910",
+        "updated_on": "2025-02-28T11:52:38.910",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.teams",
+    "pk": 2,
+    "fields": {
+        "name": "Mike Finley",
+        "designation": "Inspector",
+        "photo": "",
+        "description": "",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-28T11:52:57.253",
+        "updated_on": "2025-02-28T11:52:57.253",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.teams",
+    "pk": 3,
+    "fields": {
+        "name": "Tom Stoehr",
+        "designation": "Inspector",
+        "photo": "",
+        "description": "",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-28T11:53:23.775",
+        "updated_on": "2025-02-28T11:53:23.775",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.teams",
+    "pk": 4,
+    "fields": {
+        "name": "Ed Ernst",
+        "designation": "Inspector",
+        "photo": "",
+        "description": "",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-28T11:53:45.714",
+        "updated_on": "2025-02-28T11:53:45.714",
+        "datamode": "A"
+    }
+}
+]

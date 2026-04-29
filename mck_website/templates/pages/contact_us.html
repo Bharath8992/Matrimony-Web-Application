@@ -1,0 +1,402 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  
+    <!--== META TAGS ==-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#f6af04">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <!--== FAV ICON(BROWSER TAB ICON) ==-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="images/fav.ico" type="image/x-icon">
+    <!--== CSS FILES ==-->
+   
+    <link rel="stylesheet" href="{% static 'web/bootstrap.css' %}">
+    <link rel="stylesheet" href=" {% static 'web/font-awesome.min.css' %}">
+    <link rel="stylesheet" href=" {% static 'web/animate.min.css' %}">
+    <link rel="stylesheet" href=" {% static 'web/style.css' %}">
+    <style>
+.contact-section {
+    padding: 80px 0;
+    background: #f9f9f9;
+}
+
+.contact-info {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.contact-info h4 {
+    color: #e60073;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.contact-info p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.contact-info i {
+    color: #e60073;
+    width: 25px;
+    font-size: 18px;
+}
+
+.social-icons {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons li a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #d3c6c6;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    transition: 0.3s;
+}
+
+.social-icons li a:hover {
+    background: #333;
+    transform: translateY(-3px);
+}
+
+.contact-form-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.form-control:focus {
+    border-color: #e60073;
+    box-shadow: 0 0 0 0.2rem rgba(196,0,0,0.1);
+    outline: none;
+}
+
+.btn-contact {
+    background: #e60073;
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-contact:hover {
+    background: #333;
+}
+
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.min.js"></script>
+      <script src="js/respond.min.js"></script>
+      <![endif]-->
+</head>
+
+<body>
+
+    {% include "includes/header.html" %}
+    <!-- END USER PROFILE MENU POPUP -->
+
+    <!-- BANNER & SEARCH -->
+{% include "includes/hero.html" %}
+    <!-- END -->
+
+
+<!-- CONTACT FORM SECTION -->
+<section class="contact-section">
+    <div class="container">
+        
+        <div class="section-title text-center">
+            <h5>Get in Touch</h5>
+            <h2>We'd Love to Hear From You</h2>
+            <p>Have questions? Need help finding a match? Send us a message and we'll reply within 24 hours.</p>
+        </div>
+
+        <div class="row">
+            <!-- Contact Info -->
+            <div class="col-md-5">
+                <div class="contact-info">
+                    <h4>Our Office</h4>
+                    <p><i class="fa fa-map-marker"></i> No. 39, Old No. 81, Sami Naicken Street, Chintadripet, Chennai – 600002</p>
+                    <p><i class="fa fa-network-wired"></i> 044- 3169 7423</p>
+                    <p><i class="fa fa-phone"></i> +91 9003087995</p>
+                    <p><i class="fa fa-clock-o"></i> 9.00AM - 7.00PM</p>
+                    <p><i class="fa fa-envelope"></i>srivarammanamalai1997@gmail.com</p>
+                    <hr>
+                    <h4>Follow Us</h4>
+                    <ul class="social-icons">
+                        <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="col-md-7">
+                <div class="contact-form-card">
+                    <!-- Alert Container for AJAX messages -->
+                    <div id="alertContainer" style="display: none;"></div>
+                    
+                    <!-- Regular messages for non-AJAX -->
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" action="{% url 'mck_website:contact-us' %}" id="contactForm" data-ajax-url="{% url 'mck_website:contact_ajax_submit' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Your Name *</label>
+                                    <input type="text" name="name" id="name" class="form-control" required>
+                                    <div class="invalid-feedback" id="nameError"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email Address *</label>
+                                    <input type="email" name="email" id="email" class="form-control" required>
+                                    <div class="invalid-feedback" id="emailError"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="text" name="phone" id="phone" class="form-control">
+                            <div class="invalid-feedback" id="phoneError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Your Message *</label>
+                            <textarea name="message" id="message" rows="5" class="form-control" required></textarea>
+                            <div class="invalid-feedback" id="messageError"></div>
+                        </div>
+                        
+                        <button type="submit" id="submitBtn" class="btn-contact">Send Message</button>
+                        <div id="loadingSpinner" style="display: none; margin-top: 10px;">
+                            <i class="fa fa-spinner fa-spin"></i> Sending...
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+<!-- FOOTER -->
+    <section class="wed-hom-footer">
+        <div class="container">
+            <div class="row foot-supp">
+                <h2><span>Free support:</span> +91 9940116169 &nbsp;&nbsp;|&nbsp;&nbsp; <span>Email:</span>
+                    srivarammanamalai1997@gmail.com</h2>
+            </div>
+            <div class="row wed-foot-link wed-foot-link-1">
+                <div class="col-md-4">
+                    <h4>Get In Touch</h4>
+                    <p>Address: No. 39, Old No. 81, Sami Naicken Street, Chintadripet, Chennai – 600002</p>
+                    <p>Phone: <a href="tel:+917904462944">+91 9940116169</a></p>
+                    <p>Email: <a href="mailto:srivarammanamalai1997@gmail.com">srivarammanamalai1997@gmail.com</a></p>
+                </div>
+                <div class="col-md-4">
+                    <h4>HELP &amp; SUPPORT</h4>
+                    <ul>
+                       
+                        <li><a href="{% url 'mck_website:mck_property_page' %}">Advanced Search us</a>
+                        
+                        <li><a href="{% url 'mck_website:community_match' %}">Perfect Match</a>
+                        </li>
+                        <li><a href="{% url 'mck_website:gallery' %}">Gallery</a>
+                        </li>
+                        </li>
+                        <li><a href="{% url 'mck_website:sucess-storeis' %}">Success Stories</a>
+                        </li>
+                        <li><a href="{% url 'mck_website:contact-us' %}">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4 fot-soc">
+                    <h4>SOCIAL MEDIA</h4>
+                    <ul>
+                        <li><a href="#!"><img src="https://i.pinimg.com/736x/22/4a/5b/224a5bbfa24b910dd937b062a2b8bcf9.jpg" alt="" loading="lazy"></a></li>
+                        <li><a href="#!"><img src="https://i.pinimg.com/736x/99/26/4d/99264d4441b917087b8dc7ee46c10ba1.jpg" alt="" loading="lazy"></a></li>
+                        <li><a href="#!"><img src="https://i.pinimg.com/1200x/b8/c8/46/b8c846a25866985a5719049b9f0c5890.jpg" alt="" loading="lazy"></a></li>
+                        <li><a href="#!"><img src="https://i.pinimg.com/1200x/f0/8c/52/f08c524d147f46398cb54013ee7013ee.jpg" alt="" loading="lazy"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END -->
+
+    <!-- COPYRIGHTS -->
+    <section>
+        <div class="cr">
+            <div class="container">
+                <div class="row">
+                   <p style="font-size:14px; color:#666;">
+  © <span>2026</span> 
+  <a href="#!" target="_blank">srivarammanamalai.com</a> · 
+  All rights reserved · 
+  Crafted by 
+  <a href="https://www.mckbytes.com/" target="_blank" style="font-weight:600;">
+    Mckbytes
+  </a>
+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END -->
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+<script src="{% static 'webjs/jquery.min.js' %}"></script>
+<script src="{% static 'webjs/popper.min.js' %}"></script>
+<script src="{% static 'webjs/bootstrap.min.js' %}"></script>
+<script src="{% static 'webjs/select-opt.js' %}"></script>
+<script src="{% static 'webjs/slick.js' %}"></script>
+<script src="{% static 'webjs/custom.js' %}"></script>
+
+<!-- Your custom AJAX script - MOVED AFTER jQuery -->
+<script>
+$(document).ready(function() {
+    console.log("Document ready, setting up contact form");
+    
+    $('#contactForm').on('submit', function(e) {
+        e.preventDefault(); // Prevent normal form submission
+        console.log("Form submitted");
+        
+        // Reset previous errors
+        $('.form-control').removeClass('is-invalid');
+        $('.invalid-feedback').html('');
+        
+        // Show loading spinner
+        $('#submitBtn').prop('disabled', true);
+        $('#loadingSpinner').show();
+        
+        // Get form data
+        var formData = new FormData(this);
+        
+        // Hardcode the URL instead of using template tag
+        var ajaxUrl = '/contact-us/ajax-submit/';  // Use hardcoded URL
+        
+        console.log("Sending AJAX to:", ajaxUrl);
+        
+        // AJAX request
+        $.ajax({
+            url: ajaxUrl,
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function(response) {
+                console.log("Success response:", response);
+                if (response.success) {
+                    // Show success message
+                    showAlert('success', response.message);
+                    
+                    // Reset form
+                    $('#contactForm')[0].reset();
+                } else {
+                    // Show error message
+                    showAlert('danger', response.message);
+                    
+                    // Handle field errors if any
+                    if (response.errors) {
+                        $.each(response.errors, function(field, error) {
+                            $('#' + field).addClass('is-invalid');
+                            $('#' + field + 'Error').html(error);
+                        });
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("AJAX Error:", error);
+                console.error("Response:", xhr.responseText);
+                showAlert('danger', 'An error occurred. Please try again.');
+            },
+            complete: function() {
+                // Hide loading spinner
+                $('#submitBtn').prop('disabled', false);
+                $('#loadingSpinner').hide();
+            }
+        });
+    });
+    
+    // Function to show alerts
+    function showAlert(type, message) {
+        console.log("Showing alert:", type, message);
+        var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show" role="alert">' +
+                        message +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                        '</div>';
+        
+        $('#alertContainer').html(alertHtml).show();
+        
+        // Auto hide after 5 seconds
+        setTimeout(function() {
+            $('.alert').fadeOut('slow', function() {
+                $('#alertContainer').hide();
+            });
+        }, 5000);
+    }
+});
+</script>
+</body>
+
+</html>

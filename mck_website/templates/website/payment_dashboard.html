@@ -1,0 +1,15 @@
+<!-- payment_dashboard.html -->
+<table>
+  <tr><th>User</th><th>Amount</th><th>Status</th><th>Payment ID</th><th>Date</th></tr>
+  {% for p in payments %}
+  <tr>
+    <td>{{ p.user.email }}</td>
+    <td>₹{{ p.amount }}</td>
+    <td style="color: {% if p.status == 'COMPLETED' %}green{% elif p.status == 'FAILED' %}red{% else %}orange{% endif %}">
+      {{ p.status }}
+    </td>
+    <td>{{ p.payment_id }}</td>
+    <td>{{ p.payment_date|date:"d M Y H:i" }}</td>
+  </tr>
+  {% endfor %}
+</table>

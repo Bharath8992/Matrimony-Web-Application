@@ -1,0 +1,129 @@
+/*---------Thumbnails----------*/
+
+.thumbnail {
+	display: block;
+	padding: 4px;
+	margin-block-end: 20px;
+	line-height: 1.42857143;
+	background-color: $white;
+	border: 1px solid $border;
+	-webkit-transition: border .2s ease-in-out;
+	-o-transition: border .2s ease-in-out;
+	transition: border .2s ease-in-out;
+	border-radius: 5px;
+
+	a>img,
+	>img {
+		margin-inline: auto;
+		width: 100%;
+	}
+
+	p:last-child {
+		margin-block-end: 0;
+	}
+}
+
+.thumbimg {
+	height: 100%;
+	width: 100%;
+	display: block;
+	border-radius: 5px;
+}
+
+.img-responsive {
+	height: 100%;
+	width: 100%;
+	display: block;
+	border-radius: 5px;
+}
+
+.thumbnail .caption {
+	padding: 15px;
+}
+
+.video-list-thumbs {
+	>li {
+		margin-block-end: 12px;
+
+		>a {
+			display: block;
+			position: relative;
+			color: #6b6f80;
+			border: 1px solid $border;
+			transition: all 500ms ease-in-out;
+			border-radius: 5px;
+		}
+	}
+
+	h2 {
+		inset-block-end: 0;
+		font-size: 14px;
+		height: 33px;
+		margin-inline: 0;
+		margin-block-start: 8px;
+		margin-block-end: 0;
+
+	}
+
+	.fa {
+		font-size: 60px;
+		opacity: 0.6;
+		position: absolute;
+		inset-inline-end: 40%;
+		inset-block-start: 40%;
+		text-shadow: 0 1px 3px $black-5;
+		transition: all 500ms ease-in-out;
+	}
+
+	>li>a:hover .fa {
+		color: $white;
+		opacity: 1;
+		text-shadow: 0 1px 3px $black-8;
+	}
+
+	.duration {
+		background-color: $black-4;
+		border-radius: 2px;
+		color: $white;
+		font-size: 11px;
+		font-weight: bold;
+		inset-inline-start: 12px;
+		line-height: 13px;
+		padding-block-start: 2px;
+		padding-inline: 3px;
+		padding-block-end: 1px;
+		position: absolute;
+		inset-block-start: 12px;
+		transition: all 500ms ease;
+	}
+
+	>li>a:hover .duration {
+		background-color: $default-color;
+	}
+}
+
+@media (max-width: 768px) {
+	.video-list-thumbs .fa {
+		inset-inline-end: 44%;
+		inset-block-start: 44%;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+	.video-list-thumbs {
+		.fa {
+			font-size: 35px;
+		}
+
+		h2 {
+			inset-block-end: 0;
+			font-size: 12px;
+			height: 22px;
+			margin-inline: 0;
+			margin-block-start: 8px;
+			margin-block-end: 0;
+		}
+	}
+}
+
+/*---------Thumbnails----------*/

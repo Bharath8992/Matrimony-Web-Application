@@ -1,0 +1,546 @@
+[
+{
+    "model": "mck_admin_console.area",
+    "pk": 1,
+    "fields": {
+        "county": 1,
+        "name": "Town of Blue Mounds",
+        "short_description": "",
+        "address": "10566 Blue Vista Road Blue Mounds, WI 53517",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://www.townofbluemounds.com/buildingPermits.php",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:19:43.899",
+        "updated_on": "2025-02-27T17:19:43.899",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 2,
+    "fields": {
+        "county": 2,
+        "name": "Town of Adams",
+        "short_description": "",
+        "address": "N5705 Biggs Road Argyle, WI 53504",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "http://www.adamstownshipwi.com",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:20:23.077",
+        "updated_on": "2025-02-27T17:20:23.077",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 3,
+    "fields": {
+        "county": 2,
+        "name": "Village of Browntown",
+        "short_description": "",
+        "address": "110 S. Mill St. Browntown, WI 53522",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://villageofbrowntown.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:22:22.417",
+        "updated_on": "2025-02-27T17:22:22.417",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 4,
+    "fields": {
+        "county": 2,
+        "name": "Town of Jefferson",
+        "short_description": "",
+        "address": "PO Box 32 N2350 County Hwy S Juda, WI 53550",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://jeffersontcc.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:23:03.568",
+        "updated_on": "2025-02-27T17:23:03.568",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 5,
+    "fields": {
+        "county": 2,
+        "name": "Town of New Glarus",
+        "short_description": "",
+        "address": "P.O. Box 448 26 5th Avenue New Glarus, WI 53574",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townofnewglarus.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:23:46.398",
+        "updated_on": "2025-02-27T17:23:46.398",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 6,
+    "fields": {
+        "county": 2,
+        "name": "Village of New Glarus",
+        "short_description": "",
+        "address": "319 2nd Street PO Box 399 New Glarus, WI 53574",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://newglarusvillage.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:24:30.856",
+        "updated_on": "2025-02-27T17:24:30.856",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 7,
+    "fields": {
+        "county": 2,
+        "name": "Town of Jordan",
+        "short_description": "",
+        "address": "W8495 State Hwy 81 Argyle, WI 53504",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townofjordan.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:25:36.533",
+        "updated_on": "2025-02-27T17:25:36.533",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 8,
+    "fields": {
+        "county": 2,
+        "name": "Town of Monroe",
+        "short_description": "",
+        "address": "N3302 Monroe Road Monroe, WI 53566",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townofmonroewi.gov/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:26:14.082",
+        "updated_on": "2025-02-27T17:26:14.082",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 9,
+    "fields": {
+        "county": 2,
+        "name": "Village of Monticello",
+        "short_description": "",
+        "address": "238 N. Main Street Monticello, WI 53570",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://vi.monticello.wi.us/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:26:59.028",
+        "updated_on": "2025-02-27T17:26:59.028",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 10,
+    "fields": {
+        "county": 2,
+        "name": "Town of Mount Pleasant",
+        "short_description": "",
+        "address": "N. 6903 Marshall Bluff Rd Monticello, WI 53570",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townofmtpleasantwi.gov/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:27:41.390",
+        "updated_on": "2025-02-27T17:27:41.390",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 11,
+    "fields": {
+        "county": 2,
+        "name": "Town of Washington",
+        "short_description": "",
+        "address": "W6113 County C Monticello, WI 53570",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://www.townofwashingtongreencounty.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:29:06.771",
+        "updated_on": "2025-02-27T17:29:06.771",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 12,
+    "fields": {
+        "county": 2,
+        "name": "Town of York",
+        "short_description": "",
+        "address": "N8105 Postville Road Blanchardville, WI 53516",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townofyork.org/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:29:49.509",
+        "updated_on": "2025-02-27T17:29:49.509",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 13,
+    "fields": {
+        "county": 3,
+        "name": "Village of Barneveld",
+        "short_description": "",
+        "address": "403 E. County Hwy ID, Barneveld, Wisconsin 53507",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://barneveldwi.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:30:26.922",
+        "updated_on": "2025-02-27T17:30:26.922",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 14,
+    "fields": {
+        "county": 3,
+        "name": "Town of Brigham",
+        "short_description": "",
+        "address": "407 Business ID Barneveld, WI 53507",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://brighamtown.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:31:06.644",
+        "updated_on": "2025-02-27T17:31:06.644",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 15,
+    "fields": {
+        "county": 3,
+        "name": "Village of Cobb",
+        "short_description": "",
+        "address": "501 Benson Street, Cobb, WI 53526-9673",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://villageofcobb.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:31:38.564",
+        "updated_on": "2025-02-27T17:31:38.564",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 16,
+    "fields": {
+        "county": 3,
+        "name": "Town of Dodgeville",
+        "short_description": "",
+        "address": "108 E Leffler St, Dodgeville, WI 53533-2114",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://www.townofdodgeville.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:32:21.998",
+        "updated_on": "2025-02-27T17:32:21.999",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 17,
+    "fields": {
+        "county": 3,
+        "name": "Town of Eden",
+        "short_description": "",
+        "address": "302 N Division St Cobb, WI 53526",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townofeden-iowacounty.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:32:51.871",
+        "updated_on": "2025-02-27T17:32:51.871",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 18,
+    "fields": {
+        "county": 3,
+        "name": "Village of Hollandale",
+        "short_description": "",
+        "address": "200 5th Avenue Hollandale WI 53544",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://hollandalewi.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:33:32.275",
+        "updated_on": "2025-02-27T17:33:32.275",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 19,
+    "fields": {
+        "county": 3,
+        "name": "Town of Linden",
+        "short_description": "",
+        "address": "332 Church St PO Box 446 Linden WI 53553",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townoflinden.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:34:41.629",
+        "updated_on": "2025-02-27T17:34:41.629",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 20,
+    "fields": {
+        "county": 3,
+        "name": "Village of Hazel Green",
+        "short_description": "",
+        "address": "1610 Fairplay PO Box 367 Hazel Green, WI 53811",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "http://villageofhazelgreen.org/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:35:26.968",
+        "updated_on": "2025-02-27T17:35:26.968",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 21,
+    "fields": {
+        "county": 3,
+        "name": "Village of Highland",
+        "short_description": "",
+        "address": "530 Main Street PO Box 284 Highland, WI 53543",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://villageofhighland.net/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:36:30.152",
+        "updated_on": "2025-02-27T17:36:30.152",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 22,
+    "fields": {
+        "county": 3,
+        "name": "Town of Mineral Point",
+        "short_description": "",
+        "address": "4070 STH 39 Mineral Point, WI 53565",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://townofmineralpointwi.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:37:03.251",
+        "updated_on": "2025-02-27T17:37:03.251",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 23,
+    "fields": {
+        "county": 3,
+        "name": "Village of Montfort",
+        "short_description": "",
+        "address": "PO Box 157 102 East Park Street Montfort, Wisconsin 53569",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://villageofmontfort.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:38:05.288",
+        "updated_on": "2025-02-27T17:38:05.288",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 24,
+    "fields": {
+        "county": 3,
+        "name": "Town of Moscow",
+        "short_description": "",
+        "address": "7476 County Rd DD Blanchardville, WI 53516",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://www.iowacounty.org/town-of-moscow",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:38:40.870",
+        "updated_on": "2025-02-27T17:38:40.870",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 25,
+    "fields": {
+        "county": 3,
+        "name": "Town of Waldwick",
+        "short_description": "",
+        "address": "Mineral Point, WI",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://www.iowacounty.org/town-of-waldwick",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:39:24.446",
+        "updated_on": "2025-02-27T17:40:34.885",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 26,
+    "fields": {
+        "county": 4,
+        "name": "Village of Argyle",
+        "short_description": "",
+        "address": "401 E. Milwaukee St. P.O. Box 246 Argyle WI 53504",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://www.argylewi.org/#gsc.tab=0",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:41:06.371",
+        "updated_on": "2025-02-27T17:41:06.371",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 27,
+    "fields": {
+        "county": 4,
+        "name": "Village of Benton",
+        "short_description": "",
+        "address": "244 Ridge Ave Benton, Wisconsin 53803-8022",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://bentonwi.us/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:41:37.413",
+        "updated_on": "2025-02-27T17:41:37.413",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 28,
+    "fields": {
+        "county": 4,
+        "name": "Town of Benton",
+        "short_description": "",
+        "address": "Town of Benton Clerk, 30024 CTH H, Cuba City, WI 53807",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://www.lafayettecountywi.org/community/page/town-benton",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:42:13.436",
+        "updated_on": "2025-02-27T17:42:13.436",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 29,
+    "fields": {
+        "county": 4,
+        "name": "Town of Gratiot",
+        "short_description": "",
+        "address": "Clerk, 5885 STH 78, Gratiot, WI 53541",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://www.lafayettecountywi.org/community/page/town-gratiot",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:42:53.667",
+        "updated_on": "2025-02-27T17:42:53.667",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 30,
+    "fields": {
+        "county": 4,
+        "name": "City of Shullsburg",
+        "short_description": "",
+        "address": "190 N. Judgement Street, Shullsburg, WI 53586",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://www.shullsburgwisconsin.org/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:43:24.144",
+        "updated_on": "2025-02-27T17:43:24.144",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 31,
+    "fields": {
+        "county": 4,
+        "name": "Village of South Wayne",
+        "short_description": "",
+        "address": "107 E Center St South Wayne, WI 53587",
+        "tag": "BULDING INSPECTION AND PERMITS,ZONING",
+        "link": "https://villageofsouthwayne.com/",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:43:58.742",
+        "updated_on": "2025-02-27T17:43:58.742",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.area",
+    "pk": 32,
+    "fields": {
+        "county": 4,
+        "name": "Town of Wiota",
+        "short_description": "",
+        "address": "9830 Park St, South Wayne (Wiota), WI 53587",
+        "tag": "BULDING INSPECTION AND PERMITS",
+        "link": "https://www.lafayettecountywi.org/community/page/town-wiota",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:44:46.370",
+        "updated_on": "2025-02-27T17:44:46.370",
+        "datamode": "A"
+    }
+}
+]

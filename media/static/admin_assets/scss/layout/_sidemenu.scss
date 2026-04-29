@@ -1,0 +1,2859 @@
+@media (min-width: 992px) {
+    .app.sidenav-toggled {
+        .app-content {
+            margin-inline-start: 0;
+        }
+
+        .app-sidebar {
+            inset-inline-start: 230px;
+        }
+
+        .app-sidebar__overlay {
+            visibility: hidden;
+        }
+    }
+
+    .app-sidebar {
+        padding-block-start: 55px;
+    }
+
+    .app-content {
+        margin-inline-start: 250px;
+    }
+    
+    .app-header {
+        padding-inline-start: 266px;
+    }
+
+    .side-header {
+        width: 250px;
+        inset-inline: 0;
+        inset-block-start: 0;
+        position: fixed;
+        z-index: 99;
+        background: $white;
+    }
+
+    .app.sidebar-mini.sidenav-toggled .side-header {
+        width: 80px !important;
+    }
+
+    .sidebar-mini footer.footer {
+        padding-block: 1.25rem;
+        padding-inline-end: 1.25rem;
+        padding-inline-start: 270px;
+    }
+
+    .sidebar-mini.sidenav-toggled footer.footer {
+        padding-block: 1.25rem;
+        padding-inline-end: 1.25rem;
+        padding-inline-start: 80px;
+    }
+
+    .app.sidebar-mini .side-menu .slide-item {
+
+        &.active:before,
+        &:hover:before,
+        &:focus:before {
+            color: $primary;
+        }
+    }
+}
+
+.app.sidebar-mini .main-sidemenu {
+
+    .slide-left,
+    .slide-right {
+        display: none;
+    }
+}
+
+.sidebar-mini .side-menu {
+    margin-block-start: 36px;
+}
+
+@media (max-width: 991px) {
+    .app {
+        overflow-x: hidden;
+
+        .app-sidebar {
+            inset-inline-start: -270px;
+            inset-block-start: 74px;
+            z-index: 9999;
+        }
+
+        .app-sidebar__overlay {
+            visibility: hidden;
+        }
+
+        &.sidenav-toggled {
+            .app-content {
+                margin-inline-start: 0;
+            }
+
+            .app-sidebar {
+                inset-inline-start: 0;
+            }
+
+            .app-sidebar__overlay {
+                visibility: visible;
+            }
+        }
+
+        &.sidebar-mini.sidebar-gone.sidenav-toggled .app-sidebar {
+            inset-inline-start: 0;
+        }
+
+        .app-header .header-brand1 {
+            width: inherit;
+            position: absolute;
+            inset-inline: 0;
+        }
+
+        .app-sidebar__toggle {
+            -webkit-box-ordinal-group: 0;
+            -ms-flex-order: -1;
+            order: -1;
+        }
+    }
+
+    .sidebar-mini .app-header .main-logo {
+        display: block;
+    }
+    
+    .app-sidebar__toggle {
+        padding-inline-start: 15px !important;
+    }
+
+    .app-content {
+        min-width: 100%;
+    }
+    .app-sidebar__overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9;
+    }
+
+    .header-brand1 .darklogo {
+        margin: 0 auto;
+        margin-block-start: 6px;
+    }
+}
+
+.app-content {
+    // min-height: calc(100vh - 50px);
+    margin-block-end: 0 !important;
+    -webkit-transition: margin-inline-start 450ms ease;
+    -o-transition: margin-inline-start 450ms ease;
+    transition: margin-inline-start 450ms ease;
+    overflow: clip;
+    margin-block-start: 0px;
+    .side-app {
+        padding: 0px 1.5rem;
+    }
+
+    &.main-content .container-fluid.main-container {
+        padding-inline: 0;
+    }
+}
+
+// .main-content {
+// 	min-height: calc(100vh - 56px);
+// }
+
+
+.footer .container {
+    width: 100%;
+    padding-inline: 0.75rem;
+    margin-inline: auto;
+}
+
+
+@media print {
+    .app-content {
+        margin: 0;
+        padding: 0;
+        background-color: $white;
+    }
+}
+
+.app-header {
+    position: fixed;
+    inset-inline: 0;
+    inset-block-start: 0;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    z-index: 1055 !important;
+    border-block-end: 1px solid $border;
+    background: $white;
+    transition: padding-inline-start 0.3s ease;
+}
+
+@media print {
+    .app-header {
+        display: none;
+    }
+}
+
+.app-header__logo {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 auto;
+    flex: 1 0 auto;
+    color: $white;
+    text-align: center;
+    font-family: 'Niconne';
+    padding: 0 15px;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 50px;
+
+    &:focus,
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+@media (min-width: 991px) {
+    .app-header__logo {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+        flex: 0 0 auto;
+        display: block;
+        width: 230px;
+    }
+}
+
+.app-sidebar__toggle {
+    color: #656e81;
+    z-index: 1;
+    transition: padding-inline-start 0.3s ease;
+    text-align: center;
+    font-size: 1.5rem;
+    position: relative;
+    inset-inline-end: 6px;
+
+    &:before {
+        content: "\EF3F";
+        transition: all .25s;
+        font-size: 18px;
+        font-family: 'remixicon';
+    }
+
+    &:focus,
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.app-sidebar {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: 0;
+    color: $default-color;
+    z-index: 1055;
+    background: $white;
+    -webkit-box-shadow: 0 8px 24px rgba(168, 180, 208, .1);
+    box-shadow: 0 2px 10px rgba(168, 180, 208, .1);
+    -webkit-transition: inset-inline-start 450ms ease, width 450ms ease;
+    transition: inset-inline-start 450ms ease, width 450ms ease;
+    -o-transition: inset-inline-start 450ms ease, width 450ms ease;
+    border-inline-end: 1px solid $border;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+    }
+    .tab-content>.tab-pane {
+        padding: 0 !important;
+    }
+}
+
+@media print {
+    .app-sidebar {
+        display: none;
+    }
+}
+
+.app-sidebar__user {
+    .dropdown-menu {
+        inset-block-start: 10px !important;
+    }
+
+    img {
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+        padding: 2px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0px 5px 5px 0px rgba(44, 44, 44, 0.2);
+    }
+
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #a8a8a8;
+    width: 100%;
+    padding: 15px 0;
+
+    display: inline-block;
+}
+
+.app-sidebar__user-avatar {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-inline-end: 15px;
+}
+
+.app-sidebar__user-name {
+    &.text-sm {
+        font-size: 12px;
+        font-weight: 400;
+    }
+
+    font-size: 17px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    margin-block-end: 0;
+    overflow: hidden;
+    font-weight: 600;
+    color: #e5e9ec;
+    font-size: 15px;
+    margin-block-start: 5px !important;
+}
+
+.app-sidebar__user-designation {
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    margin-block-end: 0;
+    overflow: hidden;
+    font-weight: 600;
+    color: #e5e9ec;
+    font-size: 15px;
+    margin-block-start: 5px !important;
+}
+
+.side-menu {
+    margin-block-end: 0;
+    padding-block-start: 0;
+    padding-inline-end: 10px;
+    padding-block-end: 0;
+    padding-inline-start: 10px;
+}
+
+.side-menu__item {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    -webkit-transition: border-inline-start-color 0.3s ease, background-color 0.3s ease;
+    -o-transition: border-inline-start-color 0.3s ease, background-color 0.3s ease;
+    transition: border-inline-start-color 0.3s ease, background-color 0.3s ease;
+    color: $default-color2;
+    margin: 2px 0px;
+    white-space: nowrap;
+
+    &.active {
+        text-decoration: none;
+        color: $primary;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+            color: $primary;
+        }
+    }
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        color: $primary;
+
+        .side-menu__icon,
+        .side-menu__label {
+            color: $primary;
+        }
+    }
+}
+
+@media (min-width:992px) {
+    .app.sidebar-mini.sidenav-toggled .side-menu__label {
+        display: none !important;
+    }
+}
+
+.slide-item {
+
+    &.active,
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        color: #b5c1d2;
+    }
+}
+
+.slide-menu a.active {
+    color: $primary;
+}
+
+.slide-item {
+
+    &.active,
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        color: $primary;
+    }
+}
+
+.slide-menu li {
+    .slide-item {
+        &:before {
+            content: '\e0b1';
+            font-family: 'typicons';
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: inherit;
+            inset-block-start: -1px;
+            font-size: 8px;
+            margin-inline-end: 7px;
+            color: #68798b;
+        }
+    }
+
+    position: relative;
+    cursor: pointer;
+}
+
+.slide.is-expanded a {
+    text-decoration: none;
+}
+
+.side-menu .side-menu__icon {
+    color: #656e81;
+    font-size: 19px;
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    margin-inline-end: 8px;
+    position: relative;
+}
+
+.side-menu__icon {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+.side-menu__label {
+    white-space: nowrap;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    margin-block-start: 2px;
+}
+
+.slide.is-expanded {
+    .slide-menu {
+        display: block;
+    }
+
+    .angle {
+        -webkit-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+}
+
+.slide-menu {
+    display: none;
+    font-size: .7rem !important;
+    padding-inline-start: 30px;
+}
+
+.slide-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 8px;
+    font-size: 13.3px;
+    color: #74829c;
+    white-space: nowrap;
+    line-height: 1.5;
+
+    .icon {
+        margin-inline-end: 5px;
+    }
+}
+
+.angle {
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+    margin-block-start: 3px;
+    margin-inline-end: 2px;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    font-size: 11px;
+}
+
+@media (min-width: 992px) {
+    .sidebar-mini.sidenav-toggled {
+
+        .app-sidebar__user-name,
+        .app-sidebar__user-designation,
+        .angle,
+        .app-sidebar__user-name,
+        .user-notification,
+        .app-sidebar__user-name,
+        .user-info {
+            display: none;
+        }
+
+        .app-header.header {
+            padding-inline-start: 96px;
+        }
+
+        .side-menu {
+            padding-inline: 0;
+            padding-block-start: 0;
+            padding-block-end: 40px;
+
+            .sub-category {
+                display: none;
+            }
+        }
+
+        .side-menu .side-menu__icon {
+            background: none !important;
+            box-shadow: none;
+            margin-inline-end: 0;
+        }
+
+        .side-badge,
+        .slide-menu open.slide-menu hide .side-badge {
+            inset-block-start: 1px;
+            inset-inline-end: 20px;
+        }
+
+        .sidebar-mini.sidenav-toggled.user-notification::before {
+            background: transparent;
+            display: none;
+        }
+
+        .app-sidebar__user-name,
+        .avatar-xl {
+            width: 4rem;
+            height: 4rem;
+            line-height: 3rem;
+            font-size: 1rem;
+        }
+
+        .app-sidebar__user-avatar {
+            width: 25px;
+            height: 25px;
+        }
+
+        .side-menu li .side-menu__item.active:before {
+            display: none;
+        }
+
+        .app-sidebar__user {
+            padding-block-start: 12px;
+            padding-inline-end: 0;
+            padding-block-end: 12px;
+            padding-inline-start: 0;
+            margin-block-end: 0px;
+            border-block-end: 1px solid rgba(225, 225, 225, 0.05);
+        }
+        .app-content {
+            margin-inline-start: 80px;
+        }
+
+        .app-sidebar {
+            inset-inline-start: 0;
+            width: 80px;
+            overflow: hidden;
+
+            &:hover {
+                overflow: visible;
+            }
+        }
+
+        .slide-menu {
+            position: absolute;
+            opacity: 0;
+            z-index: 9;
+            visibility: hidden;
+            -webkit-transition: visibility .3s ease;
+            -o-transition: visibility .3s ease;
+            transition: visibility .3s ease;
+        }
+    }
+
+    .app.sidebar-mini.sidenav-toggled {
+        .side-menu__item {
+            padding: 10px 30px;
+        }
+    }
+
+    .sidebar-mini.sidenav-toggled .app-sidebar__user .avatar-md {
+        margin: 0 auto;
+    }
+
+    .app.sidebar-mini.sidenav-toggled .nav-badge {
+        position: absolute;
+        inset-block-start: 8px;
+        inset-inline-end: 28px;
+        padding: 0.2rem 0.4rem;
+        font-size: 11px;
+    }
+
+    .sidebar-mini.sidenav-toggled.sidenav-toggled-open {
+        .app-sidebar {
+            width: 250px;
+        }
+
+        .side-header {
+            width: 250px !important;
+            display: flex !important;
+            padding: 17px !important;
+        }
+
+        .icon-logo,
+        .main-logo,
+        .mobile-light {
+            display: none ! important;
+        }
+
+        .side-header .header-brand-img.main-logo {
+            display: block !important;
+        }
+
+        .side-menu__item {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        .side-menu .sub-category {
+            display: block;
+        }
+
+        .side-menu__icon {
+            font-size: 20px;
+            line-height: 30px;
+            text-align: center;
+            vertical-align: middle;
+            margin-inline-end: 8px !important;
+        }
+
+        .side-menu__label {
+            display: block !important;
+            white-space: nowrap;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+            margin-block-start: 3px;
+        }
+
+        .slide.is-expanded .slide-menu {
+            display: block !important;
+            position: unset;
+            inset-block-start: inherit;
+            min-width: 0;
+            width: 100%;
+            opacity: inherit;
+            visibility: inherit;
+        }
+
+        .side-menu {
+            margin-block-start: 36px !important;
+            padding-block-start: 0 !important;
+            padding-inline-end: 10px !important;
+            padding-block-end: 0 !important;
+            padding-inline-start: 10px !important;
+        }
+
+        .angle {
+            display: block;
+        }
+
+        .side-badge {
+            inset-block-start: 17px;
+            inset-inline-end: 20px;
+        }
+    }
+}
+
+.dropdown-menu {
+    border-radius: 0;
+
+    &.dropdown-menu-right {
+        inset-inline-start: auto;
+    }
+}
+
+.dropdown-item {
+
+    .fa,
+    .icon {
+        vertical-align: middle;
+    }
+}
+
+.app-title {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    background-color: $white;
+    margin-inline: -30px;
+    margin-block-start: -30px;
+    margin-block-end: 30px;
+    padding: 20px 30px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 400;
+    }
+
+    p {
+        margin-block-end: 0;
+        font-style: italic;
+    }
+}
+
+@media print {
+    .app-title {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title {
+        margin-inline: -15px;
+        margin-block-start: -15px;
+        margin-block-end: 15px;
+        padding: 20px;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-title p {
+        display: none;
+    }
+}
+
+.app-breadcrumb {
+    margin-block-end: 0;
+    font-weight: 500;
+    font-size: 13px;
+    text-transform: capitalize;
+    padding: 0;
+    text-align: start;
+    padding: 0;
+    background-color: transparent;
+}
+
+@media (max-width: 480px) {
+    .app-breadcrumb {
+        margin-block-start: 10px;
+    }
+}
+
+.sidenav-toggled .app-sidebar__user .avatar-md {
+    line-height: 2rem;
+    font-size: 1rem;
+}
+
+.sidenav-toggled .main-wrapper .side-menu .side-menu__item {
+    .nav-badge {
+        position: absolute;
+        inset-block-start: 5px;
+        inset-inline-start: 57px;
+        display: block !important;
+        padding: 3px 5px !important;
+    }
+
+    .nav-badge1 {
+        display: none;
+    }
+}
+
+.nav-badge {
+    border-radius: 30px;
+    padding: 0.4em 0.6em;
+    font-size: 12px;
+}
+
+.user-info {
+    .text-dark {
+        color: #25252a !important;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .text-muted {
+        color: #74829c !important;
+    }
+}
+
+.side-header {
+    .header-brand1 {
+        text-align: center;
+        margin: 0 auto !important;
+    }
+
+    .header-brand-img.darklogo {
+        display: none;
+    }
+}
+
+.sidebar-mini.sidenav-toggled .app-sidebar .side-header .header-brand-img.darklogo {
+    display: none;
+}
+
+.side-header .header-brand-img {
+    &.icon-logo {
+        display: none;
+    }
+
+    &.main-logo {
+        display: block;
+    }
+
+    &.icon-logo2 {
+        display: none;
+    }
+}
+
+.side-header {
+    display: flex;
+    border-block-end: 1px solid $border;
+    border-inline-end: 1px solid $border;
+    padding: 19px 17px;
+    align-items: center;
+    -webkit-transition: inset-inline-start 0.3s ease, width 450ms ease;
+    -o-transition: inset-inline-start 0.3s ease, width 450ms ease;
+    transition: inset-inline-start 0.3s ease, width 450ms ease;
+    height: 72px;
+
+    .header-brand-img {
+
+        &.icon-logo,
+        &.icon-logo {
+            height: 2.5rem;
+        }
+    }
+}
+
+.user-pic {
+    margin-block-end: 0.8rem;
+}
+
+.side-menu .sub-category {
+    color: #74829c;
+    margin-block-end: 0.5rem;
+    padding-block-start: 0;
+    padding-inline-end: 30px;
+    padding-block-end: 2px;
+    padding-inline-start: 20px;
+    margin-block-end: 0;
+    white-space: nowrap;
+    position: relative;
+
+    &:not(:first-child) {
+        margin-block-start: .75rem;
+    }
+
+    h3 {
+        margin-block-end: 0;
+        text-transform: uppercase;
+        letter-spacing: .5px;
+        font-size: 11px;
+        font-weight: 500;
+    }
+}
+
+.side-menu li:not(:first-child) h3 {
+    margin-block-start: 0rem;
+}
+
+@media (min-width: 991px) {
+    .sidenav-toggled .header-brand-img.icon-logo {
+        display: block;
+        margin-inline-end: 0;
+    }
+}
+
+.side-badge,
+.slide-menu open.slide-menu hide .side-badge {
+    position: absolute;
+    inset-block-start: 18px;
+    inset-inline-end: 20px;
+    border-radius: 50px;
+    padding: 3px 6px;
+}
+
+
+/*-- Subslide ---*/
+
+.sub-side-menu__item {
+    padding: 8px;
+    font-size: 13.3px;
+    display: flex;
+    color: #74829c;
+
+    .sub-side-menu__label {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+    }
+}
+
+.slide-menu a:before {
+    content: '\e0b1';
+    font-family: 'typicons';
+    font-weight: bold !important;
+    margin-inline-end: 8px;
+    font-size: 8px;
+    position: relative;
+    opacity: .6;
+    inset-block-start: 1px;
+    color: #68798b;
+}
+.slide-menu .side-menu-label1 a:before {
+    content: '' !important;
+}
+
+.sub-slide.is-expanded .sub-angle {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sub-angle {
+    float: right;
+    line-height: 40px;
+    margin-block-start: 6px;
+    margin-inline-end: 14px;
+    font-size: 12px;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-transition: -webkit-transform .3s ease;
+    transition: -webkit-transform .3s ease;
+    -o-transition: transform .3s ease;
+    transition: transform .3s ease;
+    transition: transform .3s ease, -webkit-transform .3s ease;
+}
+
+.sub-slide.is-expanded .sub-slide-menu {
+    display: block !important;
+}
+
+.sub-slide-menu {
+    display: none !important;
+    padding-block-start: 0;
+    padding-inline-end: 15px;
+    padding-block-end: 0;
+    padding-inline-start: 0;
+    font-size: 13px !important;
+    list-style: none;
+}
+
+.sub-slide-item {
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    list-style: none;
+    padding-block: 8px !important;
+    padding-inline-end: 0 !important;
+    padding-inline-start: 24px !important;
+    color: #74829c;
+    font-size: 13px;
+}
+
+
+/*-- Subslide2 ---*/
+
+.sub-side-menu__item2 {
+    padding-block: 8px;
+    padding-inline-end: 2px;
+    padding-inline-start: 24px;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #74829c;
+    font-size: 12.5px;
+}
+
+.sub-slide2 .sub-side-menu__label2 {
+    flex: 1 1 auto;
+}
+
+.sub-angle2 {
+    float: right;
+    line-height: 40px;
+    margin-block-start: -2px;
+    margin-inline-end: 3px;
+    font-size: 12px;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-transition: -webkit-transform .3s ease;
+    transition: -webkit-transform .3s ease;
+    -o-transition: transform .3s ease;
+    transition: transform .3s ease;
+    transition: transform .3s ease, -webkit-transform .3s ease;
+}
+
+.sub-slide2.is-expanded .sub-angle2 {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.sub-slide2.is-expanded .sub-slide-menu2 {
+    display: block;
+}
+
+.sub-slide-menu2 {
+    display: none;
+    padding: 0;
+    font-size: .8rem !important;
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.sub-slide-item2 {
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    position: relative;
+    list-style: none;
+    padding-block: 8px !important;
+    padding-inline-end: 0 !important;
+    padding-inline-start: 40px !important;
+    font-size: 12.5px;
+    color: #74829c;
+}
+
+.app.sidebar-mini.sidenav-toggled .app-sidebar .side-header .header-brand-img.main-logo {
+    display: none;
+}
+
+.app.sidebar-mini.sidenav-toggled.sidenav-toggled-open .app-sidebar .side-header .header-brand-img.main-logo {
+    display: block;
+}
+
+.side-menu-label1 {
+    display: none;
+}
+
+.app.sidebar-mini {
+    .hor-angle {
+        display: none;
+    }
+}
+
+.sidetab-menu{
+    .menutabs-content, .tab-menu-heading {
+      display: none;
+    }
+}
+
+.sidebar-mini .app-sidebar {
+    width: 250px;
+}
+
+
+@media screen and (max-width: 991.9px) {
+    .side-menu {
+        margin-inline-start: 0 !important;
+        margin-inline-end: 0 !important;
+    }
+}
+
+
+// closed-menu
+
+.closed-menu {
+    @media (min-width: 992px) {
+        &.sidebar-mini.sidenav-toggled {
+            .app-header.header {
+                padding-inline-start: 17px;
+            }
+
+            .app-content {
+                margin-inline-start: 0px;
+            }
+        }
+
+        .app-content {
+            min-height: calc(100vh - 50px);
+            margin-block-end: 0 !important;
+            -webkit-transition: margin-inline-start 450ms ease;
+            -o-transition: margin-inline-start 450ms ease;
+            transition: margin-inline-start 450ms ease;
+            overflow: hidden;
+        }
+
+        &.app.sidenav-toggled {
+            .app-sidebar {
+                display: none;
+            }
+
+            .app-sidebar__overlay {
+                visibility: hidden;
+            }
+        }
+    }
+}
+
+// Icon with text 
+.icontext-menu {
+
+    @media (min-width: 992px) {
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open .app-sidebar {
+            width: 250px !important;
+            text-align: inherit;
+        }
+
+
+        &.sidebar-mini.sidenav-toggled .side-badge {
+            inset-inline-end: 36px;
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open .side-menu__label {
+            display: block !important;
+            font-size: 14px !important;
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open .side-badge {
+            inset-inline-end: 20px;
+        }
+    }
+}
+
+
+.icontext-menu {
+    @media (min-width: 992px) {
+        &.sidebar-mini.sidenav-toggled .app-sidebar {
+            width: 120px;
+        }
+
+        &.app.sidebar-mini.sidenav-toggled .side-header {
+            width: 120px !important;
+        }
+
+        &.sidebar-mini.sidenav-toggled .app-content {
+            margin-inline-start: 120px;
+        }
+
+        &.app.sidebar-mini.sidenav-toggled {
+            .side-menu__item {
+                padding: 12px 5px;
+                text-align: center;
+                display: block;
+            }
+
+            .side-menu__label {
+                display: block !important;
+                font-size: 12px;
+                padding-block-start: 0px;
+                margin-block-start: 0;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled {
+            .app-header.header {
+                padding-inline-start: 136px;
+            }
+
+            .side-menu .side-menu__icon:after {
+                inset-block-start: 6px;
+            }
+
+            &.sidenav-toggled-open {
+                .app-sidebar {
+                    width: 250px;
+                }
+
+                .side-header {
+                    width: 250px !important;
+                }
+
+                .side-menu__item {
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    padding: 10px 20px;
+                    text-align: inherit;
+                }
+
+                .side-menu__label {
+                    display: block !important;
+                    margin-block-start: 3px;
+                    font-size: 14px;
+                }
+
+                .side-menu .side-menu__icon:after {
+                    inset-block-start: 12px;
+                }
+            }
+        }
+
+        &.sidenav-toggled .app-sidebar__logo {
+            width: 119px;
+        }
+    }
+
+}
+
+// Hover submenu
+.hover-submenu {
+    @media (min-width: 992px) {
+
+        &.app.sidenav-toggled {
+			.main-content {
+				min-height: 1300px;
+			}
+        }
+        &.app.sidenav-toggled .app-sidebar__overlay {
+            visibility: hidden;
+        }
+
+        &.sidenav-toggled .app-sidebar {
+            overflow: visible !important;
+            position: absolute !important;
+        }
+
+        .app-sidebar .slide {
+            position: relative;
+            display: block;
+        }
+
+        &.app.sidebar-mini.sidenav-toggled {
+            .side-header {
+                width: 120px !important;
+            }
+
+            .side-menu__item {
+                padding: 12px 5px;
+                text-align: center;
+                display: block;
+            }
+
+            .side-menu__label {
+                display: block !important;
+                font-size: 12px;
+                padding-block-start: 0px;
+                margin-block-start: 0;
+                font-weight: 500;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled {
+            .app-sidebar {
+                inset-inline-start: 0;
+                width: 120px;
+                overflow: hidden;
+            }
+
+            .app-header.header {
+                padding-inline-start: 136px;
+            }
+
+            .app-content {
+                margin-inline-start: 120px;
+            }
+        }
+
+        &.app.sidebar-mini.sidenav-toggled.sidenav-toggled-open {
+            .app-sidebar .side-header .header-brand-img.main-logo {
+                display: none !important;
+            }
+
+            .side-header .header-brand-img.icon-logo {
+                display: block !important;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open .slide {
+
+            .slide-menu {
+                position: absolute;
+                inset-inline-start: 120px;
+                min-width: 180px;
+                opacity: 1;
+                z-index: 9999;
+                visibility: hidden;
+                inset-block-start: 16px;
+                display: block;
+                border-start-start-radius: 0 !important;
+                border-start-end-radius: 4px !important;
+                border-end-end-radius: 4px !important;
+                border-end-start-radius: 0 !important;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled {
+            &.sidenav-toggled-open .slide:hover .slide-menu {
+                visibility: visible;
+                display: block !important;
+                height: auto !important;
+            }
+
+            .slide-menu {
+                background: $white;
+                transition: none !important;
+                box-shadow: 8px 8px 17px rgb(0 0 0 / 5%);
+                border: 1px solid $border;
+                
+                .sidemenu-list {
+                    margin-block-start: 10px;
+                }
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open {
+
+            .app-sidebar {
+                padding-block-start: 71px;
+            }
+
+            .side-menu__icon {
+                font-size: 19px;
+            }
+
+            .side-menu .sub-category,
+            .angle {
+                display: none;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open {
+            .side-menu {
+                margin-block-start: 20px !important;
+                padding-inline: 0 !important;
+                padding-block-start: 0 !important;
+                padding-block-end: 40px !important;
+            }
+
+            .side-menu__icon {
+                background: none !important;
+                box-shadow: none;
+                margin-inline-end: 0 !important;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled .slide-menu {
+            max-height: inherit !important;
+            padding-block-end: 8px !important;
+            margin-block: 0 !important;
+            height: auto !important;
+            overflow: hidden !important;
+        }
+
+        .sub-side-menu__item {
+            padding: 8px 17px;
+        }
+
+        .slide-menu li {
+            position: relative;
+        }
+
+        .sub-angle {
+            float: right;
+            transform-origin: center;
+            margin-inline-end: 0;
+        }
+
+        .sub-slide-item2 {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            position: relative;
+            list-style: none;
+            padding-block: 8px !important;
+            padding-inline-end: 0 !important;
+            padding-inline-start: 35px !important;
+        }
+
+        .slide-item {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 8px 17px;
+            font-size: 13.3px;
+            color: #74829c;
+        }
+
+        .slide-menu {
+            padding-inline-start: 3px;
+        }
+
+        &.sidebar-mini.sidenav-toggled .side-badge {
+            inset-inline-end: 36px;
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open .side-badge {
+            inset-block-start: 1px;
+            inset-inline-end: 36px;
+        }
+    }
+}
+
+// Hover submenu1
+.hover-submenu1 {
+    @media (min-width: 992px) {
+
+        &.app.sidenav-toggled {
+			.main-content {
+				min-height: 1300px;
+			}
+        }
+        &.app.sidenav-toggled .app-sidebar__overlay {
+            visibility: hidden;
+        }
+
+        &.sidenav-toggled .app-sidebar {
+            overflow: visible !important;
+            position: absolute !important;
+        }
+
+        .app-sidebar .slide {
+            position: relative;
+            display: block;
+        }
+
+        &.app.sidebar-mini.sidenav-toggled {
+            .side-header {
+                width: 80px !important;
+            }
+
+            .side-menu__item {
+                padding: 12px 5px;
+                text-align: center;
+                display: block;
+            }
+
+            .side-menu__label {
+                display: none !important;
+                font-size: 12px;
+                padding-block-start: 0px;
+                margin-block-start: 0;
+                font-weight: 500;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled {
+            .app-sidebar {
+                inset-inline-start: 0;
+                width: 80px;
+                overflow: hidden;
+            }
+
+            .app-content {
+                margin-inline-start: 80px;
+            }
+        }
+
+        &.app.sidebar-mini.sidenav-toggled.sidenav-toggled-open {
+            .app-sidebar .side-header .header-brand-img.main-logo {
+                display: none !important;
+            }
+
+            .side-header .header-brand-img.icon-logo {
+                display: block !important;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open .slide {
+
+            .slide-menu {
+                position: absolute;
+                inset-inline-start: 80px;
+                min-width: 180px;
+                opacity: 1;
+                z-index: 9999;
+                visibility: hidden;
+                inset-block-start: 16px;
+                display: block;
+                border-start-start-radius: 0 !important;
+                border-start-end-radius: 4px !important;
+                border-end-end-radius: 4px !important;
+                border-end-start-radius: 0 !important;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled {
+            &.sidenav-toggled-open .slide:hover .slide-menu {
+                visibility: visible;
+                display: block !important;
+                height: auto !important;
+            }
+
+            .slide-menu {
+                background: $white;
+                transition: none !important;
+                box-shadow: 8px 8px 17px rgb(0 0 0 / 10%);
+                border: 1px solid $border;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open {
+
+            .app-sidebar {
+                padding-block-start: 71px;
+            }
+
+            .side-menu__icon {
+                font-size: 19px;
+            }
+
+            .side-menu .sub-category,
+            .angle {
+                display: none;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open {
+            .side-menu {
+                margin-block-start: 20px !important;
+                padding-inline: 0 !important;
+                padding-block-start: 0 !important;
+                padding-block-end: 40px !important;
+            } 
+
+            .side-menu__icon {
+                background: none !important;
+                box-shadow: none;
+                margin-inline-end: 0 !important;
+            }
+
+            .side-badge {
+                inset-block-start: 1px;
+            }
+        }
+
+        &.sidebar-mini.sidenav-toggled .slide-menu {
+            max-height: inherit !important;
+            padding-block-end: 8px !important;
+            margin-block: 0 !important;
+            height: auto !important;
+            overflow: hidden !important;
+        }
+
+        .sub-side-menu__item {
+            padding: 8px 17px;
+        }
+
+        .slide-menu li {
+            position: relative;
+        }
+
+        .sub-angle {
+            float: right;
+            transform-origin: center;
+            margin-inline-end: 0;
+        }
+
+        .sub-slide-item2 {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            position: relative;
+            list-style: none;
+            padding-block: 8px !important;
+            padding-inline-start: 0 !important;
+            padding-inline-start: 35px !important;
+        }
+
+        .slide-item {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            padding: 8px 17px;
+            font-size: 13.3px;
+            color: #74829c;
+        }
+
+        .slide-menu {
+            padding-inline-start: inherit;
+        }
+
+        .side-menu-label1 a::before {
+            display: none;
+        }
+
+        .sub-slide-item {
+            padding-block: 8px !important;
+            padding-inline-end: 0 !important;
+            padding-inline-start: 27px !important;
+        }
+
+        &.sidebar-mini.sidenav-toggled.sidenav-toggled-open .side-menu-label1 {
+            display: block !important;
+            font-size: 14px;
+            font-weight: 500;
+            border-block-end: 1px solid $border;
+            padding: 10px 20px !important;
+            margin-block-end: 6px;
+        }
+    }
+}
+
+// ----- DOUBLE-MENU -------//
+.double-menu {
+    @media (min-width:992px) {
+        .main-content {
+        min-height: 1300px;
+        }
+      &.app {
+            .slide .side-menu__item:hover+.slide-menu {
+                 visibility: hidden;
+            }
+    
+            .app-sidebar {
+                position: fixed !important;
+                overflow: visible !important;
+                inset-inline-start: 0;
+                width: 80px !important;
+            }
+    
+            .side-menu__label {
+                display: none !important;
+                font-size: 11px !important;
+                white-space: nowrap;
+                display: block;
+                position: relative;
+                padding: 0;
+                margin: 0;
+                inset-inline-start: 0;
+                color: $color;
+                opacity: 1;
+                background: transparent;
+                box-shadow: none;
+            }
+    
+            .side-menu-label1 {
+                display: block !important;
+                font-size: 15px;
+                font-weight: 500;
+                padding: 10px 22px !important;
+                width: 200px;
+                margin-block-end: 6px;
+                margin-block-start: -64px;
+    
+                a {
+                    color: $primary !important;
+                }
+            }
+    
+            .side-menu__icon {
+                margin-inline-end: 0;
+                margin-inline-start: 0;
+                margin: 0 auto !important;
+            }
+    
+            .app-sidebar__toggle .close-toggle {
+                display: none;
+            }
+    
+            .app-header {
+                padding-inline-start: 295px;
+            }
+    
+            .side-header {
+                width: 80px;
+                
+                .header-brand-img.main-logo {
+                    display: none !important;
+                }
+        
+                .header-brand-img.icon-logo  {
+                    display: block !important;
+                    text-align: center;
+                }
+            }
+    
+            .app-content {
+                margin-inline-start: 278px;
+            }
+    
+            .app-sidebar__overlay {
+                visibility: hidden;
+            }
+    
+            .slide.is-expanded .slide-menu {
+            display: none;
+            }
+    
+            .slide .slide-menu {
+                position: absolute;
+                inset-inline-start: 69px;
+                min-width: 200px;
+                opacity: 1;
+                z-index: 9999;
+                visibility: hidden;
+                inset-block-start: 0;
+                display: block;
+                max-height: inherit;
+            }
+    
+            .ps>.ps__rail-y {
+                display: none !important;
+            }
+    
+            .slide-menu {
+                padding-inline-start: 0 !important;
+                position: absolute;
+                background: $white;
+                opacity: 1;
+                visibility: visible;
+                z-index: 999;
+                inset-inline-start: 80px;
+                width: 200px;
+                border: 1px solid $border;
+                transition: none !important;
+                display: block !important;
+                box-shadow: none;
+                inset-block-start: 0;
+            }
+    
+            .slide .slide-menu.double-menu-active {
+                visibility: visible !important;
+                display: block !important;
+                height: 100% !important;
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-start: 79px;
+                padding-block-start: 81px !important;
+                border-radius: 0 !important;
+                border-block-start: 0;
+                overflow:hidden scroll;
+            }
+    
+            .side-menu .sub-category {
+            display: none !important;
+            }
+    
+            .side-menu .slide .side-menu__item.active {
+                display: block;
+                margin: 0 auto !important;
+                padding: 10px !important;
+                border-radius: 7px;
+                text-align: center;
+            }
+    
+            .side-menu .slide .side-menu__item {
+                display: block;
+                padding: 10px !important;
+                border-radius: 7px;
+                text-align: center;
+                i.angle {
+                    display: none;
+                }
+            }
+    
+            .sub-slide a {
+                color: #74829c;
+                text-decoration: none;
+                &:hover {
+                    color: $primary;
+                }
+            }
+    
+            .slide-item {
+                padding-block: 10px;
+                padding-inline: 30px;
+            }
+    
+            .sub-side-menu__item {
+                padding-block: 10px;
+                padding-inline-start: 30px !important;
+                padding-inline-end: 15px !important;
+            }
+    
+            .sub-slide-item {
+                padding-block: 10px;
+                padding-inline-start: 35px !important;
+                padding-inline-end: 15px !important;
+            }
+    
+            .sub-slide-menu1 .sub-slide-item2 {
+                padding-block: 10px;
+                padding-inline-start: 70px !important;
+                padding-inline-end: 15px !important;
+            }
+    
+            .app-sidebar .slide {
+                position: inherit;
+                display: block;
+            }
+    
+            .side-badge {
+                display: none;
+            }
+    
+            .sub-slide-menu .sub-side-menu__item:before {
+                content: "\f22d";
+                font-family: "Font Awesome 5 Free";
+                position: absolute;
+                inset-inline-start: 25px !important;
+                font-size: 9px;
+                color: $color;
+                font-weight: 900;
+            }
+    
+            &.sidenav-toggled {
+            .app-header {
+                padding-inline-start: 95px;
+            }
+    
+            .app-content {
+                margin-inline-start: 80px;
+            }
+    
+            .app-sidebar__toggle .close-toggle {
+                display: block;
+            }
+            }
+    
+            .app-sidebar .slide-menu .side-menu-label1 a:before {
+            content: none;
+            }
+  
+        }
+        .responsive-navbar .pulse {
+            inset-block-start: 8px;
+        }
+        .responsive-navbar .pulse-danger {
+            inset-block-start: 8px;
+            inset-inline-end: 7px;
+        }
+        .resp-tab-content-active {
+            display: none;
+        }
+    }
+}
+  
+// -----! DOUBLE-MENU -------//
+
+// ----- DOUBLE-MENU-TABS -------//
+.double-menu-tabs {
+    @media (min-width:992px) {
+        .main-content {
+            min-height: 1300px;
+        }
+      &.app {
+            .tabs-menu a:before, .latest-timeline a:before, .side-account a:before, .list-group-item a:before {
+                content: none !important;
+            }
+
+            .slide .side-menu__item:hover+.slide-menu {
+                visibility: hidden;
+            }
+    
+            .app-sidebar {
+                position: fixed !important;
+                overflow: visible !important;
+                inset-inline-start: 0;
+                width: 80px !important;
+            }
+    
+            .side-menu__label {
+                display: none !important;
+                font-size: 11px !important;
+                white-space: nowrap;
+                display: block;
+                position: relative;
+                padding: 0;
+                margin: 0;
+                inset-inline-start: 0;
+                color: $color;
+                opacity: 1;
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .side-badge {
+                display: none;
+            }
+    
+            .side-menu-label1 {
+            display: block !important;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 5px 8px !important;
+            width: 200px;
+            margin-block-start: -64px;
+    
+                a {
+                    color: $color !important;
+                }
+            }
+    
+            .side-menu__icon {
+                margin-inline-end: 0;
+                margin-inline-start: 0;
+                margin: 0 auto !important;
+            }
+    
+            .app-sidebar__toggle .close-toggle {
+                display: none;
+            }
+    
+            .app-header {
+                padding-inline-start: 376px !important;
+            }
+    
+            .side-header {
+                width: 80px;
+                
+                .header-brand-img.main-logo {
+                    display: none !important;
+                }
+        
+                .header-brand-img.icon-logo  {
+                    display: block !important;
+                    text-align: center;
+                }
+            }
+    
+            .app-content {
+                margin-inline-start: 360px;
+            }
+    
+            .app-sidebar__overlay {
+                visibility: hidden;
+            }
+    
+            .slide.is-expanded .slide-menu {
+                display: none;
+            }
+    
+            .slide .slide-menu {
+                position: absolute;
+                inset-inline-start: 70px;
+                min-width: 280px;
+                opacity: 1;
+                z-index: 9999;
+                visibility: hidden;
+                inset-block-start: 0;
+                display: block;
+                max-height: inherit;
+            }
+    
+            &.sidenav-toggled .slide .slide-menu {
+                position: absolute;
+                visibility: hidden;
+            }
+    
+            .ps>.ps__rail-y {
+                display: none !important;
+            }
+    
+            .slide-menu {
+                padding-inline-start: 0 !important;
+                position: absolute;
+                background: $white;
+                opacity: 1;
+                visibility: hidden;
+                z-index: 999; 
+                inset-inline-start: 80px;
+                width: 280px;
+                transition: none !important;
+                display: block !important;
+                box-shadow: none;
+                inset-block-start: 0;
+            }
+    
+            .slide .slide-menu.double-menu-active {
+                visibility: visible !important;
+                display: block !important;
+                height: 100% !important;
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-start: 80px;
+                padding: 20px 14px !important;
+                border-radius: 0 !important;
+                border-block-start: 0;
+                overflow:hidden scroll;
+                border-inline-end: 1px solid $border;
+            }
+    
+            .side-menu .sub-category {
+                display: none !important;
+            }
+    
+            .side-menu .slide .side-menu__item.active {
+                display: block;
+                margin: 0 auto !important;
+                padding: 10px !important;
+                border-radius: 7px;
+                text-align: center;
+            }
+    
+            .side-menu .slide .side-menu__item {
+                display: block;
+                padding: 10px !important;
+                border-radius: 7px;
+                text-align: center;
+                i.angle {
+                    display: none;
+                }
+            }
+    
+            .sub-slide a {
+                text-decoration: none;
+                &:hover {
+                    color: $primary;
+                }
+            }
+    
+            .slide-item {
+                padding-block: 10px;
+                padding-inline-start: 15px;
+                padding-inline-end: 15px;
+            }
+    
+            .sub-side-menu__item {
+                padding-block: 10px;
+                padding-inline-start: 15px !important;
+                padding-inline-end: 15px !important;
+            }
+    
+            .sub-slide-item {
+                padding-block: 10px;
+                padding-inline-start: 35px !important;
+                padding-inline-end: 15px !important;
+            }
+    
+            .sub-slide-menu1 .sub-slide-item2 {
+                padding-block: 10px;
+                padding-inline-start: 55px !important;
+                padding-inline-end: 15px !important;
+            }
+    
+            .app-sidebar .slide {
+                position: inherit;
+                display: block;
+            }
+    
+            &.sidenav-toggled {
+                .app-header {
+                    padding-inline-start: 94px !important;
+                }
+    
+                .app-content {
+                    margin-inline-start: 80px;
+                }
+    
+                .app-sidebar__toggle .close-toggle {
+                    display: block;
+                }
+            }
+    
+            .app-sidebar .slide-menu .side-menu-label1 a:before {
+                content: none;
+            }
+    
+            .slide-menu .tabs-menu ul li a {
+                padding: 6px 7px;
+                margin: 3px;
+                font-size: 13px;
+                text-align: center;
+                border: 1px solid $border !important;
+                color: $color !important;
+            }
+    
+            .tabs-menu, .side-account, .latest-timeline {
+                a:before{
+                    content: none
+                }
+            }
+    
+            .slide-menu .sidetab-menu .panel-tabs li a {
+                &.active, &:hover {
+                        background: $primary;
+                        color: $white !important;
+                        border: 1px solid $primary;
+                        position: relative;
+                        p {
+                        color: $white;
+                        }
+                }
+                p {
+                    margin-block-end: 0;
+                    font-size: 12px;
+                }
+            }
+            
+            .sidetab-menu{
+                .menutabs-content, .tab-menu-heading {
+                    display: block;
+                    padding-inline: 15px;
+                }
+            }
+    
+            .side-account li {
+                padding: 7px 0;
+                font-size: 14px;
+                a {
+                    color: $color;
+                }
+            }
+    
+            .sidemenu-list {
+                padding-block-start: 70px;
+            }
+    
+            .sidetab-menu .panel-tabs li a {
+                &.active:before, &:hover:before {
+                    content: '';
+                    position: absolute;
+                    width: 10px;
+                    height: 6px;
+                    inset-block-end: -1px;
+                    margin: 0 auto;
+                    inset-inline-start: 0;
+                    inset-inline-end: 0;
+                    z-index: 1;
+                    inset-block-start: 41px;
+                    display: block;
+                    border-start-start-radius: 50px;
+                    border-start-end-radius: 50px;
+                    background: $white;
+                    opacity: 1;
+                }
+            }
+  
+            .app-sidebar .main-sidemenu #side1,
+            .app-sidebar .main-sidemenu #side5,
+            .app-sidebar .main-sidemenu #side9,
+            .app-sidebar .main-sidemenu #side13,
+            .app-sidebar .main-sidemenu #side17,
+            .app-sidebar .main-sidemenu #side21,
+            .app-sidebar .main-sidemenu #side25,
+            .app-sidebar .main-sidemenu #side29,
+            .app-sidebar .main-sidemenu #side33,
+            .app-sidebar .main-sidemenu #side37,
+            .app-sidebar .main-sidemenu #side41 {
+            display: none !important;
+            }
+
+            .app-sidebar .main-sidemenu #side1.active,
+            .app-sidebar .main-sidemenu #side5.active,
+            .app-sidebar .main-sidemenu #side9.active,
+            .app-sidebar .main-sidemenu #side13.active,
+            .app-sidebar .main-sidemenu #side17.active,
+            .app-sidebar .main-sidemenu #side21.active,
+            .app-sidebar .main-sidemenu #side25.active,
+            .app-sidebar .main-sidemenu #side29.active,
+            .app-sidebar .main-sidemenu #side33.active,
+            .app-sidebar .main-sidemenu #side37.active,
+            .app-sidebar .main-sidemenu #side41.active {
+                .sidemenu-list {
+                    display: block !important;
+                }
+            }
+
+            .app-sidebar .main-sidemenu #side1.active,
+            .app-sidebar .main-sidemenu #side5.active,
+            .app-sidebar .main-sidemenu #side9.active,
+            .app-sidebar .main-sidemenu #side13.active,
+            .app-sidebar .main-sidemenu #side17.active,
+            .app-sidebar .main-sidemenu #side21.active,
+            .app-sidebar .main-sidemenu #side25.active,
+            .app-sidebar .main-sidemenu #side29.active,
+            .app-sidebar .main-sidemenu #side33.active,
+            .app-sidebar .main-sidemenu #side37.active,
+            .app-sidebar .main-sidemenu #side2.active,
+            .app-sidebar .main-sidemenu #side3.active,
+            .app-sidebar .main-sidemenu #side4.active,
+            .app-sidebar .main-sidemenu #side6.active,
+            .app-sidebar .main-sidemenu #side7.active,
+            .app-sidebar .main-sidemenu #side8.active,
+            .app-sidebar .main-sidemenu #side10.active,
+            .app-sidebar .main-sidemenu #side11.active,
+            .app-sidebar .main-sidemenu #side12.active,
+            .app-sidebar .main-sidemenu #side14.active,
+            .app-sidebar .main-sidemenu #side15.active,
+            .app-sidebar .main-sidemenu #side16.active,
+            .app-sidebar .main-sidemenu #side18.active,
+            .app-sidebar .main-sidemenu #side19.active,
+            .app-sidebar .main-sidemenu #side20.active,
+            .app-sidebar .main-sidemenu #side22.active,
+            .app-sidebar .main-sidemenu #side23.active,
+            .app-sidebar .main-sidemenu #side24.active,
+            .app-sidebar .main-sidemenu #side26.active,
+            .app-sidebar .main-sidemenu #side27.active,
+            .app-sidebar .main-sidemenu #side28.active,
+            .app-sidebar .main-sidemenu #side30.active,
+            .app-sidebar .main-sidemenu #side31.active,
+            .app-sidebar .main-sidemenu #side32.active,
+            .app-sidebar .main-sidemenu #side34.active,
+            .app-sidebar .main-sidemenu #side35.active,
+            .app-sidebar .main-sidemenu #side36.active,
+            .app-sidebar .main-sidemenu #side38.active,
+            .app-sidebar .main-sidemenu #side39.active,
+            .app-sidebar .main-sidemenu #side40.active,
+            .app-sidebar .main-sidemenu #side41.active,
+            .app-sidebar .main-sidemenu #side42.active,
+            .app-sidebar .main-sidemenu #side43.active,
+            .app-sidebar .main-sidemenu #side44.active {
+            display: block !important;
+            }
+            .double-menu-active {
+                .panel-tabs {
+                    display: flex !important;
+                }
+            }
+  
+        }
+
+        .responsive-navbar .pulse {
+            inset-block-start: 8px;
+        }
+        .responsive-navbar .pulse-danger {
+            inset-block-start: 8px;
+            inset-inline-end: 7px;
+        }
+  
+        .app-sidebar {
+            .main-sidemenu {
+    
+            .tab-content>.tab-pane {
+                display: none !important;
+            }
+            .tab-content>.tab-pane.active {
+                display: block !important;
+            }
+            }
+        }
+        .resp-tab-content-active {
+            display: block;
+        }
+    }
+    @media (min-width: 992px) and (max-width: 1075px) {
+        .header-right-icons .nav-link.icon {
+            margin: 5px 0;
+        }
+    }
+}
+.sidetab-menu .menutabs-content,
+.sidetab-menu .tab-menu-heading {
+    display: none;
+}
+  // -----! DOUBLE-MENU-TABS -------//
+
+@media (min-width: 992px) {
+    .default-menu.app .app-sidebar .main-sidemenu #side2,
+    .default-menu.app .app-sidebar .main-sidemenu #side3,
+    .default-menu.app .app-sidebar .main-sidemenu #side4,
+    .default-menu.app .app-sidebar .main-sidemenu #side6,
+    .default-menu.app .app-sidebar .main-sidemenu #side7,
+    .default-menu.app .app-sidebar .main-sidemenu #side8,
+    .default-menu.app .app-sidebar .main-sidemenu #side10,
+    .default-menu.app .app-sidebar .main-sidemenu #side11,
+    .default-menu.app .app-sidebar .main-sidemenu #side12,
+    .default-menu.app .app-sidebar .main-sidemenu #side14,
+    .default-menu.app .app-sidebar .main-sidemenu #side15,
+    .default-menu.app .app-sidebar .main-sidemenu #side16,
+    .default-menu.app .app-sidebar .main-sidemenu #side18,
+    .default-menu.app .app-sidebar .main-sidemenu #side19,
+    .default-menu.app .app-sidebar .main-sidemenu #side20,
+    .default-menu.app .app-sidebar .main-sidemenu #side22,
+    .default-menu.app .app-sidebar .main-sidemenu #side23,
+    .default-menu.app .app-sidebar .main-sidemenu #side24,
+    .default-menu.app .app-sidebar .main-sidemenu #side26,
+    .default-menu.app .app-sidebar .main-sidemenu #side27,
+    .default-menu.app .app-sidebar .main-sidemenu #side28,
+    .default-menu.app .app-sidebar .main-sidemenu #side30,
+    .default-menu.app .app-sidebar .main-sidemenu #side31,
+    .default-menu.app .app-sidebar .main-sidemenu #side32,
+    .default-menu.app .app-sidebar .main-sidemenu #side34,
+    .default-menu.app .app-sidebar .main-sidemenu #side35,
+    .default-menu.app .app-sidebar .main-sidemenu #side36,
+    .default-menu.app .app-sidebar .main-sidemenu #side38,
+    .default-menu.app .app-sidebar .main-sidemenu #side39,
+    .default-menu.app .app-sidebar .main-sidemenu #side40,
+    .default-menu.app .app-sidebar .main-sidemenu #side42,
+    .default-menu.app .app-sidebar .main-sidemenu #side43,
+    .default-menu.app .app-sidebar .main-sidemenu #side44,
+
+    .closed-menu.app .app-sidebar .main-sidemenu #side2,
+    .closed-menu.app .app-sidebar .main-sidemenu #side3,
+    .closed-menu.app .app-sidebar .main-sidemenu #side4,
+    .closed-menu.app .app-sidebar .main-sidemenu #side6,
+    .closed-menu.app .app-sidebar .main-sidemenu #side7,
+    .closed-menu.app .app-sidebar .main-sidemenu #side8,
+    .closed-menu.app .app-sidebar .main-sidemenu #side10,
+    .closed-menu.app .app-sidebar .main-sidemenu #side11,
+    .closed-menu.app .app-sidebar .main-sidemenu #side12,
+    .closed-menu.app .app-sidebar .main-sidemenu #side14,
+    .closed-menu.app .app-sidebar .main-sidemenu #side15,
+    .closed-menu.app .app-sidebar .main-sidemenu #side16,
+    .closed-menu.app .app-sidebar .main-sidemenu #side18,
+    .closed-menu.app .app-sidebar .main-sidemenu #side19,
+    .closed-menu.app .app-sidebar .main-sidemenu #side20,
+    .closed-menu.app .app-sidebar .main-sidemenu #side22,
+    .closed-menu.app .app-sidebar .main-sidemenu #side23,
+    .closed-menu.app .app-sidebar .main-sidemenu #side24,
+    .closed-menu.app .app-sidebar .main-sidemenu #side26,
+    .closed-menu.app .app-sidebar .main-sidemenu #side27,
+    .closed-menu.app .app-sidebar .main-sidemenu #side28,
+    .closed-menu.app .app-sidebar .main-sidemenu #side30,
+    .closed-menu.app .app-sidebar .main-sidemenu #side31,
+    .closed-menu.app .app-sidebar .main-sidemenu #side32,
+    .closed-menu.app .app-sidebar .main-sidemenu #side34,
+    .closed-menu.app .app-sidebar .main-sidemenu #side35,
+    .closed-menu.app .app-sidebar .main-sidemenu #side36,
+    .closed-menu.app .app-sidebar .main-sidemenu #side38,
+    .closed-menu.app .app-sidebar .main-sidemenu #side39,
+    .closed-menu.app .app-sidebar .main-sidemenu #side40,
+    .closed-menu.app .app-sidebar .main-sidemenu #side42,
+    .closed-menu.app .app-sidebar .main-sidemenu #side43,
+    .closed-menu.app .app-sidebar .main-sidemenu #side44,
+
+    .icontext-menu.app .app-sidebar .main-sidemenu #side2,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side3,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side4,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side6,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side7,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side8,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side10,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side11,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side12,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side14,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side15,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side16,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side18,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side19,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side20,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side22,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side23,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side24,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side26,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side27,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side28,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side30,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side31,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side32,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side34,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side35,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side36,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side38,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side39,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side40,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side42,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side43,
+    .icontext-menu.app .app-sidebar .main-sidemenu #side44,
+
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side2,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side3,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side4,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side6,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side7,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side8,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side10,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side11,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side12,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side14,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side15,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side16,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side18,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side19,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side20,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side22,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side23,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side24,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side26,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side27,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side28,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side30,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side31,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side32,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side34,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side35,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side36,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side38,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side39,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side40,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side42,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side43,
+    .sideicon-menu.app .app-sidebar .main-sidemenu #side44,
+
+    .hover-submenu.app .app-sidebar .main-sidemenu #side2,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side3,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side4,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side6,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side7,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side8,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side10,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side11,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side12,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side14,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side15,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side16,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side18,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side19,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side20,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side22,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side23,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side24,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side26,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side27,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side28,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side30,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side31,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side32,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side34,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side35,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side36,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side38,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side39,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side40,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side42,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side43,
+    .hover-submenu.app .app-sidebar .main-sidemenu #side44,
+
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side2,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side3,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side4,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side6,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side7,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side8,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side10,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side11,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side12,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side14,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side15,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side16,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side18,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side19,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side20,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side22,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side23,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side24,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side26,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side27,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side28,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side30,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side31,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side32,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side34,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side35,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side36,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side38,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side39,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side40,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side42,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side43,
+    .hover-submenu1.app .app-sidebar .main-sidemenu #side44,
+
+    .double-menu.app .app-sidebar .main-sidemenu #side2,
+    .double-menu.app .app-sidebar .main-sidemenu #side3,
+    .double-menu.app .app-sidebar .main-sidemenu #side4,
+    .double-menu.app .app-sidebar .main-sidemenu #side6,
+    .double-menu.app .app-sidebar .main-sidemenu #side7,
+    .double-menu.app .app-sidebar .main-sidemenu #side8,
+    .double-menu.app .app-sidebar .main-sidemenu #side10,
+    .double-menu.app .app-sidebar .main-sidemenu #side11,
+    .double-menu.app .app-sidebar .main-sidemenu #side12,
+    .double-menu.app .app-sidebar .main-sidemenu #side14,
+    .double-menu.app .app-sidebar .main-sidemenu #side15,
+    .double-menu.app .app-sidebar .main-sidemenu #side16,
+    .double-menu.app .app-sidebar .main-sidemenu #side18,
+    .double-menu.app .app-sidebar .main-sidemenu #side19,
+    .double-menu.app .app-sidebar .main-sidemenu #side20,
+    .double-menu.app .app-sidebar .main-sidemenu #side22,
+    .double-menu.app .app-sidebar .main-sidemenu #side23,
+    .double-menu.app .app-sidebar .main-sidemenu #side24,
+    .double-menu.app .app-sidebar .main-sidemenu #side26,
+    .double-menu.app .app-sidebar .main-sidemenu #side27,
+    .double-menu.app .app-sidebar .main-sidemenu #side28,
+    .double-menu.app .app-sidebar .main-sidemenu #side30,
+    .double-menu.app .app-sidebar .main-sidemenu #side31,
+    .double-menu.app .app-sidebar .main-sidemenu #side32,
+    .double-menu.app .app-sidebar .main-sidemenu #side34,
+    .double-menu.app .app-sidebar .main-sidemenu #side35,
+    .double-menu.app .app-sidebar .main-sidemenu #side36,
+    .double-menu.app .app-sidebar .main-sidemenu #side38,
+    .double-menu.app .app-sidebar .main-sidemenu #side39,
+    .double-menu.app .app-sidebar .main-sidemenu #side40,
+    .double-menu.app .app-sidebar .main-sidemenu #side42,
+    .double-menu.app .app-sidebar .main-sidemenu #side43,
+    .double-menu.app .app-sidebar .main-sidemenu #side44 {
+        display: none !important;
+    }
+}
+.default-menu.app .app-sidebar .main-sidemenu #side2.active,
+.default-menu.app .app-sidebar .main-sidemenu #side3.active,
+.default-menu.app .app-sidebar .main-sidemenu #side4.active,
+.default-menu.app .app-sidebar .main-sidemenu #side6.active,
+.default-menu.app .app-sidebar .main-sidemenu #side7.active,
+.default-menu.app .app-sidebar .main-sidemenu #side8.active,
+.default-menu.app .app-sidebar .main-sidemenu #side10.active,
+.default-menu.app .app-sidebar .main-sidemenu #side11.active,
+.default-menu.app .app-sidebar .main-sidemenu #side12.active,
+.default-menu.app .app-sidebar .main-sidemenu #side14.active,
+.default-menu.app .app-sidebar .main-sidemenu #side15.active,
+.default-menu.app .app-sidebar .main-sidemenu #side16.active,
+.default-menu.app .app-sidebar .main-sidemenu #side18.active,
+.default-menu.app .app-sidebar .main-sidemenu #side19.active,
+.default-menu.app .app-sidebar .main-sidemenu #side20.active,
+.default-menu.app .app-sidebar .main-sidemenu #side22.active,
+.default-menu.app .app-sidebar .main-sidemenu #side23.active,
+.default-menu.app .app-sidebar .main-sidemenu #side24.active,
+.default-menu.app .app-sidebar .main-sidemenu #side26.active,
+.default-menu.app .app-sidebar .main-sidemenu #side27.active,
+.default-menu.app .app-sidebar .main-sidemenu #side28.active,
+.default-menu.app .app-sidebar .main-sidemenu #side30.active,
+.default-menu.app .app-sidebar .main-sidemenu #side31.active,
+.default-menu.app .app-sidebar .main-sidemenu #side32.active,
+.default-menu.app .app-sidebar .main-sidemenu #side34.active,
+.default-menu.app .app-sidebar .main-sidemenu #side35.active,
+.default-menu.app .app-sidebar .main-sidemenu #side36.active,
+.default-menu.app .app-sidebar .main-sidemenu #side38.active,
+.default-menu.app .app-sidebar .main-sidemenu #side39.active,
+.default-menu.app .app-sidebar .main-sidemenu #side40.active,
+.default-menu.app .app-sidebar .main-sidemenu #side42.active,
+.default-menu.app .app-sidebar .main-sidemenu #side43.active,
+.default-menu.app .app-sidebar .main-sidemenu #side44.active,
+
+.closed-menu.app .app-sidebar .main-sidemenu #side2.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side3.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side4.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side6.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side7.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side8.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side10.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side11.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side12.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side14.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side15.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side16.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side18.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side19.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side20.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side22.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side23.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side24.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side26.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side27.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side28.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side30.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side31.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side32.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side34.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side35.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side36.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side38.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side39.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side40.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side42.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side43.active,
+.closed-menu.app .app-sidebar .main-sidemenu #side44.active,
+
+.icontext-menu.app .app-sidebar .main-sidemenu #side2.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side3.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side4.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side6.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side7.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side8.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side10.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side11.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side12.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side14.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side15.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side16.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side18.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side19.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side20.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side22.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side23.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side24.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side26.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side27.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side28.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side30.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side31.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side32.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side34.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side35.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side36.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side38.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side39.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side40.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side42.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side43.active,
+.icontext-menu.app .app-sidebar .main-sidemenu #side44.active,
+
+.sideicon-menu.app .app-sidebar .main-sidemenu #side2.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side3.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side4.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side6.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side7.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side8.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side10.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side11.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side12.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side14.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side15.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side16.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side18.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side19.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side20.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side22.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side23.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side24.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side26.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side27.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side28.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side30.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side31.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side32.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side34.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side35.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side36.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side38.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side39.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side40.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side42.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side43.active,
+.sideicon-menu.app .app-sidebar .main-sidemenu #side44.active,
+
+.hover-submenu.app .app-sidebar .main-sidemenu #side2.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side3.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side4.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side6.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side7.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side8.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side10.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side11.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side12.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side14.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side15.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side16.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side18.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side19.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side20.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side22.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side23.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side24.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side26.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side27.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side28.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side30.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side31.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side32.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side34.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side35.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side36.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side38.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side39.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side40.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side42.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side43.active,
+.hover-submenu.app .app-sidebar .main-sidemenu #side44.active,
+
+.hover-submenu1.app .app-sidebar .main-sidemenu #side2.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side3.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side4.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side6.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side7.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side8.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side10.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side11.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side12.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side14.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side15.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side16.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side18.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side19.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side20.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side22.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side23.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side24.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side26.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side27.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side28.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side30.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side31.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side32.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side34.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side35.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side36.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side38.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side39.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side40.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side42.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side43.active,
+.hover-submenu1.app .app-sidebar .main-sidemenu #side44.active {
+    display: none !important;
+}
+
+
+.app .app-sidebar .main-sidemenu #side2.active,
+.app .app-sidebar .main-sidemenu #side3.active,
+.app .app-sidebar .main-sidemenu #side4.active,
+.app .app-sidebar .main-sidemenu #side6.active,
+.app .app-sidebar .main-sidemenu #side7.active,
+.app .app-sidebar .main-sidemenu #side8.active,
+.app .app-sidebar .main-sidemenu #side10.active,
+.app .app-sidebar .main-sidemenu #side11.active,
+.app .app-sidebar .main-sidemenu #side12.active,
+.app .app-sidebar .main-sidemenu #side14.active,
+.app .app-sidebar .main-sidemenu #side15.active,
+.app .app-sidebar .main-sidemenu #side16.active,
+.app .app-sidebar .main-sidemenu #side18.active,
+.app .app-sidebar .main-sidemenu #side19.active,
+.app .app-sidebar .main-sidemenu #side20.active,
+.app .app-sidebar .main-sidemenu #side22.active,
+.app .app-sidebar .main-sidemenu #side23.active,
+.app .app-sidebar .main-sidemenu #side24.active,
+.app .app-sidebar .main-sidemenu #side26.active,
+.app .app-sidebar .main-sidemenu #side27.active,
+.app .app-sidebar .main-sidemenu #side28.active,
+.app .app-sidebar .main-sidemenu #side30.active,
+.app .app-sidebar .main-sidemenu #side31.active,
+.app .app-sidebar .main-sidemenu #side32.active,
+.app .app-sidebar .main-sidemenu #side34.active,
+.app .app-sidebar .main-sidemenu #side35.active,
+.app .app-sidebar .main-sidemenu #side36.active,
+.app .app-sidebar .main-sidemenu #side38.active,
+.app .app-sidebar .main-sidemenu #side39.active,
+.app .app-sidebar .main-sidemenu #side40.active,
+.app .app-sidebar .main-sidemenu #side41.active,
+.app .app-sidebar .main-sidemenu #side42.active,
+.app .app-sidebar .main-sidemenu #side43.active,
+.app .app-sidebar .main-sidemenu #side44.active {
+    display: none !important;
+}
+
+.app .app-sidebar .main-sidemenu #side1,
+.app .app-sidebar .main-sidemenu #side5,
+.app .app-sidebar .main-sidemenu #side9,
+.app .app-sidebar .main-sidemenu #side13,
+.app .app-sidebar .main-sidemenu #side17,
+.app .app-sidebar .main-sidemenu #side21,
+.app .app-sidebar .main-sidemenu #side25,
+.app .app-sidebar .main-sidemenu #side29,
+.app .app-sidebar .main-sidemenu #side33,
+.app .app-sidebar .main-sidemenu #side37,
+.app .app-sidebar .main-sidemenu #side41 {
+    display: block !important;
+
+    &.active {
+
+        display: block !important;
+    }
+
+    .sidemenu-list {
+        display: block !important;
+    }
+}
+
+@media (max-width: 991px) {
+
+    .app .app-sidebar .main-sidemenu #side2,
+    .app .app-sidebar .main-sidemenu #side3,
+    .app .app-sidebar .main-sidemenu #side4,
+    .app .app-sidebar .main-sidemenu #side6,
+    .app .app-sidebar .main-sidemenu #side7,
+    .app .app-sidebar .main-sidemenu #side8,
+    .app .app-sidebar .main-sidemenu #side10,
+    .app .app-sidebar .main-sidemenu #side11,
+    .app .app-sidebar .main-sidemenu #side12,
+    .app .app-sidebar .main-sidemenu #side14,
+    .app .app-sidebar .main-sidemenu #side15,
+    .app .app-sidebar .main-sidemenu #side16,
+    .app .app-sidebar .main-sidemenu #side18,
+    .app .app-sidebar .main-sidemenu #side19,
+    .app .app-sidebar .main-sidemenu #side20,
+    .app .app-sidebar .main-sidemenu #side22,
+    .app .app-sidebar .main-sidemenu #side23,
+    .app .app-sidebar .main-sidemenu #side24,
+    .app .app-sidebar .main-sidemenu #side26,
+    .app .app-sidebar .main-sidemenu #side27,
+    .app .app-sidebar .main-sidemenu #side28,
+    .app .app-sidebar .main-sidemenu #side30,
+    .app .app-sidebar .main-sidemenu #side31,
+    .app .app-sidebar .main-sidemenu #side32,
+    .app .app-sidebar .main-sidemenu #side34,
+    .app .app-sidebar .main-sidemenu #side35,
+    .app .app-sidebar .main-sidemenu #side36,
+    .app .app-sidebar .main-sidemenu #side38,
+    .app .app-sidebar .main-sidemenu #side39,
+    .app .app-sidebar .main-sidemenu #side40,
+    .app .app-sidebar .main-sidemenu #side41,
+    .app .app-sidebar .main-sidemenu #side42,
+    .app .app-sidebar .main-sidemenu #side43,
+    .app .app-sidebar .main-sidemenu #side44 {
+        display: none !important;
+    }
+}

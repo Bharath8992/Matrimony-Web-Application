@@ -1,0 +1,67 @@
+{% load static %}
+<div class="sticky">
+	<div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
+	<div class="app-sidebar">
+		<div class="side-header">
+			<h3>MM</h3>
+			<!-- <a class="header-brand1" href="">
+				<img src="{{ page_kwargs.media_url }}admin_assets/images/brand/logo.png" class="header-brand-img main-logo" alt="RealEstate">
+				<img src="{{ page_kwargs.media_url }}admin_assets/images/brand/logo.png" class="header-brand-img darklogo" alt="RealEstate">
+				<img src="{{ page_kwargs.media_url }}admin_assets/images/brand/icon.png" class="header-brand-img icon-logo" alt="RealEstate">
+				<img src="{{ page_kwargs.media_url }}admin_assets/images/brand/icon.png" class="header-brand-img icon-logo2" alt="RealEstate">
+			</a> -->
+		</div>
+
+		<div class="main-sidemenu">
+			
+			<ul class="side-menu">
+				<li class="sub-category"><h3> Management</h3></li>
+
+				<li class="slide">
+					<a class="side-menu__item has-link {% if page == 'hot_selling' %} active {% endif %}" href="{% url 'svm_admin_console:mck_dashboard' %}">
+						<i class="side-menu__icon bi bi-fire"></i><span class="side-menu__label"> Dashboard</span>
+					</a>
+				</li>
+
+
+				<li class="slide">
+					<a class="side-menu__item has-link {% if page == 'hot_selling' %} active {% endif %}" href="{% url 'mck_master:mck_profile_list' %}">
+						<i class="side-menu__icon bi bi-fire"></i><span class="side-menu__label"> Profile</span>
+					</a>
+				</li>
+
+				<li class="slide">
+					<a class="side-menu__item has-link {% if page == 'hot_selling' %} active {% endif %}" href="{% url 'svm_admin_console:mck_gallery_list' %}">
+						<i class="side-menu__icon bi bi-fire"></i><span class="side-menu__label"> Gallery</span>
+					</a>
+				</li>
+
+				<li class="slide">
+					<a class="side-menu__item has-link {% if page == 'hot_selling' %} active {% endif %}" href="{% url 'svm_admin_console:mck_contact_list' %}">
+						<i class="side-menu__icon bi bi-fire"></i><span class="side-menu__label"> Contact Enquiry</span>
+					</a>
+				</li>
+
+
+
+				<li  class="slide mt-2">
+					<a href="{% url 'mck_master:mck_profile_upload' %}" class="btn btn-success">
+    upload All Profiles
+</a>
+
+				</li>
+
+					<li  class="slide mt-2">
+					<a href="{% url 'mck_master:mck_profile_download' %}" class="btn btn-success">
+    Download All Profiles
+</a>
+
+				</li>
+				
+				
+			</ul>
+
+			
+		</div>
+	</div>
+</div>

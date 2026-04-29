@@ -1,0 +1,684 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | LuxeLiving Developers - Redefining Urban Spaces</title>
+    <meta name="description" content="LuxeLiving's journey in crafting architectural masterpieces. Discover our design philosophy, award-winning projects, and visionary leadership team.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+    font-size: 16px; /* Reset base size */
+}
+.custom-container {
+    max-width: 1400px !important;
+}
+        :root {
+            --primary: #ffcc00;
+            --secondary: #d4af37;
+            --accent: #e8c274;
+            --light: #f5f7f6;
+            --dark: #0f1e20;
+            --text: #3a4a4f;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-color: var(--light);
+        }
+        
+        h1, h2, h3, h4, .display-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+        
+        /* Modern Hero Section */
+        .hero-about {
+            height: 90vh;
+            min-height: 700px;
+            background: linear-gradient(180deg, rgba(26, 58, 63, 0.6) 0%, rgba(26, 58, 63, 0.2) 100%), 
+                        url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+        
+        .hero-about h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s 0.3s forwards;
+        }
+        
+        .hero-about p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+        
+        /* Section Styles */
+        .section {
+            position: relative;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 4rem;
+            color: var(--primary);
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .section-title:hover:after {
+            width: 100px;
+        }
+        
+        /* Story Section */
+        .story-section {
+            background-color: white;
+        }
+        
+        .story-content {
+            position: relative;
+        }
+        
+        .story-image {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: var(--transition);
+        }
+        
+        .story-image:hover {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+        
+        .story-image img {
+            width: 100%;
+            height: 50%;
+            display: block;
+        }
+        
+        .story-image:before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: -20px;
+            bottom: -20px;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            z-index: -1;
+            transition: var(--transition);
+        }
+        
+        .story-image:hover:before {
+            top: 15px;
+            left: 15px;
+        }
+        
+        /* Values Section */
+        .values-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #122a2f 100%);
+            color: white;
+        }
+        
+        .value-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            height: 100%;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        
+        .value-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .value-card:hover:before {
+            opacity: 1;
+        }
+        
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .value-card:hover .value-icon {
+            background: rgba(212, 175, 55, 0.2);
+            transform: scale(1.1);
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            background-color: white;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .timeline:after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--secondary), var(--primary));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: var(--secondary);
+            border: 4px solid white;
+            border-radius: 50%;
+            z-index: 1;
+            top: 15px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center/cover;
+            position: relative;
+            color: white;
+        }
+        
+        .stats-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 58, 63, 0.9) 0%, rgba(15, 30, 32, 0.95) 100%);
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+        
+        .stat-card:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: -1;
+        }
+        
+        .stat-card:hover:after {
+            opacity: 1;
+        }
+        
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        
+        /* Team Section */
+        .team-section {
+            background-color: white;
+        }
+        
+        .team-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            height: 100%;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .team-image {
+            height: 350px;
+            overflow: hidden;
+        }
+        
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .team-card:hover .team-image img {
+            transform: scale(1.05);
+        }
+        
+        .team-info {
+            padding: 2rem;
+            position: relative;
+            background: white;
+        }
+        
+        .team-info:before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 40px;
+            width: 40px;
+            height: 40px;
+            background: white;
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+        
+        .team-name {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .team-position {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #122a2f 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .cta-btn {
+            background-color: var(--secondary);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            display: inline-block;
+            transition: var(--transition);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 100%);
+            transition: var(--transition);
+            opacity: 0;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .cta-btn:hover:before {
+            opacity: 1;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .timeline:after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-dot {
+                left: 18px;
+            }
+            
+            .section {
+                padding: 5rem 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-about {
+                height: auto;
+                min-height: 80vh;
+                padding: 8rem 0;
+            }
+            
+            .team-image {
+                height: 300px;
+            }
+        }
+         /* Service Cards */
+    .service-card-s {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+    .service-card-s:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border-color: rgba(0,0,0,0.05); 
+    }
+    .service-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(212,175,55,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2rem;
+      color: var(--secondary);
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    </style>
+</head>
+<body>
+
+<!-- Modern Hero Section -->
+<section class="hero-about">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Information We Collect</h1>
+            <p class="lead">We collect personal data such as name, email, and contact information when you reach out to us through our website forms or subscribe to our updates.</p>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Services Grid -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">What We Offer</h2>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🏠</div>
+          <h3>Property Buying</h3>
+          <p>Helping you find and secure your dream property with expert guidance and market insights.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">💼</div>
+          <h3>Property Selling</h3>
+          <p>Maximize your property’s value with professional listings, marketing, and negotiation services.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🔧</div>
+          <h3>Maintenance</h3>
+          <p>End-to-end maintenance solutions to keep your property in top condition year-round.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">⚖️</div>
+          <h3>Legal Services</h3>
+          <p>From title verification to dispute resolution – complete legal support for peace of mind.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🚧</div>
+          <h3>Fencing</h3>
+          <p>Secure your land with customized fencing solutions tailored to your property needs.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🌱</div>
+          <h3>Land Levelling</h3>
+          <p>Professional land development and levelling services to prepare sites for construction.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">☀️</div>
+          <h3>Solar Solutions</h3>
+          <p>Sustainable solar panel installation for energy efficiency and reduced costs.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card-s">
+          <div class="service-icon">🛣️</div>
+          <h3>Roadmap & Infrastructure</h3>
+          <p>Strategic infrastructure planning including roads, utilities, and community amenities.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+    // Animated Counter
+    document.addEventListener('DOMContentLoaded', function() {
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+        
+        function animateCounters() {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = target / speed;
+                
+                if(count < target) {
+                    counter.innerText = Math.ceil(count + increment);
+                    setTimeout(animateCounters, 1);
+                } else {
+                    counter.innerText = target >= 1000 ? 
+                        target.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 
+                        target;
+                }
+            });
+        }
+        
+        // Trigger animation when stats section is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.querySelector('.stats-section'));
+        
+        // Animate hero elements
+        const heroElements = document.querySelectorAll('.hero-about h1, .hero-about p');
+        heroElements.forEach((el, index) => {
+            el.style.animationDelay = `${index * 0.2 + 0.3}s`;
+        });
+    });
+</script>   
+</body>
+</html>
+{% endblock %}

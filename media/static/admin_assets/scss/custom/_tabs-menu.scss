@@ -1,0 +1,147 @@
+/*-----Tabs Styles-----*/
+
+.tabs-menu ul li a {
+	padding: 5px 11px;
+	margin-block: 3px;
+	margin-inline-end: 0;
+	margin-inline-start: 14px;
+	display: block;
+	border: 1px solid $border;
+	line-height: 17px;
+	border-radius: 5px;
+	color: $default-color;
+}
+
+.tabs-menu1 ul li a {
+	padding-block-start: 10px;
+	padding-inline-end: 10px;
+	padding-block-end: 11px;
+	padding-inline-start: 20px;
+}
+
+.tabs-menu-body {
+	padding: 15px;
+	border: 1px solid $border;
+
+	p:last-child {
+		margin-block-end: 0;
+	}
+}
+
+.tab-menu-heading {
+	padding: 20px;
+	border: 1px solid $border;
+	border-block-end: 0;
+}
+
+.tab_wrapper {
+	.content_wrapper .tab_content.active p:last-child {
+		margin-block-end: 0;
+	}
+
+	>ul {
+		li {
+			border: 1px solid $border;
+			border-block-start: 1px solid $border;
+		}
+
+		border-block-end: 1px solid $border;
+	}
+
+	&.right_side {
+		.content_wrapper {
+			border: 1px solid $border;
+		}
+
+		>ul {
+			li {
+				&.active {
+					border-color: $border;
+				}
+
+				&:after {
+					background: $border;
+				}
+			}
+
+			border-block-end: 1px solid $border;
+		}
+	}
+}
+
+.tab-pane {
+	.profile-content .media-body {
+		margin-block-start: 6px;
+		margin-inline-start: 20px;
+	}
+
+	.media {
+		margin-block-start: 0;
+	}
+
+	.profile-content .media-body .text-inverse {
+		margin-block-start: 2px;
+	}
+}
+
+.tab-bordered .tab-pane {
+	padding: 15px !important;
+	border: 1px solid $border;
+	margin-block-start: -1px;
+}
+
+.tab-content> {
+	.tab-pane {
+		display: none;
+		padding: 8px 0;
+		line-height: 24px;
+	}
+
+	.active {
+		display: block;
+	}
+}
+
+.first_tab.tab_wrapper .content_wrapper {
+	margin-block-start: -6px;
+}
+
+.tabs-style6{
+	>.panel-head > .nav-tabs{
+	  padding: 0.25rem !important;
+	  background: $background;
+	  border-radius: 5px;
+	  border-block-end: 0;
+
+	  >.nav-item {
+		margin-block-end: 1px;
+	  }
+  
+	  >.nav-item > .nav-link{
+		padding: 0.25rem 1rem;
+		border-radius: 30px;
+		border: none;
+		color: $default-color2;
+  
+		&:not(.active):hover{
+		  color: $primary;
+		  background: none;
+		}
+  
+		&.active{
+		  background: $white;
+		  color: $primary !important;
+		  border-radius: 5px;
+		  transition: all 0.5s ease-out;
+		}
+	  }
+	}
+	>.panel-body{
+	  border: none;
+	}
+}
+
+#myTab4 .nav-item .nav-link {
+	margin-block: 3px;
+}
+/*-----Tabs Styles-----*/

@@ -1,0 +1,2047 @@
+import sys
+from phonenumber_field.phonenumber import PhoneNumber
+from django.urls import reverse
+from django.forms.models import model_to_dict
+from config import app_utils
+from config import app_logger
+from mck_auth import api as auth_api
+from mck_master.models import *
+from datetime import date, datetime
+
+log_name = "app"
+logger = app_logger.createLogger(log_name)
+
+
+# Support Page Content
+@app_logger.functionlogs(log=log_name)
+def support_page_content_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = SupportPageContent.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(
+            request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_support_page_content_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object('+str(qs_data['id'])+')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object('+str(qs_data['id'])+')">Activate</a></div>')
+                else:
+                    if isinstance(qs_data.get(column['column_name']), PhoneNumber):
+                        data.append(qs_data.get(column['column_name']).national_number)
+                    elif isinstance(qs_data.get(column['column_name']), models.ImageField):
+                        pass
+                    else:
+                        data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def support_page_content_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        support_page_content = SupportPageContent.objects.filter(id=id).first()
+        if support_page_content:
+            data['support_page_content'] = support_page_content
+            result, msg = True, success_msg
+        else:
+            result, msg, data = True, success_msg, data
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def support_page_content_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = SupportPageContent.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = SupportPageContent()
+            obj.created_by = accountuser.id
+        
+        
+        obj.support_key = pDict.get('support_key')
+        obj.support_value = pDict.get('support_value')
+        obj.support_description = pDict.get('support_description')
+        obj.image = pDict.get('image')
+        obj.content_type = pDict.get('content_type')
+
+        obj.updated_by = accountuser.id
+        obj.save()
+
+        data['support_page_content'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def support_page_content_update_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = SupportPageContent.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Sucesss'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+# Category
+@app_logger.functionlogs(log=log_name)
+def category_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = Category.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(
+            request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_category_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object('+str(qs_data['id'])+')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object('+str(qs_data['id'])+')">Activate</a></div>')
+                elif column['column_name'] == "name":
+                    html_str = ""
+                    html_str += '<div class="d-flex align-items-center">';
+                    html_str += '<a href="#" class="symbol symbol-50px">';
+                    html_str += f'<span class="symbol-label" style="background-image:url({qs_instance.image.url});"></span>';
+                    html_str += '</a>';
+                    html_str += '<div class="ms-5">';
+                    html_str += f'<span class="fw-bold">{qs_instance.name}</span>';
+                    html_str += '</div>';
+                    html_str += '</div>';
+                    data.append(html_str)
+                
+                else:
+                    if isinstance(qs_data.get(column['column_name']), PhoneNumber):
+                        data.append(qs_data.get(column['column_name']).national_number)
+                    elif isinstance(qs_data.get(column['column_name']), models.ImageField):
+                        pass
+                    else:
+                        data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def category_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        category = Category.objects.filter(id=id).first()
+        if category:
+            data['category'] = category
+            result, msg = True, success_msg
+        else:
+            result, msg, data = True, success_msg, data
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def category_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = Category.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = Category()
+            obj.created_by = accountuser.id
+        
+        
+        obj.name = pDict.get('name')
+        obj.image = pDict.get('image')
+
+        obj.updated_by = accountuser.id
+        obj.save()
+
+        data['category'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def category_update_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = Category.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Sucesss'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+# SubCategory
+@app_logger.functionlogs(log=log_name)
+def sub_category_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = SubCategory.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(
+            request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_sub_category_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object('+str(qs_data['id'])+')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object('+str(qs_data['id'])+')">Activate</a></div>')
+                elif column['column_name'] == "category":
+                    html_str = ""
+                    html_str += '<div class="d-flex align-items-center">';
+                    html_str += '<a href="#" class="symbol symbol-50px">';
+                    html_str += f'<span class="symbol-label" style="background-image:url({qs_instance.category.image.url});"></span>';
+                    html_str += '</a>';
+                    html_str += '<div class="ms-5">';
+                    html_str += f'<span class="fw-bold">{qs_instance.category.name}</span>';
+                    html_str += '</div>';
+                    html_str += '</div>';
+                    data.append(html_str)
+                else:
+                    if isinstance(qs_data.get(column['column_name']), PhoneNumber):
+                        data.append(qs_data.get(column['column_name']).national_number)
+                    elif isinstance(qs_data.get(column['column_name']), models.ImageField):
+                        pass
+                    else:
+                        data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def sub_category_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        sub_category = SubCategory.objects.filter(id=id).first()
+        if sub_category:
+            data['sub_category'] = sub_category
+            result, msg = True, success_msg
+        else:
+            result, msg, data = True, success_msg, data
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def sub_category_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = SubCategory.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = SubCategory()
+            obj.created_by = accountuser.id
+        
+        obj.category = Category.objects.filter(id=pDict.get('category')).first()
+        obj.name = pDict.get('name')
+        obj.image = pDict.get('image')
+        obj.updated_by = accountuser.id
+        obj.save()
+
+        data['sub_category'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def sub_category_update_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = SubCategory.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Sucesss'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+@app_logger.functionlogs(log=log_name)
+def ajax_category_based_sub_category(request):
+    result = False
+    message = 'Error'
+    sub_category_list = list()
+    try:
+        category_id = request.GET.get('category_id')
+        sub_category_list = SubCategory.objects.filter(category_id=category_id).values('id', 'name')
+        
+        result = True
+        message = 'Sucesss'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message, sub_category_list
+
+
+# Banner
+@app_logger.functionlogs(log=log_name)
+def banner_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = Banner.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(
+            request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_banner_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object('+str(qs_data['id'])+')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object('+str(qs_data['id'])+')">Activate</a></div>')
+                else:
+                    if isinstance(qs_data.get(column['column_name']), PhoneNumber):
+                        data.append(qs_data.get(column['column_name']).national_number)
+                    elif isinstance(qs_data.get(column['column_name']), models.ImageField):
+                        pass
+                    else:
+                        data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def banner_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        banner = Banner.objects.filter(id=id).first()
+        if banner:
+            data['banner'] = banner
+            result, msg = True, success_msg
+        else:
+            result, msg, data = True, success_msg, data
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def banner_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = Banner.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = Banner()
+            obj.created_by = accountuser.id
+        
+        
+        obj.name = pDict.get('name')
+        obj.image = pDict.get('image')
+
+        obj.updated_by = accountuser.id
+        obj.save()
+
+        data['banner'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def banner_update_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = Banner.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Sucesss'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+
+
+@app_logger.functionlogs(log=log_name)
+def gallery_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        gallery = Gallery.objects.filter(id=id).first()
+        if gallery:
+            data['gallery'] = gallery
+            result, msg = True, success_msg
+        else:
+            result, msg, data = True, success_msg, data
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def gallery_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = Gallery.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = Gallery()
+            obj.created_by = accountuser.id
+        
+        
+        obj.name = pDict.get('name')
+        obj.image = request.FILES.get('image')
+
+        obj.updated_by = accountuser.id
+        obj.save()
+
+        data['gallery'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def gallery_update_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = Gallery.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Sucesss'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+# state
+@app_logger.functionlogs(log=log_name)
+def state_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = State.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_state_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">' + qs_instance.get_datamode_display() + '</div>')
+                        data.append('<div class="text-end"><a href="' + edit_url + '" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object(' + str(qs_data['id']) + ')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">' + qs_instance.get_datamode_display() + '</div>')
+                        data.append('<div class="text-end"><a href="' + edit_url + '" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object(' + str(qs_data['id']) + ')">Activate</a></div>')
+                elif column['column_name'] == "name":
+                    data.append(qs_instance.name)
+                elif column['column_name'] == "code":
+                    data.append(qs_instance.code)  # Retrieve and display the state code
+                elif column['column_name'] == "country":
+                    data.append(qs_instance.country.name)  # Assuming `country` is a ForeignKey relation
+                else:
+                    data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error(f'Error at {exc_traceback.tb_lineno}: {e}')
+    
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def state_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        state = State.objects.filter(id=id).first()
+        if state:
+            data['state'] = state
+            data['country'] = state.country 
+            result, msg = True, success_msg
+        else:
+            result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def state_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        
+        if mode == 'edit' and id:
+            obj = State.objects.filter(id=id).first()
+        else:
+            obj = State()
+            obj.created_by = accountuser.id
+        
+        obj.name = pDict.get('name')
+        obj.code = pDict.get('code')  # Set the code for the state
+        obj.country = Country.objects.filter(id=pDict.get('country')).first()  # Assuming country is a ForeignKey
+        obj.updated_by = accountuser.id
+        obj.save()
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error(f'Error at {exc_traceback.tb_lineno}: {e}')
+    
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def state_update_status(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = State.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+        result = True
+        message = 'Success'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    
+    return result, message
+
+
+# city
+@app_logger.functionlogs(log=log_name)
+def city_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = City.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_city_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">' + qs_instance.get_datamode_display() + '</div>')
+                        data.append('<div class="text-end"><a href="' + edit_url + '" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object(' + str(qs_data['id']) + ')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">' + qs_instance.get_datamode_display() + '</div>')
+                        data.append('<div class="text-end"><a href="' + edit_url + '" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object(' + str(qs_data['id']) + ')">Activate</a></div>')
+                elif column['column_name'] == "name":
+                    data.append(qs_instance.name)
+                elif column['column_name'] == "state":
+                    data.append(qs_instance.state.name)  # Assuming state is a ForeignKey relation
+                elif column['column_name'] == "code":
+                    data.append(qs_instance.code)  # Retrieve and display the city code
+                else:
+                    data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error(f'Error at {exc_traceback.tb_lineno}: {e}')
+    
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def city_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        city = City.objects.filter(id=id).first()
+        if city:
+            data['city'] = city
+            result, msg = True, success_msg
+        else:
+            result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def city_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        
+        if mode == 'edit' and id:
+            obj = City.objects.filter(id=id).first()
+        else:
+            obj = City()
+            obj.created_by = accountuser.id
+        
+        obj.name = pDict.get('name')
+        obj.code = pDict.get('code')  # Set the code for the city
+        obj.state = State.objects.filter(id=pDict.get('state')).first()  # Assuming state is a ForeignKey
+        obj.updated_by = accountuser.id
+        obj.save()
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error(f'Error at {exc_traceback.tb_lineno}: {e}')
+    
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def city_update_status(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = City.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+        result = True
+        message = success_msg
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error(f'Error at {exc_traceback.tb_lineno}: {e}')
+    
+    return result, message
+
+# Offer
+@app_logger.functionlogs(log=log_name)
+def offer_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = Offers.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(
+            request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_offer_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object('+str(qs_data['id'])+')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object('+str(qs_data['id'])+')">Activate</a></div>')
+                else:
+                    if isinstance(qs_data.get(column['column_name']), PhoneNumber):
+                        data.append(qs_data.get(column['column_name']).national_number)
+                    elif isinstance(qs_data.get(column['column_name']), models.ImageField):
+                        pass
+                    else:
+                        data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def offer_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        offer = Offers.objects.filter(id=id).first()
+        if offer:
+            data['offer'] = offer
+            result, msg = True, success_msg
+        else:
+            result, msg, data = True, success_msg, data
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def offer_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = Offers.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = Offers()
+            obj.created_by = accountuser.id
+        
+        obj.name = pDict.get('name')
+        obj.image = request.FILES.get('image')
+        obj.updated_by = accountuser.id
+        obj.save()
+
+        data['offer'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def offer_update_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = Offers.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Success'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+@app_logger.functionlogs(log=log_name)
+def clientfeedback_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = ClientFeedback.objects.exclude(datamode='D').order_by('-updated_on')
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(
+            request, queryset)
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_client_feedback_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                if column['column_name'] == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object('+str(qs_data['id'])+')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object('+str(qs_data['id'])+')">Activate</a></div>')
+                else:
+                    data.append(qs_data.get(column['column_name'], "-"))
+            final_data.append(data)
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, fResult
+
+@app_logger.functionlogs(log=log_name)
+def clientfeedback_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    try:
+        clientfeedback = ClientFeedback.objects.filter(id=id).first()
+        if clientfeedback:
+            data['clientfeedback'] = clientfeedback
+            result, msg = True, success_msg
+        else:
+            result, msg, data = True, success_msg, data
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+@app_logger.functionlogs(log=log_name)
+def clientfeedback_create_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    
+
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = ClientFeedback.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = ClientFeedback()
+            obj.created_by = accountuser.id
+        
+        obj.name = pDict.get('name')
+        obj.feedback = pDict.get('feedback')
+        obj.image = request.FILES.get('image')
+        obj.place = pDict.get('place')
+        obj.updated_by = accountuser.id
+        obj.save()
+        data['feedback'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+@app_logger.functionlogs(log=log_name)
+def clientfeedback_update_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = ClientFeedback.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Success'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+
+
+
+@app_logger.functionlogs(log=log_name)
+def profile_ce_update(request, id=None, mode=None):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    data = dict()
+    
+
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        pDict = request.POST
+        if mode == 'edit' and id:
+            obj = Profile.objects.filter(id=id, datamode='A').first()
+        else:
+            obj = Profile()
+            obj.created_by = accountuser.id
+        
+        obj.user = pDict.get('user')
+        obj.gender = pDict.get('gender')
+        obj.dob = pDict.get('dob')
+        obj.religion = pDict.get('religion')
+        obj.caste = pDict.get('caste')
+        obj.phone = pDict.get('phone')
+        obj.bio = pDict.get('bio')
+        obj.location = pDict.get('location')
+        obj.education = pDict.get('education')
+        obj.occupation = pDict.get('occupation')
+        obj.annual_income = pDict.get('annual_income')
+
+        obj.profile_photo = request.FILES.get('profile_photo')
+        obj.marital_status = pDict.get('marital_status')
+        obj.updated_by = accountuser.id
+        obj.save()
+        data['profile'] = obj
+        
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, data
+
+@app_logger.functionlogs(log=log_name)
+def profile_upte_status(request, id):
+    result = False
+    message = 'Error'
+    try:
+        accountuser = auth_api.get_request_accountuser(request)
+        obj = Profile.objects.filter(id=id).first()
+        if obj:
+            obj.updated_by = accountuser.id
+            if obj.datamode == "I":
+                obj.datamode = "A"
+            else:
+                obj.datamode = "I"
+            obj.save()
+
+        result = True
+        message = 'Success'
+    except Exception as e:
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, message
+
+
+
+# @app_logger.functionlogs(log=log_name)
+# def profile_load_data(request, table_data):
+#     result = False
+#     success_msg = "Success"
+#     error_msg = 'Internal Server Error'
+#     fResult = []
+
+#     try:
+#         queryset = Profile.objects.filter(datamode='A').order_by('-updated_on')
+
+
+#         # 🔐 Restrict normal users
+#         if not request.user.is_staff:
+#             queryset = queryset.filter(user=request.user)
+
+#         qs, total_records, total_display_records = (
+#             app_utils.method_for_datatable_operations(request, queryset)
+#         )
+#         print(Profile.objects.values('id', 'datamode'))
+
+#         final_data = []
+#         for qs_instance in qs:
+#             data = []
+#             edit_url = reverse('mck_master:mck_profile_update', args=[qs_instance.id])
+
+#             for column in table_data['columns']:
+
+#                 if column['column_name'] == "user":
+#                     data.append(str(qs_instance.user))
+
+#                 elif column['column_name'] == "datamode":
+#                     status = qs_instance.get_datamode_display()
+#                     if qs_instance.datamode == "A":
+#                         data.append(f'<div class="text-success">{status}</div>')
+#                     else:
+#                         data.append(f'<div class="text-danger">{status}</div>')
+
+#                     if request.user.is_staff:
+#                         data.append(
+#                             f'<div class="text-end">'
+#                             f'<a href="{edit_url}" class="text-primary pe-2 ps-2">Edit</a>'
+#                             f'</div>'
+#                         )
+#                     else:
+#                         data.append('-')
+
+#                 else:
+#                     value = getattr(qs_instance, column['column_name'], '-')
+#                     data.append(value if value else '-')
+
+#             final_data.append(data)
+
+#         fResult = app_utils.final_dict(
+#             request, total_records, total_display_records, final_data
+#         )
+
+#         result, msg = True, success_msg
+
+#     except Exception as e:
+#         result, msg = False, error_msg
+#         logger.error(e)
+
+#     return result, msg, fResult
+
+
+
+# @app_logger.functionlogs(log=log_name)
+# def profile_create_update(request, id=None, mode=None):
+#     result = False
+#     success_msg = "Success"
+#     error_msg = "Error saving profile"
+#     data = {}
+
+#     try:
+#         if not request.user.is_authenticated:
+#             return False, "Authentication required", {}
+
+#         accountuser = request.user  # ✅ SAFE
+
+#         if mode == 'edit' and id:
+#             obj = Profile.objects.filter(id=id, datamode='A').first()
+#             if not obj:
+#                 return False, "Profile not found", {}
+#         else:
+#             # ✅ Always create new profile for ForeignKey
+#             obj = Profile(
+#                 user=request.user,
+#                 created_by=str(accountuser.id)
+#             )
+
+#         pDict = request.POST
+
+#         obj.gender = pDict.get('gender')
+#         obj.dob = pDict.get('dob') or None
+#         obj.religion = pDict.get('religion')
+#         obj.caste = pDict.get('caste')
+#         obj.phone = pDict.get('phone')
+#         obj.bio = pDict.get('bio')
+#         obj.location = pDict.get('location')
+#         obj.education = pDict.get('education')
+#         obj.occupation = pDict.get('occupation')
+#         obj.annual_income = pDict.get('annual_income') or None
+#         obj.marital_status = pDict.get('marital_status')
+
+#         if request.FILES.get('profile_photo'):
+#             obj.profile_photo = request.FILES.get('profile_photo')
+
+#         obj.updated_by = str(accountuser.id)
+#         obj.save()
+
+#         data['profile_id'] = obj.id
+#         result, msg = True, success_msg
+#         print(Profile.objects.values('id', 'datamode'))
+
+#     except Exception as e:
+#         logger.exception("Failed to save profile")
+#         result, msg = False, f"{error_msg}: {str(e)}"
+
+#     return result, msg, data
+
+
+
+# def profile_update_status(request, id=None):
+#     result = False
+#     message = 'Error'
+
+#     try:
+#         obj = Profile.objects.filter(id=id, user=request.user).first()
+#         if not obj:
+#             return False, "Profile not found"
+
+#         obj.updated_by = request.user.id
+#         obj.datamode = "A" if obj.datamode == "I" else "I"
+#         obj.save()
+
+#         result = True
+#         message = 'Success'
+
+#     except Exception as e:
+#         logger.exception(e)
+
+#     return result, message
+
+# @app_logger.functionlogs(log=log_name)
+# def profile_retrieve_data(request, id):
+#     result = False
+#     success_msg = "Success"
+#     error_msg = 'Internal Server Error'
+#     data = dict()
+#     try:
+#         profile = Profile.objects.filter(id=id, datamode='A').first()
+#         if profile:
+#             data['profile'] = profile
+#             result, msg = True, success_msg
+#         else:
+#             result, msg, data = True, success_msg, data
+#             print(Profile.objects.values('id', 'datamode'))
+
+#     except Exception as e:
+#         result, msg = False, error_msg
+#         exc_type, exc_obj, exc_traceback = sys.exc_info()
+#         logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+#     return result, msg, data
+
+@app_logger.functionlogs(log=log_name)
+def profil_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = 'Internal Server Error'
+    fResult = list()
+    try:
+        queryset = Profile.objects.all()
+        qs, total_records, total_display_records = app_utils.method_for_datatable_operations(
+            request, queryset)
+
+        print(Profile.objects.values('id', 'datamode'))
+
+
+        final_data = list()
+        for qs_instance in qs:
+            qs_data = model_to_dict(qs_instance)
+            data = list()
+            edit_url = reverse('mck_master:mck_profile_update', args=[qs_data['id']])
+
+            for column in table_data['columns']:
+                col = column['column_name']   # ✅ define col
+
+                if col == "datamode":
+                    if qs_instance.datamode == "A":
+                        data.append('<div class="text-success">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-danger ps-2" onclick="delete_object('+str(qs_data['id'])+')">Inactivate</a></div>')
+                    else:
+                        data.append('<div class="text-danger">'+qs_instance.get_datamode_display()+'</div>')
+                        data.append('<div class="text-end"><a href="'+edit_url+'" class="text-primary pe-2 ps-2">Edit</a> | <a href="javascript:void()" class="text-success ps-2" onclick="delete_object('+str(qs_data['id'])+')">Activate</a></div>')
+
+                elif col == "user":
+                    data.append(str(qs_instance.user))   # ✅ return username instead of id
+
+                else:
+                    data.append(qs_data.get(col, '-'))
+        fResult = app_utils.final_dict(request, total_records, total_display_records, final_data)
+
+        result, msg = True, success_msg
+    except Exception as e:
+        result, msg = False, error_msg
+        exc_type, exc_obj, exc_traceback = sys.exc_info()
+        logger.error('Error at %s:%s' % (exc_traceback.tb_lineno, e))
+    return result, msg, fResult
+
+
+
+@app_logger.functionlogs(log=log_name)
+def _load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = "Internal Server Error"
+    fResult = {}
+
+    try:
+        queryset = Profile.objects.all()\
+            .select_related('user')\
+            .order_by("-updated_on")
+
+        # 🔐 Restrict non-admin users
+        if not request.user.is_superuser:
+            queryset = queryset.filter(user=request.user)
+
+        # ✅ Apply filters from POST params
+        filter_gender         = request.POST.get('filter_gender', '').strip()
+        filter_religion       = request.POST.get('filter_religion', '').strip()
+        filter_caste          = request.POST.get('filter_caste', '').strip()
+        filter_rasi           = request.POST.get('filter_rasi', '').strip()
+        filter_nakshatra      = request.POST.get('filter_nakshatra', '').strip()
+        filter_marital_status = request.POST.get('filter_marital_status', '').strip()
+        filter_datamode       = request.POST.get('filter_datamode', '').strip()
+
+        if filter_gender:
+            queryset = queryset.filter(gender=filter_gender)
+        if filter_religion:
+            queryset = queryset.filter(religion=filter_religion)
+        if filter_caste:
+            queryset = queryset.filter(caste=filter_caste)
+        if filter_rasi:
+            queryset = queryset.filter(rasi=filter_rasi)
+        if filter_nakshatra:
+            queryset = queryset.filter(nakshatra=filter_nakshatra)
+        if filter_marital_status:
+            queryset = queryset.filter(marital_status=filter_marital_status)
+        if filter_datamode:
+            queryset = queryset.filter(datamode=filter_datamode)
+
+        qs, total_records, total_display_records = (
+            app_utils.method_for_datatable_operations(request, queryset)
+        )
+
+        # ... rest of your code unchanged
+
+        # ✅ Pre-fetch all payments
+        user_ids = [p.user_id for p in qs]
+        payments_map = {}
+        for payment in Payment.objects.filter(
+            user_id__in=user_ids
+        ).order_by('-payment_date'):
+            if payment.user_id not in payments_map:
+                payments_map[payment.user_id] = payment
+
+        final_data = []
+
+        for qs_instance in qs:
+            row = []
+            edit_url = reverse("mck_master:mck_profile_update", args=[qs_instance.id])
+            delete_url = reverse("mck_master:mck_profile_delete", args=[qs_instance.id])
+
+            # Get this user's payment
+            payment = payments_map.get(qs_instance.user_id)
+
+            for column in table_data["columns"]:
+                col = column["column_name"]
+
+                if col == "user":
+                    name_display = qs_instance.full_name or str(qs_instance.user)
+                    row.append(
+                        f'<a href="#" class="profile-detail-link fw-semibold text-decoration-none" '
+                        f'data-profile-id="{qs_instance.id}" '
+                        f'data-profile-name="{name_display}">'
+                        f'<i class="bi bi-person-circle me-1"></i>{name_display}</a>'
+                    )
+
+                elif col == "datamode":
+                    status = qs_instance.get_datamode_display()
+
+                    if qs_instance.datamode == "A":
+                        badge_color = "success"
+                    elif qs_instance.datamode == "I":
+                        badge_color = "warning"
+                    elif qs_instance.datamode == "D":
+                        badge_color = "danger"
+                    else:
+                        badge_color = "secondary"
+
+                    row.append(
+                        f'<span class="badge bg-{badge_color}">{status}</span>'
+                    )
+
+                elif col == "payment_status":
+                    if payment and payment.status == 'COMPLETED':
+                        row.append(
+                            '<span style="background:#dcfce7;color:#166534;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">✓ PAID</span>'
+                        )
+                    elif payment and payment.status == 'PENDING':
+                        row.append(
+                            '<span style="background:#fef9c3;color:#854d0e;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">⏳ PENDING</span>'
+                        )
+                    elif payment and payment.status == 'FAILED':
+                        row.append(
+                            '<span style="background:#fee2e2;color:#991b1b;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">✗ FAILED</span>'
+                        )
+                    else:
+                        row.append(
+                            '<span style="background:#f1f5f9;color:#64748b;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">— UNPAID</span>'
+                        )
+
+                elif col == "payment_amount":
+                    if payment and payment.status == 'COMPLETED':
+                        row.append(
+                            f'<span style="font-weight:700;color:#166534;">'
+                            f'₹{payment.amount:.0f}</span>'
+                        )
+                    else:
+                        row.append('<span style="color:#94a3b8;">—</span>')
+
+                elif col == "registration_status":
+                    if hasattr(qs_instance.user, 'registration_status'):
+                        status = qs_instance.user.registration_status
+                        if status == "COMPLETED":
+                            row.append('<span class="badge bg-success">Completed</span>')
+                        elif status == "PAYMENT_PENDING":
+                            row.append('<span class="badge bg-warning">Payment Pending</span>')
+                        elif status == "PROFILE_PENDING":
+                            row.append('<span class="badge bg-info">Profile Pending</span>')
+                        else:
+                            row.append('<span class="badge bg-secondary">Unknown</span>')
+                    else:
+                        row.append('<span class="badge bg-secondary">—</span>')
+
+                else:
+                    value = getattr(qs_instance, col, "-")
+                    row.append(value if value not in [None, ""] else "-")
+
+            # ✅ ACTION BUTTONS
+            actions = []
+
+            # ✅ INFO BUTTON — visible to everyone (superuser + normal user)
+            name_display = qs_instance.full_name or str(qs_instance.user)
+            actions.append(
+                f'<button type="button" '
+                f'class="btn btn-sm btn-outline-info me-1 profile-detail-link" '
+                f'data-profile-id="{qs_instance.id}" '
+                f'data-profile-name="{name_display}" '
+                f'title="View Full Profile">'
+                f'<i class="bi bi-info-circle"></i> Info'
+                f'</button>'
+            )
+
+            if request.user.is_superuser:
+                # EDIT BUTTON
+                if qs_instance.datamode != 'D':
+                    actions.append(
+                        f'<a href="{edit_url}" class="btn btn-sm btn-outline-primary me-1" '
+                        f'title="Edit Profile">Edit</a>'
+                    )
+                else:
+                    actions.append(
+                        f'<span class="btn btn-sm btn-outline-secondary me-1 disabled" '
+                        f'title="Cannot edit deleted profile">Edit</span>'
+                    )
+
+                # DELETE / RESTORE BUTTON
+                if qs_instance.datamode == 'A':
+                    actions.append(
+                        f'<a href="{delete_url}?action=delete" '
+                        f'class="btn btn-sm btn-outline-danger" '
+                        f'onclick="return confirm(\'Are you sure you want to delete this profile?\')" '
+                        f'title="Delete Profile">Delete</a>'
+                    )
+                elif qs_instance.datamode == 'I':
+                    actions.append(
+                        f'<a href="{delete_url}?action=delete" '
+                        f'class="btn btn-sm btn-outline-danger" '
+                        f'onclick="return confirm(\'Are you sure you want to delete this inactive profile?\')" '
+                        f'title="Delete Profile">Delete</a>'
+                    )
+                elif qs_instance.datamode == 'D':
+                    actions.append(
+                        f'<a href="{delete_url}?action=restore" '
+                        f'class="btn btn-sm btn-outline-success" '
+                        f'onclick="return confirm(\'Restore this profile?\')" '
+                        f'title="Restore Profile">Restore</a>'
+                    )
+
+            row.append('<div class="text-end">' + ' '.join(actions) + '</div>')
+
+            final_data.append(row)
+
+        fResult = app_utils.final_dict(
+            request,
+            total_records,
+            total_display_records,
+            final_data,
+        )
+
+        result, msg = True, success_msg
+
+    except Exception as e:
+        logger.exception("profile_load_data failed")
+        result, msg = False, error_msg
+
+    return result, msg, fResult
+
+
+@app_logger.functionlogs(log=log_name)
+def profile_load_data(request, table_data):
+    result = False
+    success_msg = "Success"
+    error_msg = "Internal Server Error"
+    fResult = {}
+
+    try:
+        queryset = Profile.objects.all()\
+            .select_related('user')\
+            .order_by("-updated_on")
+
+        # 🔐 Restrict non-admin users
+        if not request.user.is_superuser:
+            queryset = queryset.filter(user=request.user)
+
+        # ✅ Apply filters from POST params
+        filter_gender         = request.POST.get('filter_gender', '').strip()
+        filter_religion       = request.POST.get('filter_religion', '').strip()
+        filter_caste          = request.POST.get('filter_caste', '').strip()
+        filter_rasi           = request.POST.get('filter_rasi', '').strip()
+        filter_nakshatra      = request.POST.get('filter_nakshatra', '').strip()
+        filter_marital_status = request.POST.get('filter_marital_status', '').strip()
+        filter_datamode       = request.POST.get('filter_datamode', '').strip()
+
+        if filter_gender:
+            queryset = queryset.filter(gender=filter_gender)
+        if filter_religion:
+            queryset = queryset.filter(religion=filter_religion)
+        if filter_caste:
+            queryset = queryset.filter(caste=filter_caste)
+        if filter_rasi:
+            queryset = queryset.filter(rasi=filter_rasi)
+        if filter_nakshatra:
+            queryset = queryset.filter(nakshatra=filter_nakshatra)
+        if filter_marital_status:
+            queryset = queryset.filter(marital_status=filter_marital_status)
+        if filter_datamode:
+            queryset = queryset.filter(datamode=filter_datamode)
+
+        # ✅ NEW: Search query — paste starts here
+        from django.db.models import Q
+        search_query = request.POST.get('search_query', '').strip()
+        if search_query:
+            queryset = queryset.filter(
+                Q(full_name__icontains=search_query)       |
+                Q(phone__icontains=search_query)           |
+                Q(whatsapp_number__icontains=search_query) |
+                Q(email__icontains=search_query)           |
+                Q(father_name__icontains=search_query)     |
+                Q(mother_name__icontains=search_query)     |
+                Q(city__icontains=search_query)            |
+                Q(caste__icontains=search_query)           |
+                Q(occupation__icontains=search_query)
+            )
+        # ✅ NEW: Search query — paste ends here
+
+        qs, total_records, total_display_records = (
+            app_utils.method_for_datatable_operations(request, queryset)
+        )
+
+        # ✅ Pre-fetch all payments
+        user_ids = [p.user_id for p in qs]
+        payments_map = {}
+        for payment in Payment.objects.filter(
+            user_id__in=user_ids
+        ).order_by('-payment_date'):
+            if payment.user_id not in payments_map:
+                payments_map[payment.user_id] = payment
+
+        final_data = []
+
+        for qs_instance in qs:
+            row = []
+            edit_url = reverse("mck_master:mck_profile_update", args=[qs_instance.id])
+            delete_url = reverse("mck_master:mck_profile_delete", args=[qs_instance.id])
+
+            payment = payments_map.get(qs_instance.user_id)
+
+            for column in table_data["columns"]:
+                col = column["column_name"]
+
+                if col == "user":
+                    name_display = qs_instance.full_name or str(qs_instance.user)
+                    row.append(
+                        f'<a href="#" class="profile-detail-link fw-semibold text-decoration-none" '
+                        f'data-profile-id="{qs_instance.id}" '
+                        f'data-profile-name="{name_display}">'
+                        f'<i class="bi bi-person-circle me-1"></i>{name_display}</a>'
+                    )
+
+                elif col == "datamode":
+                    status = qs_instance.get_datamode_display()
+                    if qs_instance.datamode == "A":
+                        badge_color = "success"
+                    elif qs_instance.datamode == "I":
+                        badge_color = "warning"
+                    elif qs_instance.datamode == "D":
+                        badge_color = "danger"
+                    else:
+                        badge_color = "secondary"
+                    row.append(
+                        f'<span class="badge bg-{badge_color}">{status}</span>'
+                    )
+
+                elif col == "payment_status":
+                    if payment and payment.status == 'COMPLETED':
+                        row.append(
+                            '<span style="background:#dcfce7;color:#166534;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">✓ PAID</span>'
+                        )
+                    elif payment and payment.status == 'PENDING':
+                        row.append(
+                            '<span style="background:#fef9c3;color:#854d0e;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">⏳ PENDING</span>'
+                        )
+                    elif payment and payment.status == 'FAILED':
+                        row.append(
+                            '<span style="background:#fee2e2;color:#991b1b;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">✗ FAILED</span>'
+                        )
+                    else:
+                        row.append(
+                            '<span style="background:#f1f5f9;color:#64748b;padding:3px 12px;'
+                            'border-radius:20px;font-size:0.78rem;font-weight:700;'
+                            'display:inline-block;">— UNPAID</span>'
+                        )
+
+                elif col == "payment_amount":
+                    if payment and payment.status == 'COMPLETED':
+                        row.append(
+                            f'<span style="font-weight:700;color:#166534;">'
+                            f'₹{payment.amount:.0f}</span>'
+                        )
+                    else:
+                        row.append('<span style="color:#94a3b8;">—</span>')
+
+                elif col == "registration_status":
+                    if hasattr(qs_instance.user, 'registration_status'):
+                        status = qs_instance.user.registration_status
+                        if status == "COMPLETED":
+                            row.append('<span class="badge bg-success">Completed</span>')
+                        elif status == "PAYMENT_PENDING":
+                            row.append('<span class="badge bg-warning">Payment Pending</span>')
+                        elif status == "PROFILE_PENDING":
+                            row.append('<span class="badge bg-info">Profile Pending</span>')
+                        else:
+                            row.append('<span class="badge bg-secondary">Unknown</span>')
+                    else:
+                        row.append('<span class="badge bg-secondary">—</span>')
+
+                else:
+                    value = getattr(qs_instance, col, "-")
+                    row.append(value if value not in [None, ""] else "-")
+
+            # ACTION BUTTONS
+            actions = []
+            name_display = qs_instance.full_name or str(qs_instance.user)
+            actions.append(
+                f'<button type="button" '
+                f'class="btn btn-sm btn-outline-info me-1 profile-detail-link" '
+                f'data-profile-id="{qs_instance.id}" '
+                f'data-profile-name="{name_display}" '
+                f'title="View Full Profile">'
+                f'<i class="bi bi-info-circle"></i> Info'
+                f'</button>'
+            )
+
+            if request.user.is_superuser:
+                if qs_instance.datamode != 'D':
+                    actions.append(
+                        f'<a href="{edit_url}" class="btn btn-sm btn-outline-primary me-1" '
+                        f'title="Edit Profile">Edit</a>'
+                    )
+                else:
+                    actions.append(
+                        f'<span class="btn btn-sm btn-outline-secondary me-1 disabled" '
+                        f'title="Cannot edit deleted profile">Edit</span>'
+                    )
+
+                if qs_instance.datamode == 'A':
+                    actions.append(
+                        f'<a href="{delete_url}?action=delete" '
+                        f'class="btn btn-sm btn-outline-danger" '
+                        f'onclick="return confirm(\'Are you sure you want to delete this profile?\')" '
+                        f'title="Delete Profile">Delete</a>'
+                    )
+                elif qs_instance.datamode == 'I':
+                    actions.append(
+                        f'<a href="{delete_url}?action=delete" '
+                        f'class="btn btn-sm btn-outline-danger" '
+                        f'onclick="return confirm(\'Are you sure you want to delete this inactive profile?\')" '
+                        f'title="Delete Profile">Delete</a>'
+                    )
+                elif qs_instance.datamode == 'D':
+                    actions.append(
+                        f'<a href="{delete_url}?action=restore" '
+                        f'class="btn btn-sm btn-outline-success" '
+                        f'onclick="return confirm(\'Restore this profile?\')" '
+                        f'title="Restore Profile">Restore</a>'
+                    )
+
+            row.append('<div class="text-end">' + ' '.join(actions) + '</div>')
+            final_data.append(row)
+
+        fResult = app_utils.final_dict(
+            request,
+            total_records,
+            total_display_records,
+            final_data,
+        )
+
+        result, msg = True, success_msg
+
+    except Exception as e:
+        logger.exception("profile_load_data failed")
+        result, msg = False, error_msg
+
+    return result, msg, fResult
+    
+from datetime import date, datetime
+
+@app_logger.functionlogs(log=log_name)
+def profile_create_update(request, id=None, mode=None):
+
+    result = False
+    success_msg = "Success"
+    error_msg = "Error saving profile"
+    data = {}
+
+    try:
+        if not request.user.is_authenticated:
+            return False, "Authentication required", {}
+
+        user = request.user
+
+        # =========================
+        # EDIT MODE
+        # =========================
+        if mode == "edit" and id:
+            obj = Profile.objects.filter(id=id, datamode="A").first()
+            if not obj:
+                return False, "Profile not found", {}
+        else:
+            # =========================
+            # CREATE MODE
+            # =========================
+            obj = Profile(
+                user=user,
+                datamode="A",
+            )
+
+        p = request.POST
+        f = request.FILES
+
+        # =========================
+        # BASIC DETAILS
+        # =========================
+        # =========================
+        # BASIC DETAILS
+        # =========================
+        obj.full_name = p.get("full_name")
+        obj.gender = p.get("gender")
+        obj.dob = p.get("dob") or None
+        # obj.birth_time = p.get("birth_time") or None
+        time_str = p.get("birth_time")
+        if time_str:
+            obj.birth_time = datetime.strptime(time_str, "%I:%M %p").time()
+        else:
+            obj.birth_time = None
+        obj.birth_place = p.get("birth_place")
+
+        obj.is_currently_living = True if p.get("is_currently_living") else False
+        obj.current_location = p.get("current_location")
+
+        obj.height = p.get("height")
+        obj.weight = p.get("weight")
+        obj.complexion = p.get("complexion")
+
+        # =========================
+        # RELIGION & HOROSCOPE
+        # =========================
+        obj.religion = p.get("religion")
+        obj.caste = p.get("caste")
+        obj.sub_caste = p.get("sub_caste")
+        obj.gothram = p.get("gothram")
+
+        obj.rasi = p.get("rasi")
+        obj.nakshatra = p.get("nakshatra")
+        obj.laknam = p.get("laknam")
+        obj.dosham = p.get("dosham")
+
+        # =========================
+        # EDUCATION & CAREER
+        # =========================
+        obj.education = p.get("education")
+        obj.occupation = p.get("occupation")
+        obj.company_name = p.get("company_name")
+
+        obj.job_location = p.get("job_location")
+        obj.annual_income = p.get("annual_income") or None
+
+        obj.job_location_type = p.get("job_location_type")
+        obj.job_state = p.get("job_state")
+        obj.job_country = p.get("job_country")
+
+        # =========================
+        # FAMILY TOGGLES
+        # =========================
+       # =========================
+        # FAMILY (existing)
+        # =========================
+        obj.has_father_details = p.get("has_father_details", "N")
+        obj.has_mother_details = p.get("has_mother_details", "N")
+        obj.has_siblings       = p.get("has_siblings", "N")
+
+        obj.father_name        = p.get("father_name")
+        obj.father_occupation  = p.get("father_occupation")
+        obj.father_phone       = p.get("father_phone")   # ✅ NEW
+
+        obj.mother_name        = p.get("mother_name")
+        obj.mother_occupation  = p.get("mother_occupation")
+        obj.mother_phone       = p.get("mother_phone")   # ✅ NEW
+
+        obj.no_of_brothers     = p.get("no_of_brothers") or None
+        obj.no_of_sisters      = p.get("no_of_sisters")  or None
+        obj.perapu_varesai     = p.get("perapu_varesai") # ✅ NEW
+
+        # =========================
+        # RELIGION (existing) — add saimurai
+        # =========================
+        obj.rasi      = p.get("rasi")
+        obj.nakshatra = p.get("nakshatra")
+        obj.laknam    = p.get("laknam")
+        obj.dosham    = p.get("dosham")
+        obj.saimurai  = p.get("saimurai")               # ✅ NEW
+
+        # =========================
+        # ADDITIONAL DETAILS      # ✅ NEW SECTION
+        # =========================
+        obj.wanted      = p.get("wanted")
+        obj.assets      = p.get("assets")
+        obj.erpu_thisai = p.get("erpu_thisai")
+
+
+
+        # =========================
+        # CONTACT
+        # =========================
+        obj.phone = p.get("phone")
+        obj.whatsapp_number = p.get("whatsapp_number")
+        obj.email = p.get("email")
+
+        obj.address = p.get("address")
+        obj.city = p.get("city")
+        obj.state = p.get("state")
+        obj.country = p.get("country")
+        obj.pincode = p.get("pincode")
+
+        # =========================
+        # ABOUT
+        # =========================
+        obj.bio = p.get("bio")
+        obj.hobbies = p.get("hobbies")
+        obj.marital_status = p.get("marital_status")
+
+        # =========================
+        # MULTIPLE PHOTOS
+        # =========================
+        if f.get("photo1"):
+            obj.photo1 = f.get("photo1")
+
+        if f.get("photo2"):
+            obj.photo2 = f.get("photo2")
+
+        if f.get("photo3"):
+            obj.photo3 = f.get("photo3")
+
+        if f.get("photo4"):
+            obj.photo4 = f.get("photo4")
+
+        if f.get("photo5"):
+            obj.photo5 = f.get("photo5")
+
+
+        obj.save()
+
+        data["profile_id"] = obj.id
+        result, msg = True, success_msg
+
+    except Exception as e:
+        logger.exception("profile_create_update failed")
+        result, msg = False, error_msg
+
+    return result, msg, data
+
+
+@app_logger.functionlogs(log=log_name)
+def profile_update_status(request, id=None, action=None):
+    """
+    Update profile status
+    actions: 'delete', 'restore', 'activate', 'inactivate'
+    """
+    result = False
+    message = "Error"
+
+    try:
+        queryset = Profile.objects.filter(id=id)
+
+        if not request.user.is_superuser:
+            queryset = queryset.filter(user=request.user)
+
+        obj = queryset.first()
+        if not obj:
+            return False, "Profile not found"
+
+        # Handle different actions
+        if action == 'delete':
+            obj.datamode = 'D'
+            message = "Profile deleted successfully"
+        elif action == 'restore':
+            obj.datamode = 'A'
+            message = "Profile restored successfully"
+        elif action == 'activate':
+            obj.datamode = 'A'
+            message = "Profile activated successfully"
+        elif action == 'inactivate':
+            obj.datamode = 'I'
+            message = "Profile inactivated successfully"
+        else:
+            # Default toggle behavior (for backward compatibility)
+            obj.datamode = "I" if obj.datamode == "A" else "A"
+            message = "Profile status updated successfully"
+
+        obj.updated_by = str(request.user.id)
+        obj.save()
+
+        result = True
+
+    except Exception as e:
+        logger.exception("profile_update_status failed")
+        message = str(e)
+
+    return result, message
+@app_logger.functionlogs(log=log_name)
+def profile_retrieve_data(request, id):
+    result = False
+    success_msg = "Success"
+    error_msg = "Internal Server Error"
+    data = {}
+
+    try:
+        queryset = Profile.objects.filter(id=id, datamode="A")
+
+        if not request.user.is_superuser:
+            queryset = queryset.filter(user=request.user)
+
+        profile = queryset.first()
+
+        if not profile:
+            return False, "Profile not found", {}
+
+        data["profile"] = profile
+        result, msg = True, success_msg
+
+    except Exception as e:
+        logger.exception("profile_retrieve_data failed")
+        result, msg = False, error_msg
+
+    return result, msg, data

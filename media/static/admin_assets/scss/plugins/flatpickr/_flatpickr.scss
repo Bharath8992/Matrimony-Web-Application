@@ -1,0 +1,1035 @@
+.flatpickr-calendar {
+  background: transparent;
+  opacity: 0;
+  display: none;
+  text-align: center;
+  visibility: hidden;
+  padding: 0;
+  -webkit-animation: none;
+  animation: none;
+  direction: ltr;
+  border: 0;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 5px;
+  position: absolute;
+  width: 307.875px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  background: $white;
+  -webkit-box-shadow: 1px 0 0 $bg-hover, (-1px) 0 0 $bg-hover, 0 1px 0 $bg-hover, 0 -1px 0 $bg-hover, 0 3px 13px rgba(0, 0, 0, 0.08);
+  box-shadow: 1px 0 0 $bg-hover, (-1px) 0 0 $bg-hover, 0 1px 0 $bg-hover, 0 -1px 0 $bg-hover, 0 3px 13px rgba(0, 0, 0, 0.08);
+
+  &.open,
+  &.inline {
+    opacity: 1;
+    max-height: 640px;
+    visibility: visible;
+  }
+
+  &.open {
+    display: inline-block;
+    z-index: 999; 
+  }
+
+  &.animate.open {
+    -webkit-animation: fpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    animation: fpFadeInDown 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  &.inline {
+    display: block;
+    position: relative;
+    inset-block-start: 2px;
+  }
+
+  &.static {
+    position: absolute;
+    inset-block-start: calc(100% + 2px);
+
+    &.open {
+      z-index: 99;
+      display: block;
+    }
+  }
+
+  &.multiMonth .flatpickr-days .dayContainer {
+    &:nth-child(n+1) .flatpickr-day.inRange:nth-child(7n+7) {
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+    }
+
+    &:nth-child(n+2) .flatpickr-day.inRange:nth-child(7n+1) {
+      -webkit-box-shadow: -2px 0 0 $bg-hover, 5px 0 0 $bg-hover;
+      box-shadow: -2px 0 0 $bg-hover, 5px 0 0 $bg-hover;
+    }
+  }
+
+  .hasWeeks .dayContainer,
+  .hasTime .dayContainer {
+    border-block-end: 0;
+    border-end-end-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  .hasWeeks .dayContainer {
+    border-inline-start: 0;
+  }
+
+  &.hasTime .flatpickr-time {
+    height: 40px;
+    border-block-start: 1px solid $bg-hover;
+  }
+
+  &.noCalendar.hasTime .flatpickr-time {
+    height: auto;
+  }
+
+  &:before,
+  &:after {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+    border: solid transparent;
+    content: '';
+    height: 0;
+    width: 0;
+    inset-inline-start: 22px;
+  }
+
+  &.rightMost:before,
+  &.arrowRight:before,
+  &.rightMost:after,
+  &.arrowRight:after {
+    inset-inline-start: auto;
+    inset-inline-end: 22px;
+  }
+
+  &.arrowCenter {
+
+    &:before,
+    &:after {
+      inset-inline-start: 50%;
+      inset-inline-end: 50%;
+    }
+  }
+
+  &:before {
+    border-width: 5px;
+    margin: 0 -5px;
+  }
+
+  &:after {
+    border-width: 4px;
+    margin: 0 -4px;
+  }
+
+  &.arrowTop {
+
+    &:before,
+    &:after {
+      inset-block-end: 100%;
+    }
+
+    &:before {
+      border-block-end-color: transparent;
+    }
+
+    &:after {
+      border-block-end-color: transparent;
+    }
+  }
+
+  &.arrowBottom {
+
+    &:before,
+    &:after {
+      inset-block-start: 100%;
+    }
+
+    &:before {
+      border-block-start-color: $bg-hover;
+    }
+
+    &:after {
+      border-block-start-color: $white;
+    }
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.flatpickr-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.flatpickr-months {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  .flatpickr-month {
+    background: transparent;
+    color: $primary;
+    fill: $primary;
+    height: 34px;
+    line-height: 1;
+    text-align: center;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    overflow: hidden;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-decoration: none;
+    cursor: pointer;
+    position: absolute;
+    inset-block-start: 0;
+    height: 34px;
+    padding-inline: 5px;
+    padding-block-start: 5px;
+    padding-block-end: 0;
+    z-index: 3;
+    color: $primary;
+    fill: $primary;
+  }
+
+  .flatpickr-prev-month.flatpickr-disabled,
+  .flatpickr-next-month.flatpickr-disabled {
+    display: none;
+  }
+
+  .flatpickr-prev-month i,
+  .flatpickr-next-month i {
+    position: relative;
+  }
+
+  .flatpickr-prev-month.flatpickr-prev-month {
+    /*
+  /*rtl:begin:ignore*/
+
+    inset-inline-start: 0;
+  }
+
+  .flatpickr-next-month {
+    &.flatpickr-prev-month {
+      /*
+  /*rtl:begin:ignore*/
+
+      inset-inline-start: 0;
+
+      /*
+  /*rtl:begin:ignore*/
+
+      inset-inline-end: 0;
+    }
+
+    &.flatpickr-next-month {
+      /*
+  /*rtl:begin:ignore*/
+
+      inset-inline-end: 0;
+    }
+  }
+
+  .flatpickr-prev-month:hover,
+  .flatpickr-next-month:hover {
+    color: $border;
+  }
+
+  .flatpickr-prev-month:hover svg,
+  .flatpickr-next-month:hover svg {
+    fill: $primary;
+  }
+
+  .flatpickr-prev-month svg,
+  .flatpickr-next-month svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .flatpickr-prev-month svg path,
+  .flatpickr-next-month svg path {
+    -webkit-transition: fill .1s;
+    transition: fill .1s;
+    fill: inherit;
+  }
+}
+
+/*
+  /*rtl:begin:ignore*/
+/*
+        /*rtl:end:ignore*/
+
+/*
+  /*rtl:begin:ignore*/
+/*
+        /*rtl:end:ignore*/
+
+.numInputWrapper {
+  position: relative;
+  height: auto;
+
+  input,
+  span {
+    display: inline-block;
+  }
+
+  input {
+    width: 100%;
+
+    &::-ms-clear {
+      display: none;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      margin: 0;
+      -webkit-appearance: none;
+    }
+  }
+
+  span {
+    position: absolute;
+    inset-inline-end: 0;
+    width: 14px;
+    padding-block: 0;
+    padding-inline-end: 4px;
+    padding-inline-start: 2px;
+    height: 50%;
+    line-height: 50%;
+    opacity: 0;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    &:hover {
+      background: transparent;
+    }
+
+    &:active {
+      background: transparent;
+    }
+
+    &:after {
+      display: block;
+      content: "";
+      position: absolute;
+    }
+
+    &.arrowUp {
+      inset-block-start: 0;
+      border-block-end: 0;
+
+      &:after {
+        border-inline: 4px solid transparent;
+        border-block-end: 4px solid rgba(57, 57, 57, 0.6);
+        inset-block-start: 26%;
+      }
+    }
+
+    &.arrowDown {
+      inset-block-start: 50%;
+
+      &:after {
+        border-inline: 4px solid transparent;
+        border-block-start: 4px solid rgba(57, 57, 57, 0.6);
+        inset-block-start: 40%;
+      }
+    }
+
+    svg {
+      width: inherit;
+      height: auto;
+
+      path {
+        fill: rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  &:hover {
+    background: transparent;
+
+    span {
+      opacity: 1;
+    }
+  }
+}
+
+.flatpickr-current-month {
+  font-size: 135%;
+  line-height: inherit;
+  font-weight: 300;
+  color: inherit;
+  position: absolute;
+  width: 75%;
+  inset-inline-start: 12.5%;
+  padding-inline: 0;
+  padding-block-start: 7.5px;
+  padding-block-end: 0;
+  line-height: 1;
+  height: 34px;
+  display: inline-block;
+  text-align: center;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  span.cur-month {
+    font-family: inherit;
+    font-weight: 700;
+    color: inherit;
+    display: inline-block;
+    margin-inline-start: .5ch;
+    padding: 0;
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  .numInputWrapper {
+    width: 6ch;
+    width: 7ch\0;
+    display: inline-block;
+
+    span {
+      &.arrowUp:after {
+        border-block-end-color: $primary;
+      }
+
+      &.arrowDown:after {
+        border-block-start-color: $primary;
+      }
+    }
+  }
+
+  input.cur-year {
+    background: transparent;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: inherit;
+    cursor: text;
+    padding-block: 0;
+    padding-inline-end: 0;
+    padding-inline-start: .5ch;
+    margin: 0;
+    display: inline-block;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 300;
+    line-height: inherit;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    vertical-align: initial;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &[disabled] {
+      font-size: 100%;
+      color: rgba(0, 0, 0, 0.5);
+      background: transparent;
+      pointer-events: none;
+
+      &:hover {
+        font-size: 100%;
+        color: rgba(0, 0, 0, 0.5);
+        background: transparent;
+        pointer-events: none;
+      }
+    }
+  }
+
+  .flatpickr-monthDropdown-months {
+    appearance: menulist;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    color: inherit;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 300;
+    height: auto;
+    line-height: inherit;
+    margin-inline: 0;
+    margin-block-start: -1px;
+    margin-block-end: 0;
+    
+    outline: none;
+    padding-block: 0;
+    padding-inline-end: 0;
+    padding-inline-start: .5ch;
+    position: relative;
+    vertical-align: initial;
+    -webkit-box-sizing: border-box;
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    width: auto;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
+
+    &:hover {
+      background: transparent;
+    }
+
+    .flatpickr-monthDropdown-month {
+      background-color: transparent;
+      outline: none;
+      padding: 0;
+    }
+  }
+}
+
+.flatpickr-weekdays {
+  // background: $dark-body;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 28px;
+
+  .flatpickr-weekdaycontainer {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+span.flatpickr-weekday {
+  cursor: default;
+  font-size: 90%;
+  background: transparent;
+  color: $primary;
+  line-height: 1;
+  margin: 0;
+  text-align: center;
+  display: block;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-weight: 500;
+}
+
+.dayContainer,
+.flatpickr-weeks {
+  padding-inline: 0;
+  padding-block-start: 1px;
+  padding-block-end: 0;
+}
+
+.flatpickr-days {
+  position: relative;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  width: 307.875px;
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+.dayContainer {
+  padding: 0;
+  outline: 0;
+  text-align: start;
+  width: 307.875px;
+  min-width: 307.875px;
+  max-width: 307.875px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: inline-block;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+
+  +.dayContainer {
+    -webkit-box-shadow: -1px 0 0 $bg-hover;
+    box-shadow: -1px 0 0 $bg-hover;
+  }
+}
+
+.flatpickr-day {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: $default-color;
+  cursor: pointer;
+  font-weight: 500;
+  width: 14.2857143%;
+  -webkit-flex-basis: 14.2857143%;
+  -ms-flex-preferred-size: 14.2857143%;
+  flex-basis: 14.2857143%;
+  max-width: 39px;
+  height: 39px;
+  font-size: 13px;
+  line-height: 39px;
+  margin: 0;
+  display: inline-block;
+  position: relative;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+
+  &.inRange,
+  &.prevMonthDay.inRange,
+  &.nextMonthDay.inRange,
+  &.today.inRange,
+  &.prevMonthDay.today.inRange,
+  &.nextMonthDay.today.inRange,
+  &:hover,
+  &.prevMonthDay:hover,
+  &.nextMonthDay:hover,
+  &:focus,
+  &.prevMonthDay:focus,
+  &.nextMonthDay:focus {
+    cursor: pointer;
+    outline: 0;
+    background: $bg-hover;
+    border-color: $bg-hover;
+  }
+
+  &.today {
+    border-color: $primary;
+    background-color: $primary;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      border-color: $primary;
+      background: $primary;
+      color: $white;
+    }
+  }
+
+  &.selected,
+  &.startRange,
+  &.endRange,
+  &.selected.inRange,
+  &.startRange.inRange,
+  &.endRange.inRange,
+  &.selected:focus,
+  &.startRange:focus,
+  &.endRange:focus,
+  &.selected:hover,
+  &.startRange:hover,
+  &.endRange:hover,
+  &.selected.prevMonthDay,
+  &.startRange.prevMonthDay,
+  &.endRange.prevMonthDay,
+  &.selected.nextMonthDay,
+  &.startRange.nextMonthDay,
+  &.endRange.nextMonthDay {
+    background: $primary;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: $white;
+    border-color: $primary;
+  }
+
+  &.selected.startRange,
+  &.startRange.startRange,
+  &.endRange.startRange {
+    border-start-start-radius: 4px;
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    border-end-start-radius: 4px;
+  }
+
+  &.selected.endRange,
+  &.startRange.endRange,
+  &.endRange.endRange {
+    border-start-start-radius: 0;
+    border-start-end-radius: 4px;
+    border-end-end-radius: 4px;
+    border-end-start-radius: 0;
+  }
+
+  &.selected.startRange+.endRange:not(:nth-child(7n+1)),
+  &.startRange.startRange+.endRange:not(:nth-child(7n+1)),
+  &.endRange.startRange+.endRange:not(:nth-child(7n+1)) {
+    -webkit-box-shadow: -10px 0 0 $primary;
+    box-shadow: -10px 0 0 $primary;
+  }
+
+  &.selected.startRange.endRange,
+  &.startRange.startRange.endRange {
+    border-radius: 4px;
+  }
+
+  &.inRange {
+    border-radius: 0;
+    -webkit-box-shadow: -5px 0 0 $bg-hover, 5px 0 0 $bg-hover;
+    box-shadow: -5px 0 0 $bg-hover, 5px 0 0 $bg-hover;
+  }
+
+  &.flatpickr-disabled {
+    color: rgba(57, 57, 57, 0.3);
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+
+    &:hover {
+      color: rgba(57, 57, 57, 0.3);
+      background: transparent;
+      border-color: transparent;
+      cursor: default;
+    }
+  }
+
+  &.prevMonthDay,
+  &.nextMonthDay {
+    color: rgba(57, 57, 57, 0.3);
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+  }
+
+  &.notAllowed {
+    color: rgba(57, 57, 57, 0.3);
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+
+    &.prevMonthDay,
+    &.nextMonthDay {
+      color: rgba(57, 57, 57, 0.3);
+      background: transparent;
+      border-color: transparent;
+      cursor: default;
+    }
+  }
+
+  &.flatpickr-disabled {
+    cursor: not-allowed;
+    color: rgba(57, 57, 57, 0.1);
+
+    &:hover {
+      cursor: not-allowed;
+      color: rgba(57, 57, 57, 0.1);
+    }
+  }
+
+  &.week.selected {
+    border-radius: 0;
+    -webkit-box-shadow: -5px 0 0 $primary, 5px 0 0 $primary;
+    box-shadow: -5px 0 0 $primary, 5px 0 0 $primary;
+  }
+
+  &.hidden {
+    visibility: hidden;
+  }
+}
+
+.rangeMode .flatpickr-day {
+  margin-block-start: 1px;
+}
+
+.flatpickr-weekwrapper {
+  float: left;
+
+  .flatpickr-weeks {
+    padding: 0 12px;
+    -webkit-box-shadow: 1px 0 0 $bg-hover;
+    box-shadow: 1px 0 0 $bg-hover;
+  }
+
+  .flatpickr-weekday {
+    float: none;
+    width: 100%;
+    line-height: 28px;
+  }
+
+  span.flatpickr-day {
+    display: block;
+    width: 100%;
+    max-width: none;
+    color: rgba(57, 57, 57, 0.3);
+    background: transparent;
+    cursor: default;
+    border: none;
+
+    &:hover {
+      display: block;
+      width: 100%;
+      max-width: none;
+      color: rgba(57, 57, 57, 0.3);
+      background: transparent;
+      cursor: default;
+      border: none;
+    }
+  }
+}
+
+.flatpickr-innerContainer {
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.flatpickr-rContainer {
+  display: inline-block;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.flatpickr-time {
+  text-align: center;
+  outline: 0;
+  display: block;
+  height: 0;
+  line-height: 40px;
+  max-height: 40px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .numInputWrapper {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 40%;
+    height: 40px;
+    float: left;
+
+    span {
+      &.arrowUp:after {
+        border-block-end-color: #393939;
+      }
+
+      &.arrowDown:after {
+        border-block-start-color: #393939;
+      }
+    }
+  }
+
+  &.hasSeconds .numInputWrapper {
+    width: 26%;
+  }
+
+  &.time24hr .numInputWrapper {
+    width: 49%;
+  }
+
+  input {
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: inherit;
+    line-height: inherit;
+    color: #393939;
+    font-size: 14px;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    &.flatpickr-hour {
+      font-weight: bold;
+    }
+
+    &.flatpickr-minute,
+    &.flatpickr-second {
+      font-weight: 400;
+    }
+
+    &:focus {
+      outline: 0;
+      border: 0;
+    }
+  }
+
+  .flatpickr-time-separator {
+    height: inherit;
+    float: left;
+    line-height: inherit;
+    color: #393939;
+    font-weight: bold;
+    width: 2%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+  }
+
+  .flatpickr-am-pm {
+    height: inherit;
+    float: left;
+    line-height: inherit;
+    color: #393939;
+    font-weight: bold;
+    width: 2%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    outline: 0;
+    width: 18%;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 400;
+  }
+
+  input:hover,
+  .flatpickr-am-pm:hover,
+  input:focus,
+  .flatpickr-am-pm:focus {
+    background: $bg-hover;
+  }
+}
+
+.flatpickr-input[readonly] {
+  cursor: pointer;
+}
+
+@-webkit-keyframes fpFadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes fpFadeInDown {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -20px, 0);
+    transform: translate3d(0, -20px, 0);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.form-control.flatpickr-input {
+  background-color: $white;
+}
+
+@media(max-width:380px) {
+	.flatpickr-calendar.animate.open {
+    width: 72% !important;
+    left: 14% !important;
+  }
+  .flatpickr-innerContainer {
+    overflow: scroll;
+	}
+}
+
+@media (max-width: 420px) {
+  .flatpickr-calendar.animate.inline{
+    left: 0 !important;
+    width: 100% !important;
+  }
+}
+.flatpickr-calendar.open {
+  display: inline-block;
+  z-index: 6;
+}
+.flatpickr-innerContainer {
+  overflow: scroll;
+}
+.modal-open .flatpickr-calendar.animate.open {
+  z-index: 9999;
+}

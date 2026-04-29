@@ -1,0 +1,86 @@
+/*----Ribbon---*/
+
+.ribbone {
+	width: 100%;
+	position: relative;
+	background-size: cover;
+	text-transform: uppercase;
+	color: $white;
+	z-index: 6;
+}
+@media (max-width: 500px) {
+	.ribbone {
+		width: 100%;
+	}
+}
+.ribbon1 {
+	position: absolute;
+	inset-block-start: -6.1px;
+	inset-inline-start: 10px;
+	&:after {
+		position: absolute;
+		content: "";
+		width: 0;
+		height: 0;
+		border-inline-start: 20px solid transparent;
+		border-inline-end: 24px solid transparent;
+		border-block-start: 13px solid #F8463F;
+	}
+	span {
+		position: relative;
+		display: block;
+		text-align: center;
+		background: #F8463F;
+		font-size: 14px;
+		line-height: 1;
+		padding-inline-end: 7px;
+    	padding-inline-start: 7px;
+		padding-block-start: 12px;
+		padding-block-end: 10px;
+		border-start-end-radius: 8px;
+		&:before, &:after {
+			position: absolute;
+			content: "";
+		}
+		&:before {
+			height: 6px;
+			width: 6px;
+			inset-inline-start: -6px;
+			inset-block-start: 0;
+			background: #F8463F;
+		}
+		&:after {
+			height: 6px;
+			width: 8px;
+			inset-inline-start: -8px;
+			inset-block-start: 0;
+			border-start-start-radius: 8px;
+			border-start-end-radius: 8px;
+			border-end-end-radius: 0;
+			border-end-start-radius: 0;
+			background: #C02031;
+		}
+	}
+}
+.arrow-ribbon {
+	padding: 6px 8px;
+	position: absolute;
+	inset-block-start: 10px;
+	inset-inline-start: 0px;
+	z-index: 999;
+	font-size: 17px;
+	line-height: 17px;
+	background: $black;
+	color: $white;
+	&:before {
+		position: absolute;
+		inset-inline-end: 0;
+		inset-block: 0;
+		content: "";
+		inset-inline-end: -15px;
+		border-inline-start: 15px solid $black;
+		border-block: 15px solid transparent;
+		width: 0;
+	}
+}
+/*----Ribbon---*/

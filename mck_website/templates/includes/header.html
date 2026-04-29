@@ -1,0 +1,837 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrimony - Find Your Perfect Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ff4d8d;
+            --deep-pink: #e60073;
+            --light-pink: #ffb6c1;
+            --soft-pink: #fff5f7;
+            --gold: #ffd700;
+            --light-gold: #fff8dc;
+            --dark-bg: #1a1a2e;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --text-dark: #333;
+            --text-light: #666;
+            --shadow: 0 4px 20px rgba(255, 77, 141, 0.15);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--soft-pink);
+        }
+        
+        /* Announcement Bar */
+        .announce-bar {
+            background: linear-gradient(90deg, var(--deep-pink), var(--primary-pink));
+            color: white;
+            padding: 8px 0;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+        
+        .announce-track {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .announce-close {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .announce-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        /* Navbar Container */
+        .matrimony-nav {
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            gap: 15px;
+        }
+        
+        /* Logo Section */
+        .logo-section {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: auto;
+            transition: var(--transition);
+            display: block;
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Main Navigation */
+        .main-nav {
+            display: flex;
+            gap: 25px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+        
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-pink);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-pink), var(--deep-pink));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* User Section */
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+        
+        .premium-badge {
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #8b6914;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .premium-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .user-profile {
+            position: relative;
+        }
+        
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+        
+        .user-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 77, 141, 0.3);
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--primary-pink);
+        }
+        
+        .user-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            min-width: 220px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .user-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .user-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .user-menu-item:hover {
+            background: var(--soft-pink);
+            color: var(--deep-pink);
+            padding-left: 25px;
+        }
+        
+        .user-menu-divider {
+            height: 1px;
+            background: #eee;
+            margin: 10px 0;
+        }
+        
+        .logout-item {
+            color: #ff4444;
+        }
+        
+        /* Auth Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .auth-btn {
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .login-btn {
+            background: transparent;
+            border: 2px solid var(--primary-pink);
+            color: var(--primary-pink);
+        }
+        
+        .login-btn:hover {
+            background: var(--primary-pink);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .register-btn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--deep-pink));
+            color: white;
+            border: 2px solid transparent;
+        }
+        
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 77, 141, 0.3);
+        }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 8px;
+            transition: var(--transition);
+        }
+        
+        .mobile-menu-btn:hover {
+            color: var(--primary-pink);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 2000;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--soft-pink), white);
+        }
+        
+        .mobile-logo {
+            height: 40px;
+            width: auto;
+        }
+        
+        .mobile-close-btn {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .mobile-close-btn:hover {
+            background: rgba(255, 77, 141, 0.1);
+            color: var(--primary-pink);
+        }
+        
+        .mobile-nav-content {
+            padding: 20px;
+            overflow-y: auto;
+            height: calc(100vh - 80px);
+        }
+        
+        .mobile-auth {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 10px;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .mobile-nav-link:hover {
+            background: var(--soft-pink);
+            color: var(--deep-pink);
+            padding-left: 20px;
+        }
+        
+        .mobile-nav-link i {
+            width: 24px;
+            text-align: center;
+        }
+        
+        /* Overlay */
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1500;
+            display: none;
+        }
+        
+        .mobile-overlay.active {
+            display: block;
+        }
+        
+        /* ========== RESPONSIVE BREAKPOINTS ========== */
+        
+        /* Between 950px and 1410px - Hide some navigation items */
+        @media (max-width: 1410px) and (min-width: 951px) {
+            .main-nav {
+                gap: 18px;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+            }
+            
+            .nav-link i {
+                display: none;
+            }
+            
+            .user-btn span {
+                display: inline-block;
+            }
+        }
+        
+        /* At 950px and below - Switch to mobile view */
+        @media (max-width: 950px) {
+            .main-nav {
+                display: none;
+            }
+            
+            .user-section {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            .logo-img {
+                height: 45px;
+            }
+        }
+        
+        /* Tablet devices */
+        @media (max-width: 768px) {
+            .announce-track {
+                animation: marquee 20s linear infinite;
+            }
+            
+            .mobile-nav {
+                width: 300px;
+            }
+            
+            .logo-img {
+                height: 40px;
+            }
+        }
+        
+        /* Mobile devices */
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 12px;
+            }
+            
+            .mobile-nav {
+                width: 280px;
+            }
+            
+            .logo-img {
+                height: 35px;
+            }
+            
+            .mobile-nav-link {
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Very small devices */
+        @media (max-width: 380px) {
+            .logo-img {
+                height: 30px;
+            }
+            
+            .mobile-menu-btn {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Special Features */
+        .heart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--gold);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Scrollbar Styling */
+        .mobile-nav-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .mobile-nav-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .mobile-nav-content::-webkit-scrollbar-thumb {
+            background: var(--primary-pink);
+            border-radius: 5px;
+        }
+        
+        /* Animation for menu items */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .mobile-nav-link {
+            animation: slideIn 0.3s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announce-bar" id="announceBar">
+        <div class="announce-track">
+            🤍 Find Your Perfect Match • Verified Profiles • Safe & Secure • Personalized Matchmaking • Trusted by Thousands • LAND LINE OFFICE NO : 044- 3169 7423 • WHATS APP NO : 9003087995 • Timing 9.00AM - 7.00PM
+        </div>
+        <button class="announce-close" id="announceClose">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Main Navbar -->
+    <nav class="matrimony-nav">
+        <div class="nav-container">
+            <!-- Logo - Using Image -->
+            <div class="logo-section">
+                <a href="{% url 'mck_website:home_page' %}" aria-label="Go to Home">
+                    <img src="{% static 'images/logo.png' %}" 
+                         alt="Sri Varam Malai"
+                         class="logo-img">
+                </a>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <div class="main-nav">
+                <div class="nav-item">
+                    <a href="{% url 'mck_website:mck_property_page' %}" class="nav-link">
+                         Advanced Search
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'mck_website:community_match' %}" class="nav-link">
+                       Perfect Match
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'mck_website:gallery' %}" class="nav-link">
+                        Gallery
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'mck_website:sucess-storeis' %}" class="nav-link">
+                        Success Stories
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'mck_website:package' %}" class="nav-link">
+                        Plan
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'mck_website:vip' %}" class="nav-link">
+                         VIP
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="{% url 'mck_website:contact-us' %}" class="nav-link">
+                        Contact
+                    </a>
+                </div>
+            </div>
+
+            <!-- User Section -->
+            <div class="user-section">
+                {% if user.is_authenticated %}
+                <div class="user-profile">
+                    <button class="user-btn">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>{{ user.first_name|default:user.username }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-menu">
+                        <a href="{% url 'mck_website:my_profile' %}" class="user-menu-item">
+                            My Profile
+                        </a>
+                        <a href="{% url 'mck_website:profile_page' %}" class="user-menu-item">
+                             Create Profile
+                        </a>
+                        <div class="user-menu-divider"></div>
+                        <a href="{% url 'mck_auth:website_logout' %}" class="user-menu-item logout-item">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+                {% else %}
+                <div class="auth-buttons">
+                    <a href="{% url 'mck_auth:website_signin' %}" class="auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i> <span>Login</span>
+                    </a>
+                    <a href="{% url 'mck_auth:website_signup' %}" class="auth-btn register-btn">
+                        <i class="fas fa-user-plus"></i> <span>Register</span>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <div class="mobile-nav" id="mobileNav">
+        <div class="mobile-nav-header">
+            <img src="{% static 'images/logo.png' %}" 
+                 alt="Sri Varam Malai"
+                 class="mobile-logo">
+            <button class="mobile-close-btn" id="mobileCloseBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="mobile-nav-content">
+            {% if user.is_authenticated %}
+            <div class="mobile-auth">
+                <div class="user-btn" style="margin-bottom: 10px; justify-content: center; width: 100%;">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    {{ user.first_name|default:user.username }}
+                </div>
+            </div>
+            {% else %}
+            <div class="mobile-auth">
+                <a href="{% url 'mck_auth:website_signin' %}" class="auth-btn login-btn" style="justify-content: center;">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                <a href="{% url 'mck_auth:website_signup' %}" class="auth-btn register-btn" style="justify-content: center;">
+                    <i class="fas fa-user-plus"></i> Register
+                </a>
+            </div>
+            {% endif %}
+
+            <!-- Mobile Navigation Items -->
+            <a href="{% url 'mck_website:mck_property_page' %}" class="mobile-nav-link">
+                <i class="fas fa-search"></i> Advanced Search
+            </a>
+            
+            <a href="{% url 'mck_website:community_match' %}" class="mobile-nav-link">
+                <i class="fas fa-handshake"></i> Perfect Match
+            </a>
+            
+            <a href="{% url 'mck_website:gallery' %}" class="mobile-nav-link">
+                <i class="fas fa-images"></i> Gallery
+            </a>
+            
+            <a href="{% url 'mck_website:sucess-storeis' %}" class="mobile-nav-link">
+                <i class="fas fa-star"></i> Success Stories
+            </a>
+            
+            <a href="{% url 'mck_website:package' %}" class="mobile-nav-link">
+                <i class="fas fa-crown"></i> Plan
+            </a>
+            
+            <a href="{% url 'mck_website:vip' %}" class="mobile-nav-link">
+                <i class="fas fa-gem"></i> VIP
+            </a>
+            
+            <a href="{% url 'mck_website:contact-us' %}" class="mobile-nav-link">
+                <i class="fas fa-envelope"></i> Contact
+            </a>
+
+            {% if user.is_authenticated %}
+            <div class="user-menu-divider" style="margin: 15px 0;"></div>
+            <a href="{% url 'mck_website:my_profile' %}" class="mobile-nav-link">
+                <i class="fas fa-user-circle"></i> My Profile
+            </a>
+            <a href="{% url 'mck_website:profile_page' %}" class="mobile-nav-link">
+                <i class="fas fa-heart"></i> Create Profile
+            </a>
+            <a href="{% url 'mck_auth:website_logout' %}" class="mobile-nav-link logout-item">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Announcement Bar
+            const announceBar = document.getElementById('announceBar');
+            const announceClose = document.getElementById('announceClose');
+            
+            if (announceClose) {
+                announceClose.addEventListener('click', function() {
+                    announceBar.style.display = 'none';
+                });
+            }
+            
+            // Mobile Menu
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+            
+            function openMobileMenu() {
+                mobileNav.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeMobileMenu() {
+                mobileNav.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', openMobileMenu);
+            }
+            
+            if (mobileCloseBtn) {
+                mobileCloseBtn.addEventListener('click', closeMobileMenu);
+            }
+            
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', closeMobileMenu);
+            }
+            
+            // User dropdown toggle
+            const userProfile = document.querySelector('.user-profile');
+            if (userProfile) {
+                const userBtn = userProfile.querySelector('.user-btn');
+                const userMenu = userProfile.querySelector('.user-menu');
+                
+                if (userBtn && userMenu) {
+                    userBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        userMenu.classList.toggle('active');
+                    });
+                    
+                    document.addEventListener('click', function() {
+                        userMenu.classList.remove('active');
+                    });
+                }
+            }
+            
+            // Close mobile menu on window resize (if screen becomes larger)
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 950 && mobileNav.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

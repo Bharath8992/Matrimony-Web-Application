@@ -1,0 +1,156 @@
+[
+{
+    "model": "mck_admin_console.faq",
+    "pk": 1,
+    "fields": {
+        "faqcategory": 1,
+        "question": "How much does a permit cost?",
+        "answer": "Permit fees vary by municipality, so there is no set price. Once you submit your application, the fee will be calculated based on your project's location. You can also check your Village or Township website for fee schedules.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:00:23.733",
+        "updated_on": "2025-03-05T12:00:19.832",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 2,
+    "fields": {
+        "faqcategory": 1,
+        "question": "How do I know which building inspector works in my area?",
+        "answer": "Your municipality�s website often lists the building inspector and contact information. You can also call your local government office for assistance. Additionally, visit our Services page to find the municipalities we work with�just search by your county.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:04:23.532",
+        "updated_on": "2025-03-05T11:59:56.355",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 3,
+    "fields": {
+        "faqcategory": 1,
+        "question": "How do I know if I need a permit?",
+        "answer": "Permit requirements vary by municipality. Some projects require permits in one area but not in another. To be sure, contact your local government office or your area's building inspector.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:05:29.398",
+        "updated_on": "2025-03-05T11:59:32.723",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 4,
+    "fields": {
+        "faqcategory": 1,
+        "question": "Does Total Inspection Services inspect homes for real estate purchases?",
+        "answer": "No, Total Inspection Services only works with municipalities for building permits and ordinance enforcement. We do not provide inspections for individuals purchasing homes.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:06:06.032",
+        "updated_on": "2025-02-27T17:06:06.032",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 5,
+    "fields": {
+        "faqcategory": 2,
+        "question": "What permits do I need to build a new house?",
+        "answer": "Before a building permit can be issued, you may need a sanitary permit, driveway permit, and zoning permit, depending on your local municipality or county requirements. Copies of these permits must be submitted to the building inspector before your building permit is approved.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:06:36.666",
+        "updated_on": "2025-03-05T11:58:20.504",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 6,
+    "fields": {
+        "faqcategory": 2,
+        "question": "What building permit do I fill out for a new one or two-family home?",
+        "answer": "Complete the Wisconsin Uniform Building Permit Application and return to the building Inspector    n n   n",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:07:16.556",
+        "updated_on": "2025-03-05T11:57:45.585",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 7,
+    "fields": {
+        "faqcategory": 2,
+        "question": "What inspections are required when building a new one- or two-family home?",
+        "answer": "According to the Wisconsin Administrative Code SPS 320.10(2)(b), the applicant or an authorized representative must request inspections from the municipality. The required inspections include: Sewer, Erosion control, footings, Foundation & Drain Tile, Underfloor Plumbing, Vapor Retarder, Temporary Electrical Service, Rough Construction, Rough Plumbing, Rough Electric, Rough Heating and A/C, Electrical hook-up, Insulation, Final Inspection / Occupancy",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:07:43.755",
+        "updated_on": "2025-03-05T11:57:01.823",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 8,
+    "fields": {
+        "faqcategory": 2,
+        "question": "How do I apply for a permit for a home remodel or alteration?",
+        "answer": "Fill out the Uniform Building Permit application and email it to your municipality. If Total Inspection Services handles inspections in your area, you can email your completed permit to totalinspectionservices@gmail.com.\r\n\r\nTotal Inspection Services will:\r\n\r\nAssign a permit number\r\nCalculate the permit fee\r\nIssue the permit once payment is made\r\nOnce you receive your permit, you can begin your project.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:08:03.315",
+        "updated_on": "2025-03-05T11:56:05.282",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 9,
+    "fields": {
+        "faqcategory": 3,
+        "question": "Where do I apply for a building permit for my commercial project?",
+        "answer": "Fill out the Uniform Building Permit application and email it to your municipality. If Total Inspection Services handles inspections in your area, you can email your completed permit to totalinspectionservices@gmail.com.\r\n\r\nTotal Inspection Services will:\r\n\r\nAssign a permit number\r\nCalculate the permit fee\r\nIssue the permit once payment is made\r\nOnce you receive your permit, you can begin your project.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:08:35.388",
+        "updated_on": "2025-03-05T11:55:03.636",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 10,
+    "fields": {
+        "faqcategory": 3,
+        "question": "Where do I find Commercial Building Codes for the State of Wisconsin?",
+        "answer": "The Department of Safety and Professional Services (SPS) for the State of Wisconsin has Commercial Building Codes here.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:09:02.214",
+        "updated_on": "2025-03-05T11:54:30.720",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faq",
+    "pk": 11,
+    "fields": {
+        "faqcategory": 4,
+        "question": "How do I know if Total Inspection Services does building inspections where I live?",
+        "answer": "It is always best to go to your village,city, or township website to find out who your building inspector is. You can also look up your township on our list of municipalities we work for.",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:09:22.397",
+        "updated_on": "2025-03-05T11:46:06.939",
+        "datamode": "A"
+    }
+}
+]

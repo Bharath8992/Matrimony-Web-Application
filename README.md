@@ -1,52 +1,83 @@
-#  Matrimony Web Application
+# 💍 Matrimony Web Application
 
-This is a Django-based matrimonial web application built to help people find suitable life partners in a simple and structured way.
+A modern matrimonial web application designed to help individuals find compatible life partners with ease. This platform provides a secure, user-friendly interface for profile creation, browsing, and communication.
 
-The idea behind this project was to create a platform where users can create profiles, explore matches, and connect — all in one place with a clean UI and smooth experience.
-
-🌐 Live site: https://srivarammanamalai.com/
+🌐 **Live Website:** https://srivarammanamalai.com/
 
 ---
 
-##  What this project does
+## 📌 Features
 
-* Users can register and create their profiles
-* Browse and search for other profiles
-* Filter matches based on preferences
-* Basic matchmaking flow
-* Payment option for premium features
-* Fully responsive design (works on mobile too)
-
----
-
-##  Built with
-
-I kept the stack simple and practical:
-
-* **Backend:** Python + Django
-* **Frontend:** HTML, CSS, Bootstrap, JavaScript
-* **Database:** SQLite (can be switched to MySQL)
-* **Other:** Django REST API (for handling data)
+* 🏠 Home page with user-friendly navigation
+* 👤 User profile creation and management
+* 🔍 Search and filter profiles
+* 💌 Matchmaking functionality
+* 💳 Secure payment integration
+* 🔐 Authentication & authorization system
+* 📱 Responsive design for mobile and desktop
 
 ---
 
-##  Project structure (simplified)
+## 🛠️ Tech Stack
+
+**Frontend:**
+
+* HTML5
+* CSS3
+* Bootstrap
+* JavaScript
+
+**Backend:**
+
+* Python
+* Django Framework
+
+**Database:**
+
+* SQL (SQLite / MySQL)
+
+**API:**
+
+* REST API for data handling and integration
+
+---
+
+## 📂 Project Structure
+
+## 📂 Project Structure
 
 ```
 APPSOURCE/
-│── mck_website/        # Main website logic
-│── mck_auth/           # Login / registration
-│── mck_admin_console/  # Admin side
-│── mck_master/         # Core data handling
+│── config/                # Project settings and configuration
+│── crispy_bootstrap5/     # Bootstrap 5 integration (Django Crispy Forms)
+│── crispy_forms/          # Form rendering utilities
+│── fixture/               # Initial data / fixtures
+│── img/                   # Project screenshots (home, profile, payment)
+│── logs/                  # Application logs
 │
-│── static/             # CSS, JS
-│── media/              # Uploaded files
-│── img/                # Screenshots
+│── mck_admin_console/     # Admin panel app
+│── mck_auth/              # Authentication (login/register)
+│── mck_master/            # Core/master data management
+│── mck_website/           # Main website functionality
 │
-│── manage.py
-│── requirements.txt
+│── media/                 # User uploaded files
+│── static/                # CSS, JS, images
+│── scripts/               # Utility scripts
+│
+│── venv/                  # Virtual environment (not for production)
+│── manage.py              # Django project manager
+│── mck.sqlite3            # Database (SQLite)
+│
+│── requirements.txt       # Python dependencies
+│── runtime.txt            # Runtime version (for deployment)
+│── run.txt                # Run instructions
+│── PAYMENTGATWAY          # Payment integration config
+│── PACKAGE.CODE           # Project-specific config/code
+│
+│── README.md              # Project documentation
 ```
 
+<<<<<<< HEAD
 ## 📸 Screenshots
 
 ### 🏠 Home Page
@@ -60,47 +91,60 @@ APPSOURCE/
 ### 💳 Payment Page
 
 ![Payment Page](img/payment.png)---
+=======
+>>>>>>> fb8d7fb (code base)
 
-##  Screens
+## 📸 Screenshots
 
-* Home page
-* Profile page
-* Payment page
+### 🏠 Home Page
 
-(Screenshots are available in the `img/` folder)
+![Home Page](img/home%20page.png)
+
+### 👤 Profile Page
+
+![Profile Page](img/profile%20page.png)
+
+### 💳 Payment Page
+
+![Payment Page](img/payment.png)
 
 ---
 
-##  Running locally
+## 🚀 Installation & Setup
 
-Clone the project:
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/your-username/matrimony-site.git
 cd matrimony-site
 ```
 
-Create virtual environment:
+2. Create a virtual environment:
 
 ```bash
 python -m venv env
-env\Scripts\activate   # Windows
+source env/bin/activate   # On Windows: env\Scripts\activate
 ```
 
-Install dependencies:
+3. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Run migrations and start server:
+4. Apply migrations:
 
 ```bash
 python manage.py migrate
+```
+
+5. Run the server:
+
+```bash
 python manage.py runserver
 ```
 
-Open:
+6. Open in browser:
 
 ```
 http://127.0.0.1:8000/
@@ -108,38 +152,95 @@ http://127.0.0.1:8000/
 
 ---
 
-## Note on security
+## 🔐 Authentication
 
-I’ve removed some sensitive files like:
-
-* Actual `settings.py` values
-* Secret keys
-* Database data
-* Media uploads
-
-If you want to run this project, you’ll need to:
-
-* Create your own `.env` file
-* Add your own database config
-* Generate a new Django secret key
+* User registration and login system
+* Secure password handling
+* Profile privacy controls
 
 ---
 
-##  Why I built this
+## 💳 Payment Integration
 
-This project was mainly built to practice:
-
-* Django full-stack development
-* Authentication systems
-* Real-world project structure
-* Payment integration flow
+* Integrated payment module for premium features
+* Secure transaction handling
 
 ---
 
-##  License
+## 📡 API Integration
 
-MIT License
+* REST APIs used for:
+
+  * User data management
+  * Profile matching
+  * Payment processing
 
 ---
 
-If you have suggestions or want to improve something, feel free to open a PR.
+## 🎯 Purpose
+
+This project is designed to simplify the matchmaking process by providing a digital platform where users can create profiles, search for partners, and communicate securely.
+
+---
+
+## 🔐 Security Notice
+
+For security reasons, some sensitive configurations have been removed from this repository:
+
+* `settings.py` (secret keys, database credentials)
+* Media files (user-uploaded content)
+* Environment-specific configurations
+
+### ⚙️ Setup Instructions
+
+To run this project locally, you need to create your own configuration:
+
+1. Create a `.env` file in the root directory:
+
+```env
+DEBUG=True
+SECRET_KEY=your_secret_key
+DATABASE_URL=your_database_url
+ALLOWED_HOSTS=127.0.0.1,localhost
+```
+
+2. Recreate `settings.py` or update it to use environment variables:
+
+```python
+import os
+
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = os.getenv("DEBUG") == "True"
+```
+
+3. Create required folders:
+
+```bash
+mkdir media
+mkdir logs
+```
+
+4. Apply migrations and run the server:
+
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+
+---
+
+## 🔒 Best Practices
+
+* Never expose your `SECRET_KEY`
+* Do not upload database files (`.sqlite3`)
+* Use environment variables for sensitive data
+* Keep `DEBUG = False` in production
+
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+⭐ Feel free to contribute and improve this project!

@@ -1,0 +1,90 @@
+/*------------------------------------------------------------------
+[Master Stylesheet]
+
+Project        :   Sparic Bootstrap Admin Template
+Version        :   V.4
+Create Date    :   27/December/2022
+Copyright      :   Spruko Technologies Private Limited 
+Author         :   SprukoSoft
+Author URL     :   https://themeforest.net/user/spruko
+Support        :   sprukotechnolgies@gmail.com
+License        :   Licensed under ThemeForest License
+
+-------------------------------------------------------------------*/
+
+
+/*
+1.   Calendar
+2.   C3-chart
+3.   Nv.d3
+4.   Dygraph-charts
+5.   Formwizard
+6.   Jvectormap
+7.   Morris
+8.   Multipleselect
+9.  Owl-carousel
+10.  Tabs
+11.  Treeview
+12.  Fancy_fileupload
+13.  Quill
+14.  Select2.min
+15.  Fileupload
+16.  Richtext
+17.  Star-rating-svg
+18.  Ion.rangeSlide
+19.  Ion.rangeSlider.skinFlat
+20.  Sweetalert
+21.  NotifIt
+22.  Sidebar
+23.  Perfect-scrollbar
+24.  Quill.bubble
+25.  Summernote
+26.  Leaflet
+27.  Classic.min
+28.  Monolith.min
+29.  Nano.min
+30.  Flatpickr
+31.  Fullcalendar
+32.  Gallery
+33.  Jquery.growl
+34.  breaking-news-ticker
+*/
+
+@import "variables";
+
+/* ######## PLUGINS-STYLES ######## */
+@import "plugins/calendar/calendar";
+@import "plugins/charts-c3/c3-chart";
+@import "plugins/charts-nvd3/nv.d3";
+@import "plugins/datatable/dataTables.bootstrap";
+@import "plugins/dygraph-charts/dygraph";
+@import "plugins/formwizard/smart_wizard_theme_dots";
+@import "plugins/jvectormap/jquery-jvectormap-2.0.5";
+@import "plugins/morris/morris";
+@import "plugins/multipleselect/multiple-select";
+@import "plugins/owl-carousel/owl.carousel";
+@import "plugins/tabs/tabs-style";
+@import "plugins/treeview/treeview";
+@import "plugins/fancy_fileupload/fancy_fileupload";
+@import "plugins/quill/quill.snow";
+@import "plugins/select.min/select2.min";
+@import "plugins/fileupload/fileupload";
+@import "plugins/richtext/richtext";
+@import "plugins/star-rating-svg/star-rating-svg";
+@import "plugins/ion.rangeSlider/ion.rangeSlider";
+@import "plugins/ion.rangeSlider/ion.rangeSlider.skinFlat";
+@import "plugins/sweetalert/sweetalert";
+@import "plugins/notifIt/notifIt";
+@import "plugins/sidebar/sidebar2";
+@import "plugins/perfect-scrollbar/perfect-scrollbar";
+@import "plugins/quill/quill.bubble";
+@import "plugins/summernote/summernote";
+@import "plugins/leaflet/leaflet";
+@import "plugins/colorpicker/classic.min";
+@import "plugins/colorpicker/monolith.min";
+@import "plugins/colorpicker/nano.min";
+@import "plugins/flatpickr/flatpickr";
+@import "plugins/fullcalendar/fullcalendar";
+@import "plugins/gallery/gallery";
+@import "plugins/jquery.growl/jquery.growl";
+@import "plugins/newsticker/breaking-news-ticker";

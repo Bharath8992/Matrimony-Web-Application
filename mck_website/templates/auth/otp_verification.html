@@ -1,0 +1,70 @@
+<!-- templates/auth/otp_verification.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid" style="background: #f4f7f6; min-height: 100vh; display: flex; align-items: center; padding: 40px 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card" style="border: none; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden;">
+                    
+                    <div class="card-header text-center" style="background: #ffffff; border-bottom: 1px solid #eee; padding: 30px 20px;">
+                        <h3 style="font-weight: 700; color: #1e293b; margin-bottom: 5px; letter-spacing: -0.5px;">Verify Your Email</h3>
+                        <p style="color: #64748b; font-size: 0.9rem;">We've sent a verification code to your email</p>
+                    </div>
+
+                    <div class="card-body" style="padding: 40px;">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" style="border-radius: 8px; border: none; background-color: {% if message.tags == 'success' %}#f0fdf4{% else %}#fef2f2{% endif %}; color: {% if message.tags == 'success' %}#166534{% else %}#b91c1c{% endif %}; font-size: 0.9rem; padding: 15px;">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="text-center mb-4">
+                            <p style="color: #475569; font-size: 0.95rem;">Enter the 6-digit code sent to:</p>
+                            <p style="font-weight: 600; color: #2563eb; font-size: 1.1rem;">{{ email }}</p>
+                        </div>
+                        
+                        <form method="post" action="{% url 'mck_auth:verify_otp' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="email" value="{{ email }}">
+                            
+                            <div class="form-group mb-4">
+                                <label for="otp" style="font-weight: 600; font-size: 0.85rem; color: #475569; text-transform: uppercase; margin-bottom: 8px; display: block;">Verification Code</label>
+                                <input type="text" class="form-control text-center" id="otp" name="otp" maxlength="6" required autofocus
+                                    placeholder="• • • • • •"
+                                    style="height: 60px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 24px; letter-spacing: 8px; text-align: center; font-weight: 600;">
+                                <small style="color: #64748b; display: block; text-align: center; margin-top: 10px;">Enter the 6-digit code sent to your email</small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block" 
+                                style="background: #2563eb; border: none; height: 50px; border-radius: 8px; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); width: 100%; margin-bottom: 15px;">
+                                Verify & Continue
+                            </button>
+                        </form>
+
+                        <form method="post" action="{% url 'mck_auth:resend_otp' %}" class="text-center">
+                            {% csrf_token %}
+                            <input type="hidden" name="email" value="{{ email }}">
+                            <p style="color: #64748b;">
+                                Didn't receive the code? 
+                                <button type="submit" style="background: none; border: none; color: #2563eb; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">
+                                    Resend OTP
+                                </button>
+                            </p>
+                        </form>
+                        
+                        <div class="text-center mt-3">
+                            <a href="{% url 'mck_auth:website_signup' %}" style="color: #64748b; font-size: 0.9rem; text-decoration: none;">
+                                ← Back to Registration
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

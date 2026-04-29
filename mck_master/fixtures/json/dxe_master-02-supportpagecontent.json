@@ -1,0 +1,98 @@
+[
+    {
+        "model": "mck_master.supportpagecontent",
+        "pk": 1,
+        "fields": {
+            "id": 1,
+            "support_key": "Privacy Policy",
+            "support_value": "Privacy Policy",
+            "support_description": "",
+            "content_type": "PRIVACY_POLICY",
+            "created_on": "2023-03-01 10:10:00",
+            "updated_on": "2023-03-01 10:10:00",
+            "created_by": 1,
+            "updated_by": 1,
+            "datamode": "A"
+        }
+    },
+    {
+        "model": "mck_master.supportpagecontent",
+        "pk": 2,
+        "fields": {
+            "id": 2,
+            "support_key": "Terms Of Use",
+            "support_value": "Terms Of Use",
+            "support_description": "",
+            "content_type": "TERMS_OF_USE",
+            "created_on": "2023-03-01 10:10:00",
+            "updated_on": "2023-03-01 10:10:00",
+            "created_by": 1,
+            "updated_by": 1,
+            "datamode": "A"
+        }
+    },
+    {
+        "model": "mck_master.supportpagecontent",
+        "pk": 3,
+        "fields": {
+            "id": 3,
+            "support_key": "About",
+            "support_value": "About",
+            "support_description": "",
+            "content_type": "ABOUT_US",
+            "created_on": "2023-03-01 10:10:00",
+            "updated_on": "2023-03-01 10:10:00",
+            "created_by": 1,
+            "updated_by": 1,
+            "datamode": "A"
+        }
+    },
+    {
+        "model": "mck_master.supportpagecontent",
+        "pk": 4,
+        "fields": {
+            "id": 4,
+            "support_key": "WhatsApp Us",
+            "support_value": "",
+            "support_description": "Standard business hours 9:30AM to 6:30PM",
+            "content_type": "WHATSAPP",
+            "created_on": "2023-03-01 10:10:00",
+            "updated_on": "2023-03-01 10:10:00",
+            "created_by": 1,
+            "updated_by": 1,
+            "datamode": "A"
+        }
+    },
+    {
+        "model": "mck_master.supportpagecontent",
+        "pk": 5,
+        "fields": {
+            "id": 5,
+            "support_key": "Call Us",
+            "support_value": "",
+            "support_description": "Standard business hours 9:30AM to 6:30PM",
+            "content_type": "CALL",
+            "created_on": "2023-03-01 10:10:00",
+            "updated_on": "2023-03-01 10:10:00",
+            "created_by": 1,
+            "updated_by": 1,
+            "datamode": "A"
+        }
+    },
+    {
+        "model": "mck_master.supportpagecontent",
+        "pk": 6,
+        "fields": {
+            "id": 6,
+            "support_key": "Email Us",
+            "support_value": "",
+            "support_description": "We will respond back within 24 hours",
+            "content_type": "EMAIL",
+            "created_on": "2023-03-01 10:10:00",
+            "updated_on": "2023-03-01 10:10:00",
+            "created_by": 1,
+            "updated_by": 1,
+            "datamode": "A"
+        }
+    }
+]

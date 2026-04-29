@@ -1,0 +1,194 @@
+{% extends 'layouts/admin_layout.html' %}
+{% load crispy_forms_tags %}
+{% block head_css %}
+<link rel="stylesheet" href="{{page_kwargs.media_url}}js/jquery.datetimepicker.min.css" />
+{% endblock %}
+{% block content %}
+
+<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+  <div class="content d-flex flex-column flex-column-fluid pt-0" id="kt_content">
+    
+    <!-- Content Section -->
+    <div class="header-offset"></div>
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+      <div id="kt_content_container" class="data-content container-fluid">
+        
+        <!-- Card for Form -->
+        <div class="card shadow-sm border-0 rounded-lg">
+          <div class="card-header bg-light border-bottom d-flex align-items-center justify-content-between">
+            <h3 class="fw-bold mb-0 text-dark">
+              {% if mode == "edit" %}
+                Update {{name}} Details
+              {% else %}
+                Create {{name}} Details
+              {% endif %}
+            </h3>
+          </div>
+          
+          <!-- Form Section -->
+          <form method="post" novalidate class="p-5" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+              <!-- Render Fields with Crispy Forms -->
+              <div class="row">
+                {% crispy form %}
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body_js %}
+<script src="{{page_kwargs.media_url}}js/jquery.datetimepicker.full.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Job location conditional logic
+    const jobTypeRadios = document.querySelectorAll('input[name="job_location_type"]');
+    const jobStateDiv = document.getElementById('div_job_state');
+    const jobCountryDiv = document.getElementById('div_job_country');
+    
+    function toggleJobLocation() {
+        const selectedValue = document.querySelector('input[name="job_location_type"]:checked')?.value;
+        if (selectedValue === 'India') {
+            if (jobStateDiv) jobStateDiv.style.display = 'block';
+            if (jobCountryDiv) jobCountryDiv.style.display = 'none';
+        } else if (selectedValue === 'Other') {
+            if (jobStateDiv) jobStateDiv.style.display = 'none';
+            if (jobCountryDiv) jobCountryDiv.style.display = 'block';
+        }
+    }
+    
+    if (jobTypeRadios.length > 0) {
+        jobTypeRadios.forEach(radio => {
+            radio.addEventListener('change', toggleJobLocation);
+        });
+        toggleJobLocation();
+    }
+    
+    // Family details conditional logic - based on dropdown selection
+    const hasFatherSelect = document.getElementById('id_has_father_details');
+    const hasMotherSelect = document.getElementById('id_has_mother_details');
+    const hasSiblingsSelect = document.getElementById('id_has_siblings');
+    
+    const fatherFields = ['div_father_name', 'div_father_occupation'];
+    const motherFields = ['div_mother_name', 'div_mother_occupation'];
+    const siblingFields = ['div_no_of_brothers', 'div_no_of_sisters'];
+    
+    function toggleFieldsBasedOnSelect(select, fieldIds) {
+        if (!select) return;
+        const isVisible = select.value === 'Y';
+        fieldIds.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.style.display = isVisible ? 'block' : 'none';
+            }
+        });
+    }
+    
+    if (hasFatherSelect) {
+        hasFatherSelect.addEventListener('change', () => toggleFieldsBasedOnSelect(hasFatherSelect, fatherFields));
+        toggleFieldsBasedOnSelect(hasFatherSelect, fatherFields);
+    }
+    
+    if (hasMotherSelect) {
+        hasMotherSelect.addEventListener('change', () => toggleFieldsBasedOnSelect(hasMotherSelect, motherFields));
+        toggleFieldsBasedOnSelect(hasMotherSelect, motherFields);
+    }
+    
+    if (hasSiblingsSelect) {
+        hasSiblingsSelect.addEventListener('change', () => toggleFieldsBasedOnSelect(hasSiblingsSelect, siblingFields));
+        toggleFieldsBasedOnSelect(hasSiblingsSelect, siblingFields);
+    }
+});
+</script>
+
+<script>
+// Simple standalone delete function
+function simple_delete_profile(id) {
+    if (confirm('Are you sure you want to delete this profile?')) {
+        // Get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        // Make the request
+        fetch(`/mck-master/profile/${id}/delete/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === true || data.result === "true" || data.result === "True") {
+                alert('Profile deleted successfully!');
+                // Reload the page or table
+                location.reload();
+            } else {
+                alert('Error: ' + (data.message || 'Failed to delete profile'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please check console for details.');
+        });
+    }
+}
+</script>
+
+<script>
+  $(document).ready(function(){
+    // Prevent form submission on Enter key
+    $(":input").keypress(function(event){
+        if (event.which == '10' || event.which == '13') {
+            event.preventDefault();
+        }
+    });
+  });
+
+$('#id_start_time').datetimepicker({datepicker:false,formatTime:"h:i a",format:'H:i:00', step:30});
+$('#id_end_time').datetimepicker({datepicker:false,formatTime:"h:i a",format:'H:i:00', step:30});
+$('#id_dob').datetimepicker({timepicker: false, format: 'Y-m-d',  maxDate: new Date(), scrollInput: false,  });
+$('#id_start_date').datetimepicker({ timepicker: false, format: 'Y-m-d' });
+$('#id_end_date').datetimepicker({timepicker: false,  format: 'Y-m-d', step: 1});
+$('#id_passport_expiry_date').datetimepicker({timepicker: false, format: 'Y-m-d',  maxDate: new Date(), scrollInput: false,  });
+
+
+{% if page_kwargs.function == "ResourceList" %}
+$("#div_id_link").hide();
+$("#div_id_document").hide();
+
+$("#id_type_0").prop("checked", true);
+$("#div_id_document").show();
+
+
+$("#id_type_0").on("click", function(){
+  $("#div_id_link").hide();
+  $("#div_id_document").show();
+});
+$("#id_type_1").on("click", function(){
+  $("#div_id_link").show();
+  $("#div_id_document").hide();
+})
+
+{% endif%}
+</script>
+
+{% endblock %}
+{% include 'mck_custom/includes/footer.html' %}

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Profiles — Sri Varam Manamalai</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --burgundy: #800020;
+      --burg-dark: #600015;
+      --gold: #C5A572;
+      --bg: #f4f0eb;
+      --card: #ffffff;
+      --text: #1e1a16;
+      --muted: #8a8076;
+      --border: #e8e0d4;
+      --success: #1a7a3c;
+      --warning: #b45309;
+      --danger: #c0392b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 20px 80px;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* ── Upload card ── */
+    .upload-card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.09);
+      padding: 40px 44px;
+      text-align: center;
+    }
+
+    .upload-card .logo-icon {
+      width: 60px; height: 60px;
+      background: linear-gradient(135deg, var(--burgundy), var(--burg-dark));
+      border-radius: 16px;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(128,0,32,.22);
+    }
+    .upload-card .logo-icon i { font-size: 1.6rem; color: #fff }
+
+    .upload-card h2 {
+      font-size: 1.45rem; font-weight: 700;
+      color: var(--burgundy); margin-bottom: 6px;
+    }
+    .upload-card p.sub {
+      font-size: .85rem; color: var(--muted); margin-bottom: 28px;
+    }
+
+    /* file input zone */
+    .file-zone {
+      border: 2px dashed var(--gold);
+      border-radius: 12px;
+      padding: 28px 20px;
+      background: #fdf9f3;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+      margin-bottom: 22px;
+      position: relative;
+    }
+    .file-zone:hover { background: #faf4e8; border-color: var(--burgundy) }
+    .file-zone i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; display: block }
+    .file-zone span { font-size: .85rem; color: var(--muted) }
+    .file-zone input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .file-name {
+      font-size: .82rem; color: var(--burgundy); font-weight: 600;
+      margin-top: 8px; display: none;
+    }
+
+    .btn-upload {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg, var(--burgundy), var(--burg-dark));
+      color: #fff; border: none; border-radius: 10px;
+      font-size: .95rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      box-shadow: 0 5px 16px rgba(128,0,32,.2);
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-upload:hover { transform: translateY(-2px); opacity: .92 }
+    .btn-upload:disabled { opacity: .55; cursor: not-allowed; transform: none }
+
+    /* ── Messages ── */
+    .msg-box {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 18px; border-radius: 10px;
+      font-size: .87rem; font-weight: 500;
+      margin-top: 20px; text-align: left;
+    }
+    .msg-box i { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px }
+    .msg-success { background: #ecfdf5; border: 1px solid #6ee7b7; color: var(--success) }
+    .msg-warning { background: #fffbeb; border: 1px solid #fcd34d; color: var(--warning) }
+    .msg-error   { background: #fef2f2; border: 1px solid #fca5a5; color: var(--danger) }
+
+    /* ── Error table card ── */
+    .error-card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.09);
+      overflow: hidden;
+    }
+
+    .error-card-head {
+      background: linear-gradient(135deg, var(--burgundy), var(--burg-dark));
+      padding: 18px 26px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px;
+    }
+    .error-card-head h3 {
+      color: #fff; font-size: 1rem; font-weight: 700;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .error-card-head h3 i { color: #fcd34d }
+
+    .error-badge {
+      background: rgba(255,255,255,.18);
+      color: #fff; font-size: .78rem; font-weight: 700;
+      padding: 4px 14px; border-radius: 40px;
+      border: 1px solid rgba(255,255,255,.3);
+    }
+
+    .error-hint {
+      font-size: .82rem; color: var(--muted);
+      padding: 12px 26px;
+      background: #fdf9f3;
+      border-bottom: 1px solid var(--border);
+    }
+    .error-hint i { color: var(--gold) }
+
+    /* table */
+    .tbl-wrap { overflow-x: auto }
+
+    table.err-table {
+      width: 100%; border-collapse: collapse;
+      font-size: .83rem;
+    }
+    table.err-table thead tr {
+      background: #f7f2ea;
+    }
+    table.err-table thead th {
+      padding: 11px 16px; text-align: left;
+      font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .5px;
+      color: var(--burgundy);
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    table.err-table thead th i { color: var(--gold); margin-right: 5px }
+
+    table.err-table tbody tr { border-bottom: 1px solid var(--border) }
+    table.err-table tbody tr:last-child { border-bottom: none }
+    table.err-table tbody tr:hover { background: #fdf9f3 }
+
+    table.err-table tbody td { padding: 11px 16px; vertical-align: top }
+
+    .td-row {
+      font-weight: 800; font-size: .9rem;
+      color: var(--burgundy);
+      background: rgba(128,0,32,.06);
+      border-radius: 6px; padding: 3px 9px;
+      display: inline-block; white-space: nowrap;
+    }
+    .td-username { font-weight: 600; color: var(--text) }
+    .td-name     { color: var(--muted) }
+    .td-reason   {
+      font-family: 'Courier New', monospace;
+      font-size: .76rem; color: var(--danger);
+      background: #fef2f2; border-radius: 6px;
+      padding: 4px 8px; display: inline-block;
+      word-break: break-word; max-width: 360px;
+    }
+
+    /* ── Summary strip ── */
+    .summary-strip {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.07);
+      padding: 18px 24px;
+    }
+    .stat-box {
+      flex: 1; min-width: 130px;
+      text-align: center;
+      padding: 16px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .stat-box .stat-val {
+      font-size: 2rem; font-weight: 800; line-height: 1;
+      margin-bottom: 5px;
+    }
+    .stat-box .stat-lbl {
+      font-size: .75rem; color: var(--muted); font-weight: 500;
+      text-transform: uppercase; letter-spacing: .4px;
+    }
+    .stat-success .stat-val { color: var(--success) }
+    .stat-failed  .stat-val { color: var(--danger) }
+    .stat-total   .stat-val { color: var(--burgundy) }
+
+    @media(max-width:600px) {
+      .upload-card { padding: 28px 20px }
+      table.err-table thead th,
+      table.err-table tbody td { padding: 9px 10px }
+      .td-reason { max-width: 200px }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── Upload card ── -->
+  <div class="upload-card">
+    <div class="logo-icon"><i class="fas fa-file-excel"></i></div>
+    <h2>Upload Profiles</h2>
+    <p class="sub">Import member profiles in bulk using an Excel (.xlsx) file.</p>
+
+    <form method="POST" enctype="multipart/form-data" id="uploadForm">
+      {% csrf_token %}
+
+      <div class="file-zone" id="fileZone">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span>Click to choose an Excel file, or drag &amp; drop here</span>
+        <div class="file-name" id="fileName"></div>
+        {{ form.file }}
+      </div>
+
+      <button type="submit" class="btn-upload" id="uploadBtn">
+        <i class="fas fa-upload"></i> Upload &amp; Import
+      </button>
+    </form>
+
+    <!-- Django messages -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="msg-box
+          {% if 'success' in message.tags %}msg-success
+          {% elif 'warning' in message.tags %}msg-warning
+          {% else %}msg-error{% endif %}">
+          <i class="fas
+            {% if 'success' in message.tags %}fa-check-circle
+            {% elif 'warning' in message.tags %}fa-exclamation-triangle
+            {% else %}fa-times-circle{% endif %}">
+          </i>
+          <span>{{ message }}</span>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <!-- ── Summary strip (only when we have results) ── -->
+  {% if success_count or upload_errors %}
+  <div class="summary-strip">
+    <div class="stat-box stat-total">
+      <div class="stat-val">{{ success_count|add:upload_errors|length }}</div>
+      <div class="stat-lbl">Total Rows</div>
+    </div>
+    <div class="stat-box stat-success">
+      <div class="stat-val">{{ success_count }}</div>
+      <div class="stat-lbl">Imported</div>
+    </div>
+    <div class="stat-box stat-failed">
+      <div class="stat-val">{{ upload_errors|length }}</div>
+      <div class="stat-lbl">Failed</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ── Error table (only shown when errors exist) ── -->
+  {% if upload_errors %}
+  <div class="error-card">
+
+    <div class="error-card-head">
+      <h3>
+        <i class="fas fa-exclamation-triangle"></i>
+        Failed Rows — Action Required
+      </h3>
+      <span class="error-badge">{{ upload_errors|length }} row{{ upload_errors|length|pluralize }} failed</span>
+    </div>
+
+    <div class="error-hint">
+      <i class="fas fa-info-circle"></i>
+      The <strong>Excel Row #</strong> matches the exact row number in your spreadsheet
+      (row 1 = header, row 2 = first data row). Open your file, fix these rows, and re-upload.
+    </div>
+
+    <div class="tbl-wrap">
+      <table class="err-table">
+        <thead>
+          <tr>
+            <th><i class="fas fa-hashtag"></i> Excel Row</th>
+            <th><i class="fas fa-user"></i> Username</th>
+            <th><i class="fas fa-id-badge"></i> Full Name</th>
+            <th><i class="fas fa-bug"></i> Reason for Failure</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for err in upload_errors %}
+          <tr>
+            <td><span class="td-row">Row {{ err.excel_row }}</span></td>
+            <td><span class="td-username">{{ err.username }}</span></td>
+            <td><span class="td-name">{{ err.full_name }}</span></td>
+            <td><span class="td-reason">{{ err.reason }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  {% endif %}
+
+</div><!-- /page -->
+
+<script>
+  // Show selected filename in the drop zone
+  const fileInput = document.querySelector('input[type="file"]');
+  const fileName  = document.getElementById('fileName');
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files.length) {
+      fileName.textContent = '📎 ' + fileInput.files[0].name;
+      fileName.style.display = 'block';
+    }
+  });
+
+  // Show spinner while uploading
+  document.getElementById('uploadForm').addEventListener('submit', () => {
+    const btn = document.getElementById('uploadBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importing…';
+  });
+</script>
+</body>
+</html>

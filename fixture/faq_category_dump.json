@@ -1,0 +1,50 @@
+[
+{
+    "model": "mck_admin_console.faqcategory",
+    "pk": 1,
+    "fields": {
+        "name": "General",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T16:59:23.229",
+        "updated_on": "2025-02-27T16:59:23.229",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faqcategory",
+    "pk": 2,
+    "fields": {
+        "name": "One or Two-Family Homes",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T16:59:48.357",
+        "updated_on": "2025-02-27T16:59:48.357",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faqcategory",
+    "pk": 3,
+    "fields": {
+        "name": "Commercial",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:04:39.960",
+        "updated_on": "2025-02-27T17:04:39.960",
+        "datamode": "A"
+    }
+},
+{
+    "model": "mck_admin_console.faqcategory",
+    "pk": 4,
+    "fields": {
+        "name": "Municipalities we serve",
+        "created_by": "1",
+        "updated_by": "1",
+        "created_on": "2025-02-27T17:04:48.825",
+        "updated_on": "2025-02-27T17:04:48.825",
+        "datamode": "A"
+    }
+}
+]

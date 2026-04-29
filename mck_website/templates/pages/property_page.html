@@ -1,0 +1,377 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+{% load query_transform %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRI VARAM MANAMALAI — Find Your Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C5A572; --gold-light: #d4b98a;
+            --burgundy: #800020; --burg-dark: #600015;
+            --tr: all 0.32s cubic-bezier(0.175,0.885,0.32,1.1);
+        }
+        [data-theme="light"] {
+            --bg-page: linear-gradient(160deg,#f9f6f0 0%,#f2ede4 100%);
+            --bg-card: #ffffff; --bg-sidebar: #ffffff; --bg-input: #f7f3ed;
+            --text-main: #1e1e1e; --text-muted: #8a8a8a;
+            --border: rgba(197,165,114,0.2);
+            --sh-sm: 0 2px 12px rgba(0,0,0,0.05);
+            --sh-md: 0 8px 30px rgba(0,0,0,0.08);
+            --sh-lg: 0 20px 56px rgba(0,0,0,0.13);
+        }
+        [data-theme="dark"] {
+            --bg-page: linear-gradient(160deg,#181818 0%,#222 100%);
+            --bg-card: #272727; --bg-sidebar: #242424; --bg-input: #303030;
+            --text-main: #ede9e0; --text-muted: #999;
+            --border: rgba(197,165,114,0.1);
+            --sh-sm: 0 2px 12px rgba(0,0,0,0.3);
+            --sh-md: 0 8px 30px rgba(0,0,0,0.4);
+            --sh-lg: 0 20px 56px rgba(0,0,0,0.5);
+        }
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:var(--bg-page);color:var(--text-main);line-height:1.6;min-height:100vh}
+        .page-wrapper{max-width:1480px;margin:0 auto;padding:28px 24px 80px}
+        /* Plan Banner */
+        .plan-banner{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:16px 22px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;box-shadow:var(--sh-sm)}
+        .plan-banner-left{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+        .plan-pill{display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:40px;font-size:.74rem;font-weight:700;letter-spacing:.6px;text-transform:uppercase;white-space:nowrap}
+        .plan-pill.basic{background:linear-gradient(135deg,#6c757d,#495057);color:#fff}
+        .plan-pill.standard{background:linear-gradient(135deg,#3b7dd8,#2255a8);color:#fff}
+        .plan-pill.premium{background:linear-gradient(135deg,#C5A572,#a07840);color:#fff}
+        .plan-info-text{font-size:.85rem;color:var(--text-muted)}
+        .plan-info-text strong{color:var(--text-main)}
+        .plan-banner-right{display:flex;align-items:center;gap:18px}
+        .view-progress-wrap{display:flex;flex-direction:column;gap:5px;min-width:160px}
+        .view-progress-label{font-size:.72rem;color:var(--text-muted);display:flex;justify-content:space-between}
+        .view-progress-bar{height:6px;background:var(--border);border-radius:40px;overflow:hidden}
+        .view-progress-fill{height:100%;border-radius:40px;transition:width .5s ease}
+        .view-progress-fill.safe{background:linear-gradient(90deg,#C5A572,#d4b98a)}
+        .view-progress-fill.warning{background:linear-gradient(90deg,#e67e22,#f39c12)}
+        .view-progress-fill.full{background:linear-gradient(90deg,#c0392b,#e74c3c)}
+        .btn-upgrade{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;background:linear-gradient(135deg,var(--burgundy),var(--burg-dark));color:#fff;border-radius:40px;text-decoration:none;font-size:.8rem;font-weight:600;white-space:nowrap;box-shadow:0 4px 12px rgba(128,0,32,.22);transition:var(--tr)}
+        .btn-upgrade:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(128,0,32,.35)}
+        /* Layout */
+        .main-layout{display:grid;grid-template-columns:340px 1fr;gap:28px;align-items:start}
+        /* Sidebar */
+        .filter-sidebar{background:var(--bg-sidebar);border-radius:18px;border:1px solid var(--border);box-shadow:var(--sh-md);padding:24px;position:sticky;top:24px;max-height:calc(100vh - 48px);overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
+        .filter-sidebar::-webkit-scrollbar{width:3px}
+        .filter-sidebar::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px}
+        .filter-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+        .filter-top h2{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--burgundy);line-height:1.25}
+        .btn-reset{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;background:rgba(197,165,114,.1);border:1px solid rgba(197,165,114,.22);border-radius:30px;color:var(--gold);font-size:.75rem;font-weight:600;cursor:pointer;text-decoration:none;transition:var(--tr)}
+        .btn-reset:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+        .filter-section{margin-bottom:20px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+        .filter-section:last-of-type{border-bottom:none}
+        .filter-section-title{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;color:var(--burgundy);text-transform:uppercase;letter-spacing:.5px;margin-bottom:14px}
+        .filter-section-title i{color:var(--gold);width:14px;text-align:center;font-size:.75rem}
+        .filter-group{margin-bottom:12px}
+        .filter-group:last-child{margin-bottom:0}
+        .filter-group label{display:block;font-size:.78rem;font-weight:500;color:var(--text-main);margin-bottom:6px}
+        .filter-group input,.filter-group select{width:100%;padding:9px 13px;background:var(--bg-input);border:1px solid var(--border);border-radius:9px;font-size:.82rem;color:var(--text-main);font-family:'Poppins',sans-serif;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none}
+        .filter-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C5A572' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 11px center;padding-right:30px;cursor:pointer}
+        .filter-group input:focus,.filter-group select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(197,165,114,.1)}
+        .range-row{display:flex;align-items:center;gap:7px}
+        .range-row input{flex:1}
+        .range-sep{font-size:.78rem;font-weight:600;color:var(--gold);white-space:nowrap}
+        .btn-find{width:100%;padding:12px;margin-top:6px;background:linear-gradient(135deg,var(--burgundy),var(--burg-dark));color:#fff;border:none;border-radius:11px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 5px 16px rgba(128,0,32,.2);transition:var(--tr)}
+        .btn-find:hover{transform:translateY(-2px);box-shadow:0 9px 24px rgba(128,0,32,.3)}
+        .btn-clear{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:9px;padding:10px;border:1px solid var(--burgundy);border-radius:11px;color:var(--burgundy);font-size:.84rem;font-weight:500;text-decoration:none;transition:var(--tr)}
+        .btn-clear:hover{background:var(--burgundy);color:#fff}
+        /* Listings column */
+        .listings-column{display:flex;flex-direction:column;gap:22px;min-width:0}
+        .listings-header{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;box-shadow:var(--sh-sm)}
+        .listings-header-left h2{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--burgundy);line-height:1.2}
+        .results-count{font-size:.82rem;color:var(--gold);font-weight:500;margin-top:2px}
+        .listings-header-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+        .sort-row{display:flex;align-items:center;gap:7px}
+        .sort-row label{font-size:.78rem;color:var(--text-muted);white-space:nowrap}
+        .sort-row select{padding:7px 28px 7px 11px;background:var(--bg-input);border:1px solid var(--border);border-radius:8px;font-size:.8rem;color:var(--text-main);font-family:'Poppins',sans-serif;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C5A572' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center;min-width:170px}
+        .sort-row select:focus{outline:none;border-color:var(--gold)}
+        .shuffle-btn{display:flex;align-items:center;gap:6px;padding:7px 13px;background:var(--bg-input);border:1px solid var(--border);border-radius:8px;font-size:.8rem;color:var(--text-muted);cursor:pointer;transition:var(--tr);white-space:nowrap}
+        .shuffle-btn.active,.shuffle-btn:hover{background:var(--gold);border-color:var(--gold);color:#fff}
+
+        /* ═══ PROFESSIONAL CARDS ═══ */
+        .profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+
+        .profile-card{background:var(--bg-card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--sh-sm);transition:var(--tr);display:flex;flex-direction:column}
+        .profile-card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:rgba(197,165,114,.42)}
+
+        /* Photo */
+        .card-photo{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;background:var(--bg-input);flex-shrink:0}
+        .card-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s ease}
+        .profile-card:hover .card-photo img{transform:scale(1.03)}
+        .card-photo-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--gold)}
+        .card-photo-placeholder i{font-size:3.5rem;opacity:.4}
+        .card-photo-placeholder span{font-size:.72rem;color:var(--text-muted)}
+        .card-photo::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,rgba(0,0,0,.26),transparent);pointer-events:none}
+        .badge-tl{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;gap:6px;z-index:3}
+        .badge-tr{position:absolute;top:12px;right:12px;z-index:3}
+        .badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:30px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;backdrop-filter:blur(6px)}
+        .badge-verified{background:rgba(255,255,255,.92);color:#1a7a3c;border:1px solid rgba(26,122,60,.2)}
+        .badge-premium{background:linear-gradient(135deg,#C5A572,#a07840);color:#fff}
+
+        /* Card body wrapper */
+        .card-body{display:flex;flex-direction:column;flex:1;padding:0}
+
+        /* Identity row */
+        .card-identity{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px 18px 0}
+        .card-name{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;color:var(--text-main);line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+        .card-age-pill{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;background:rgba(197,165,114,.1);border:1px solid rgba(197,165,114,.22);border-radius:40px;font-size:.76rem;font-weight:600;color:var(--gold);white-space:nowrap;flex-shrink:0}
+
+        /* Detail table — bordered grid */
+        .card-details{display:grid;grid-template-columns:1fr 1fr;margin:14px 18px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+        .detail-cell{padding:9px 12px;display:flex;flex-direction:column;gap:3px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg-input)}
+        .detail-cell:nth-child(2n){border-right:none}
+        .detail-cell:nth-last-child(-n+2){border-bottom:none}
+        .detail-cell:last-child{border-bottom:none;border-right:none}
+        .detail-label{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);display:flex;align-items:center;gap:4px}
+        .detail-label i{color:var(--gold);font-size:.58rem;width:10px}
+        .detail-value{font-size:.8rem;font-weight:500;color:var(--text-main);line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+        /* Bio */
+        .card-bio{font-size:.79rem;color:var(--text-muted);line-height:1.65;padding:12px 18px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+        /* Actions */
+        .card-actions{display:flex;gap:10px;padding:14px 18px 18px;margin-top:auto}
+        .btn-view{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;background:linear-gradient(135deg,var(--burgundy),var(--burg-dark));color:#fff;text-decoration:none;border-radius:10px;font-size:.81rem;font-weight:600;transition:var(--tr);border:none;cursor:pointer;font-family:'Poppins',sans-serif}
+        .btn-view:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(128,0,32,.3)}
+        .btn-wishlist{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 14px;background:transparent;border:1.5px solid var(--border);border-radius:10px;color:var(--text-muted);font-size:.81rem;font-weight:600;cursor:pointer;transition:var(--tr);white-space:nowrap;font-family:'Poppins',sans-serif}
+        .btn-wishlist:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);background:rgba(197,165,114,.05)}
+        .btn-wishlist.active{background:var(--gold);border-color:var(--gold);color:#fff}
+        .btn-wishlist.loading{opacity:.55;cursor:wait;pointer-events:none}
+
+        /* Empty */
+        .empty-state{text-align:center;padding:80px 40px;background:var(--bg-card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--sh-sm)}
+        .empty-state i{font-size:3.2rem;color:var(--gold);opacity:.55;margin-bottom:18px;display:block}
+        .empty-state h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--burgundy);margin-bottom:10px}
+        .empty-state p{font-size:.87rem;color:var(--text-muted);max-width:400px;margin:0 auto 26px}
+        .btn-outline-primary{display:inline-flex;align-items:center;gap:7px;padding:11px 28px;border:2px solid var(--burgundy);border-radius:40px;color:var(--burgundy);text-decoration:none;font-weight:600;font-size:.87rem;transition:var(--tr)}
+        .btn-outline-primary:hover{background:var(--burgundy);color:#fff}
+
+        /* Pagination */
+        .pagination-row{display:flex;justify-content:center;gap:7px;padding-top:10px}
+        .page-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--bg-card);border:1px solid var(--border);border-radius:9px;color:var(--text-main);text-decoration:none;font-size:.85rem;font-weight:500;transition:var(--tr)}
+        .page-btn.active{background:linear-gradient(135deg,var(--burgundy),var(--burg-dark));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(128,0,32,.22)}
+        .page-btn:hover:not(.active){border-color:var(--gold);color:var(--gold)}
+
+        /* Toast */
+        .toast{position:fixed;bottom:26px;right:26px;background:linear-gradient(135deg,var(--burgundy),var(--burg-dark));color:#fff;padding:12px 20px;border-radius:40px;box-shadow:0 8px 26px rgba(128,0,32,.28);display:flex;align-items:center;gap:9px;font-size:.85rem;font-weight:500;z-index:9999;opacity:0;transform:translateY(14px);transition:opacity .28s ease,transform .28s ease;pointer-events:none}
+        .toast.show{opacity:1;transform:translateY(0)}
+        .toast.toast-warning{background:linear-gradient(135deg,#c0392b,#922b21)}
+
+        /* Responsive */
+        @media(max-width:1200px){.main-layout{grid-template-columns:1fr}.filter-sidebar{position:static;max-height:none}}
+        @media(max-width:768px){.page-wrapper{padding:18px 14px 60px}.plan-banner{flex-direction:column;align-items:flex-start}.plan-banner-right{width:100%;justify-content:space-between}.view-progress-wrap{flex:1}.listings-header{flex-direction:column;align-items:flex-start}.listings-header-right{width:100%}.sort-row{flex:1}.sort-row select{flex:1;min-width:unset}.profiles-grid{grid-template-columns:1fr}.toast{left:14px;right:14px;border-radius:12px;bottom:18px}}
+        @media(min-width:1400px){.profiles-grid{grid-template-columns:repeat(3,1fr)}}
+    </style>
+</head>
+<body data-theme="{{ theme|default:'light' }}">
+
+<div class="toast" id="toast"><i class="fas fa-heart" id="toastIcon"></i><span id="toastMsg">Added to wishlist</span></div>
+
+<div class="page-wrapper">
+
+{% if user.is_authenticated and active_plan %}
+<div class="plan-banner">
+    <div class="plan-banner-left">
+        <span class="plan-pill {{ active_plan.plan|lower }}">
+            {% if active_plan.plan == 'ONE_YEAR' %}👑
+            {% elif active_plan.plan == 'SIX_MONTH' %}⭐
+            {% else %}🔹
+            {% endif %}
+            {{ active_plan.plan_label }}
+        </span>
+        <div class="plan-info-text">
+            Showing <strong>{{ active_plan.plan_label }} plan</strong> members &nbsp;·&nbsp;
+            <strong>{{ views_used }}</strong> of <strong>{{ profile_view_limit }}</strong> profile views used
+        </div>
+    </div>
+    <div class="plan-banner-right">
+        {% if profile_view_limit > 0 %}
+        <div class="view-progress-wrap">
+            <div class="view-progress-label">
+                <span>Views</span>
+                <span>
+                    {% if views_used >= profile_view_limit %}
+                        <span style="color:#c0392b;font-weight:700;">Limit reached</span>
+                    {% else %}
+                        {{ views_used }}/{{ profile_view_limit }}
+                    {% endif %}
+                </span>
+            </div>
+            <div class="view-progress-bar">
+                <div class="view-progress-fill
+                    {% if views_used >= profile_view_limit %}full
+                    {% elif views_used >= profile_view_limit|add:'-5' %}warning
+                    {% else %}safe
+                    {% endif %}"
+                    style="width:{% widthratio views_used profile_view_limit 100 %}%">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if can_upgrade %}
+            <a href="{% url 'mck_website:payment_gateway' %}" class="btn-upgrade">
+                <i class="fas fa-arrow-up"></i> Upgrade
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<div class="main-layout">
+
+<aside class="filter-sidebar">
+    <div class="filter-top">
+        <h2>Find Your<br>Match</h2>
+        <a href="{% url 'mck_website:mck_property_page' %}" class="btn-reset"><i class="fas fa-redo-alt"></i> Reset</a>
+    </div>
+    <form method="GET" action="{% url 'mck_website:mck_property_page' %}" id="filterForm">
+        <div class="filter-section">
+            <div class="filter-section-title"><i class="fas fa-user"></i> Basic</div>
+            <div class="filter-group"><label>Gender</label><select name="gender"><option value="">Any Gender</option>{% for code, label in gender_choices %}<option value="{{ code }}" {% if filters.gender == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+            <div class="filter-section">
+    <div class="filter-section-title"><i class="fas fa-map-marker-alt"></i> Location</div>
+    <div class="filter-group">
+        <label>City / Birth Place</label>
+        <select name="city">
+            <option value="">Any City</option>
+            {% for city in city_choices %}
+            <option value="{{ city }}" {% if filters.city == city %}selected{% endif %}>{{ city }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title"><i class="fas fa-ruler-vertical"></i> Physical</div>
+            <div class="filter-group"><label>Height (cm)</label><div class="range-row"><input type="number" name="height_min" placeholder="Min" value="{{ filters.height_min|default:'' }}"><span class="range-sep">—</span><input type="number" name="height_max" placeholder="Max" value="{{ filters.height_max|default:'' }}"></div></div>
+            <div class="filter-group"><label>Complexion</label><select name="complexion"><option value="">Any</option>{% for c in complexion_choices %}<option value="{{ c }}" {% if filters.complexion == c %}selected{% endif %}>{{ c }}</option>{% endfor %}</select></div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title"><i class="fas fa-hands-praying"></i> Religion</div>
+            <div class="filter-group"><label>Religion</label><select name="religion"><option value="">Any Religion</option>{% for r in religion_choices %}<option value="{{ r }}" {% if filters.religion == r %}selected{% endif %}>{{ r }}</option>{% endfor %}</select></div>
+            <div class="filter-group"><label>Caste</label><select name="caste"><option value="">Any Caste</option>{% for c in caste_choices %}<option value="{{ c }}" {% if filters.caste == c %}selected{% endif %}>{{ c }}</option>{% endfor %}</select></div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title"><i class="fas fa-graduation-cap"></i> Education & Career</div>
+            <div class="filter-group"><label>Education</label><select name="education"><option value="">Any Education</option>{% for e in education_choices %}<option value="{{ e }}" {% if filters.education == e %}selected{% endif %}>{{ e }}</option>{% endfor %}</select></div>
+            <div class="filter-group"><label>Profession</label><select name="profession"><option value="">Any Profession</option>{% for p in profession_choices %}<option value="{{ p }}" {% if filters.profession == p %}selected{% endif %}>{{ p }}</option>{% endfor %}</select></div>
+            <div class="filter-group"><label>Annual Income</label><select name="income"><option value="">Any Income</option><option value="below_10" {% if filters.income == 'below_10' %}selected{% endif %}>Below 10 LPA</option><option value="10_25" {% if filters.income == '10_25' %}selected{% endif %}>10 – 25 LPA</option><option value="25_50" {% if filters.income == '25_50' %}selected{% endif %}>25 – 50 LPA</option><option value="50_100" {% if filters.income == '50_100' %}selected{% endif %}>50 – 100 LPA</option><option value="above_100" {% if filters.income == 'above_100' %}selected{% endif %}>Above 100 LPA</option></select></div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title"><i class="fas fa-heart"></i> Personal</div>
+            <!-- <div class="filter-group"><label>Marital Status</label><select name="marital_status"><option value="">Any</option>{% for code, label in marital_status_choices %}<option value="{{ code }}" {% if filters.marital_status == code %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div> -->
+            <div class="filter-group"><label>Age Range</label><div class="range-row"><input type="number" name="age_min" placeholder="Min" value="{{ filters.age_min|default:'' }}"><span class="range-sep">—</span><input type="number" name="age_max" placeholder="Max" value="{{ filters.age_max|default:'' }}"></div></div>
+        </div>
+        <input type="hidden" name="sort" id="sortInput" value="{{ filters.sort|default:'random' }}">
+        <input type="hidden" name="shuffle" id="shuffleInput" value="{{ filters.shuffle|default:'true' }}">
+        <button type="submit" class="btn-find"><i class="fas fa-search"></i> Find Matches</button>
+        <a href="{% url 'mck_website:mck_property_page' %}" class="btn-clear"><i class="fas fa-times-circle"></i> Clear All Filters</a>
+    </form>
+</aside>
+
+<div class="listings-column">
+    <div class="listings-header">
+        <div class="listings-header-left">
+            <h2>Compatible Profiles</h2>
+            <div class="results-count">{{ profiles.paginator.count|default:"0" }} match{{ profiles.paginator.count|pluralize:"es" }} found{% if plan_label %} &nbsp;·&nbsp; {{ plan_label }} members{% endif %}</div>
+        </div>
+        <div class="listings-header-right">
+            <div class="sort-row">
+                <label>Sort:</label>
+                <select id="sortSelect" onchange="updateSort()">
+                    <option value="random" {% if filters.sort == 'random' or not filters.sort %}selected{% endif %}>Random</option>
+                    <option value="newest" {% if filters.sort == 'newest' %}selected{% endif %}>Newest First</option>
+                    <option value="age_low" {% if filters.sort == 'age_low' %}selected{% endif %}>Age: Youngest</option>
+                    <option value="age_high" {% if filters.sort == 'age_high' %}selected{% endif %}>Age: Oldest</option>
+                    <option value="income_high" {% if filters.sort == 'income_high' %}selected{% endif %}>Income: High–Low</option>
+                </select>
+            </div>
+            <div class="shuffle-btn {% if filters.shuffle == 'true' %}active{% endif %}" onclick="toggleShuffle()"><i class="fas fa-random"></i> Shuffle</div>
+        </div>
+    </div>
+
+    {% if profiles %}
+    <div class="profiles-grid" id="profilesGrid">
+        {% for profile in profiles %}
+        <article class="profile-card" data-profile-id="{{ profile.id }}">
+            <div class="card-photo">
+                {% if profile.profile_photo %}<img src="{{ profile.profile_photo.url }}" alt="{{ profile.full_name|default:'Profile' }}" loading="lazy">
+                {% elif profile.photo1 %}<img src="{{ profile.photo1.url }}" alt="{{ profile.full_name|default:'Profile' }}" loading="lazy">
+                {% else %}<div class="card-photo-placeholder"><i class="fas fa-user-circle"></i><span>No photo</span></div>{% endif %}
+                <div class="badge-tl">{% if profile.verified %}<span class="badge badge-verified"><i class="fas fa-circle-check"></i> Verified</span>{% endif %}</div>
+                {% if profile.premium %}<div class="badge-tr"><span class="badge badge-premium"><i class="fas fa-crown"></i> Premium</span></div>{% endif %}
+            </div>
+            <div class="card-body">
+                <div class="card-identity">
+                    <h3 class="card-name">{{ profile.full_name|default:profile.name|default:"Profile" }}</h3>
+                    <span class="card-age-pill">{% if profile.age %}{{ profile.age }} yrs{% else %}—{% endif %}</span>
+                </div>
+                <div class="card-details">
+                    <div class="detail-cell"><span class="detail-label"><i class="fas fa-venus-mars"></i> Gender</span><span class="detail-value">{{ profile.get_gender_display|default:"—" }}</span></div>
+                    <div class="detail-cell"><span class="detail-label"><i class="fas fa-hands-praying"></i> Religion</span><span class="detail-value">{{ profile.religion|default:"—" }}</span></div>
+                    <div class="detail-cell"><span class="detail-label"><i class="fas fa-graduation-cap"></i> Education</span><span class="detail-value" title="{{ profile.education }}">{{ profile.education|default:"—"|truncatechars:18 }}</span></div>
+                    <div class="detail-cell"><span class="detail-label"><i class="fas fa-briefcase"></i> Profession</span><span class="detail-value" title="{{ profile.occupation }}">{{ profile.occupation|default:"—"|truncatechars:18 }}</span></div>
+                    <div class="detail-cell"><span class="detail-label"><i class="fas fa-map-marker-alt"></i> Location</span><span class="detail-value">{{ profile.city|default:profile.current_location|default:"—" }}</span></div>
+                    <div class="detail-cell"><span class="detail-label"><i class="fas fa-indian-rupee-sign"></i> Income</span><span class="detail-value">{% if profile.annual_income %}₹{{ profile.annual_income|floatformat:0 }}{% else %}—{% endif %}</span></div>
+                </div>
+                <p class="card-bio">{{ profile.bio|default:"No bio available."|truncatechars:115 }}</p>
+                <div class="card-actions">
+                    <a href="{% url 'mck_website:profile_detail' profile.id %}" class="btn-view"><i class="fas fa-eye"></i> View Profile</a>
+                    <button class="btn-wishlist {% if profile.id in wishlist_ids %}active{% endif %}" data-profile-id="{{ profile.id }}" onclick="toggleWishlist(this)">
+                        <i class="{% if profile.id in wishlist_ids %}fas{% else %}far{% endif %} fa-heart"></i>
+                        <span class="wl-text">{% if profile.id in wishlist_ids %}Saved{% else %}Save{% endif %}</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+
+    {% if profiles.paginator.num_pages > 1 %}
+    <div class="pagination-row">
+        {% if profiles.has_previous %}<a href="?{% query_transform request page=profiles.previous_page_number %}" class="page-btn"><i class="fas fa-chevron-left"></i></a>{% endif %}
+        {% for num in profiles.paginator.page_range %}{% if profiles.number == num %}<span class="page-btn active">{{ num }}</span>{% elif num > profiles.number|add:'-3' and num < profiles.number|add:'3' %}<a href="?{% query_transform request page=num %}" class="page-btn">{{ num }}</a>{% endif %}{% endfor %}
+        {% if profiles.has_next %}<a href="?{% query_transform request page=profiles.next_page_number %}" class="page-btn"><i class="fas fa-chevron-right"></i></a>{% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="empty-state">
+        <i class="fas fa-heart-crack"></i>
+        <h3>No Profiles Found</h3>
+        <p>Try adjusting your filters, or check back later as new members join your plan.</p>
+        <a href="{% url 'mck_website:mck_property_page' %}?shuffle=true&sort=random" class="btn-outline-primary"><i class="fas fa-redo-alt"></i> Reset Filters</a>
+    </div>
+    {% endif %}
+</div>
+</div>
+</div>
+
+<script>
+function showToast(msg,type='default'){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;document.getElementById('toastIcon').className=type==='warning'?'fas fa-exclamation-circle':'fas fa-heart';t.className='toast show'+(type==='warning'?' toast-warning':'');setTimeout(()=>{t.className='toast'},3200)}
+async function toggleWishlist(btn){
+{% if not user.is_authenticated %}showToast('Please log in','warning');setTimeout(()=>{window.location.href="{% url 'mck_auth:website_signin' %}?next={{ request.path }}"},2000);return;{% endif %}
+const profileId=btn.dataset.profileId,isAdding=!btn.classList.contains('active'),icon=btn.querySelector('i'),txt=btn.querySelector('.wl-text');
+btn.disabled=true;btn.classList.add('loading');
+try{const res=await fetch("{% url 'mck_website:toggle_wishlist' %}",{method:'POST',headers:{'Content-Type':'application/json','X-CSRFToken':getCookie('csrftoken'),'X-Requested-With':'XMLHttpRequest'},body:JSON.stringify({profile_id:profileId,action:isAdding?'add':'remove'})});
+const data=await res.json();
+if(data.success){if(data.action==='added'){btn.classList.add('active');icon.className='fas fa-heart';if(txt)txt.textContent='Saved';showToast('Added to wishlist!')}else{btn.classList.remove('active');icon.className='far fa-heart';if(txt)txt.textContent='Save';showToast('Removed from wishlist')}updateWishlistCount()}else{showToast(data.message||'Something went wrong','warning')}}catch(_){showToast('Network error. Try again.','warning')}finally{btn.disabled=false;btn.classList.remove('loading')}}
+async function updateWishlistCount(){try{const res=await fetch("{% url 'mck_website:get_wishlist' %}");const data=await res.json();const el=document.getElementById('wishlistCount');if(el&&data.success){el.textContent=data.count||0;el.style.display=data.count>0?'inline':'none'}}catch(_){}}
+function getCookie(name){const m=document.cookie.match(new RegExp('(?:^|; )'+name+'=([^;]*)'));return m?decodeURIComponent(m[1]):null}
+function updateSort(){document.getElementById('sortInput').value=document.getElementById('sortSelect').value;document.getElementById('filterForm').submit()}
+function toggleShuffle(){const inp=document.getElementById('shuffleInput'),btn=document.querySelector('.shuffle-btn');if(inp.value==='true'){inp.value='false';btn.classList.remove('active')}else{inp.value='true';btn.classList.add('active');document.getElementById('sortSelect').value='random';document.getElementById('sortInput').value='random'}document.getElementById('filterForm').submit()}
+document.querySelectorAll('.filter-sidebar select[name]').forEach(sel=>{sel.addEventListener('change',()=>{if(sel.name!=='sort')document.getElementById('filterForm').submit()})});
+document.addEventListener('DOMContentLoaded',updateWishlistCount);
+</script>
+</body>
+</html>
+{% endblock %}

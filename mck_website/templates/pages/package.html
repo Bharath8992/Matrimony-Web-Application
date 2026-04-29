@@ -1,0 +1,707 @@
+
+{% extends "base.html" %}
+{% block title %}Choose Your Plan{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Expired plan warning banner -->
+{% if user.is_authenticated and not active_plan and user.payments.exists %}
+<div class="alert text-center py-3 mb-0 border-0 rounded-0"
+     style="background: #fff3cd; color: #856404; position: sticky; top: 0; z-index: 100;">
+  ⚠️ <strong>Your plan has expired.</strong> Please renew to continue accessing profiles.
+</div>
+{% endif %}
+
+<section class="py-5 min-vh-100" style="background: linear-gradient(135deg, #fef6f9 0%, #fce4ec 100%);">
+  <div class="container px-3 px-md-4">
+
+    <!-- Header -->
+    <div class="text-center mb-5">
+      <span class="badge px-3 py-2 mb-3 rounded-pill"
+            style="background: rgba(236, 72, 153, 0.1); color: #be185d; font-weight: 500;">
+        Membership Plans
+      </span>
+      <h2 class="display-5 fw-bold mb-3" style="color: #831843;">Choose Your Perfect Plan</h2>
+      <p class="fs-5" style="color: #9d174d;">Unlock premium features and find your perfect match</p>
+
+      {% if user.is_authenticated and active_plan %}
+      <div class="alert d-inline-flex align-items-center flex-wrap gap-2 px-4 py-3 border-0 rounded-4 mt-3"
+           style="background: #fce4ec; color: #831843;">
+        <span>💝</span>
+        <strong>Current Plan:</strong> {{ active_plan.plan_label }}
+        <span class="mx-1">•</span>
+        {{ active_plan.profile_limit }} profile views
+        <span class="mx-1">•</span>
+        <span>
+          Expires on <strong>{{ active_plan.valid_until|date:"d M Y" }}</strong>
+          &nbsp;({{ active_plan.days_remaining }} day{{ active_plan.days_remaining|pluralize }} left)
+        </span>
+        {% if can_upgrade %}
+        <span class="badge ms-1" style="background: #db2777; color: white;">Upgrade Available</span>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Plan Cards -->
+<div class="row justify-content-center g-4">
+
+  <!-- THREE MONTH -->
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card h-100 border-0 shadow-hover rounded-4 overflow-hidden">
+      <div class="card-header text-center border-0 py-4" style="background: #fdf2f8;">
+        <h4 class="mb-0 fw-semibold" style="color: #831843;">3 Months</h4>
+        <div class="mt-3">
+          <span class="display-5 fw-bold" style="color: #be185d;">₹4,000 + GST</span>
+          <span>/3 months</span>
+        </div>
+        <small class="text-muted">~₹1,333/month</small>
+        <div class="mt-2 small fw-semibold" style="color: #831843;">
+          Base: ₹4,000 | +18% GST: ₹720
+        </div>
+      </div>
+
+      <div class="card-body p-4">
+        <ul class="list-unstyled">
+          <li class="mb-3 d-flex"><span class="me-3">✓</span> <strong>40 Profile Views</strong></li>
+          <li class="mb-3 d-flex"><span class="me-3">✓</span> Wishlist / Shortlist</li>
+          <li class="mb-3 d-flex"><span class="me-3">✓</span> Opposite Gender Only</li>
+          <li class="mb-3 d-flex"><span class="me-3">✓</span> Community Search</li>
+          <li class="mb-3 d-flex text-muted"><span class="me-3">✕</span> Contact Details</li>
+        </ul>
+      </div>
+
+      <div class="card-footer text-center border-0 bg-transparent pb-4 px-4">
+        {% if not user.is_authenticated %}
+          <a href="{% url 'mck_auth:website_signin' %}" class="btn w-100 py-3 rounded-3"
+             style="background:#db2777;color:white;">🔒 Login to Choose Plan</a>
+        {% else %}
+          <button class="btn w-100 py-3 rounded-3 btn-choose-plan"
+                  data-plan="THREE_MONTH"
+                  data-amount="4720"
+                  data-base="4000"
+                  data-cgst="360"
+                  data-sgst="360">
+            Choose Plan • ₹4,720 (incl. GST)
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- SIX MONTH -->
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card h-100 border-0 shadow-lg rounded-4 position-relative">
+      <div class="position-absolute top-0 end-0 mt-3 me-3">
+        <span class="badge bg-danger">🔥 Most Popular</span>
+      </div>
+
+      <div class="card-header text-center border-0 py-4"
+           style="background: linear-gradient(145deg, #fbcfe8, #f9a8d4);">
+        <h4 class="fw-semibold">6 Months</h4>
+        <div class="mt-3">
+          <span class="display-5 fw-bold">₹8,500 + GST</span>
+        </div>
+        <small>~₹1,416/month</small>
+        <div class="mt-2 small fw-semibold">
+          Base: ₹8,500 | +18% GST: ₹1,530
+        </div>
+      </div>
+
+      <div class="card-body p-4">
+        <ul class="list-unstyled">
+          <li class="mb-3">✓ <strong>80 Profile Views</strong></li>
+          <li class="mb-3">✓ Wishlist / Shortlist</li>
+          <li class="mb-3">✓ Opposite Gender Only</li>
+          <li class="mb-3">✓ Community Search</li>
+          <li class="mb-3">✓ Contact Details</li>
+        </ul>
+      </div>
+
+      <div class="card-footer text-center border-0 bg-transparent pb-4 px-4">
+        {% if not user.is_authenticated %}
+          <a href="{% url 'mck_auth:website_signin' %}" class="btn w-100 py-3 rounded-3"
+             style="background:#db2777;color:white;">🔒 Login to Choose Plan</a>
+        {% else %}
+          <button class="btn w-100 py-3 rounded-3 btn-choose-plan"
+                  style="background:#db2777;color:white;"
+                  data-plan="SIX_MONTH"
+                  data-amount="10030"
+                  data-base="8500"
+                  data-cgst="765"
+                  data-sgst="765">
+            Choose Plan • ₹10,030 (incl. GST)
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- ONE YEAR -->
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card h-100 border-0 shadow-hover rounded-4">
+      <div class="card-header text-center border-0 py-4" style="background:#f5d0fe;">
+        <h4 class="fw-semibold">1 Year</h4>
+        <div class="mt-3">
+          <span class="display-5 fw-bold">₹15,000 + GST</span>
+        </div>
+        <small>~₹1,250/month</small>
+        <div class="mt-2 small fw-semibold">
+          Base: ₹15,000 | +18% GST: ₹2,700
+        </div>
+      </div>
+
+      <div class="card-body p-4">
+        <ul class="list-unstyled">
+          <li class="mb-3">✓ <strong>120 Profile Views</strong></li>
+          <li class="mb-3">✓ Wishlist / Shortlist</li>
+          <li class="mb-3">✓ Opposite Gender Only</li>
+          <li class="mb-3">✓ Community Search</li>
+          <li class="mb-3">✓ Contact Details</li>
+          <li class="mb-3">✨ <strong>Priority Matching</strong></li>
+        </ul>
+      </div>
+
+      <div class="card-footer text-center border-0 bg-transparent pb-4 px-4">
+        {% if not user.is_authenticated %}
+          <a href="{% url 'mck_auth:website_signin' %}" class="btn w-100 py-3 rounded-3"
+             style="background:#7e22ce;color:white;">🔒 Login to Choose Plan</a>
+        {% else %}
+          <button class="btn w-100 py-3 rounded-3 btn-choose-plan"
+                  data-plan="ONE_YEAR"
+                  data-amount="17700"
+                  data-base="15000"
+                  data-cgst="1350"
+                  data-sgst="1350">
+            Choose Plan • ₹17,700 (incl. GST)
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+</div>
+
+    <!-- View usage + validity bar -->
+    {% if user.is_authenticated and active_plan %}
+    <div class="row justify-content-center mt-5">
+      <div class="col-12 col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 p-4" style="background: white;">
+          <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3">
+            <h5 class="fw-semibold mb-2 mb-md-0" style="color: #831843;">Profile Views Used</h5>
+            <span class="badge px-3 py-2 rounded-pill" style="background: #fce4ec; color: #be185d;">
+              {{ views_used }} of {{ active_plan.profile_limit }} views used
+            </span>
+          </div>
+          <div class="progress rounded-pill mb-4" style="height: 10px; background-color: #fce4ec;">
+            <div class="progress-bar rounded-pill" role="progressbar"
+                 style="width: {% widthratio views_used active_plan.profile_limit 100 %}%;
+                        background: linear-gradient(90deg, #f9a8d4, #db2777);">
+            </div>
+          </div>
+          <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-3">
+            <h5 class="fw-semibold mb-2 mb-md-0" style="color: #831843;">Plan Validity</h5>
+            <span class="badge px-3 py-2 rounded-pill" style="background: #fce4ec; color: #be185d;">
+              {{ active_plan.days_remaining }} day{{ active_plan.days_remaining|pluralize }} remaining
+            </span>
+          </div>
+          <div class="progress rounded-pill" style="height: 10px; background-color: #fce4ec;">
+            {% if active_plan.plan == 'THREE_MONTH' %}{% with total_days=90 %}
+              <div class="progress-bar rounded-pill" role="progressbar"
+                   style="width: {% widthratio active_plan.days_remaining total_days 100 %}%;
+                          background: linear-gradient(90deg,{% if active_plan.days_remaining < 15 %}#fca5a5,#ef4444{% elif active_plan.days_remaining < 30 %}#fcd34d,#f59e0b{% else %}#86efac,#22c55e{% endif %});">
+              </div>
+            {% endwith %}{% elif active_plan.plan == 'SIX_MONTH' %}{% with total_days=180 %}
+              <div class="progress-bar rounded-pill" role="progressbar"
+                   style="width: {% widthratio active_plan.days_remaining total_days 100 %}%;
+                          background: linear-gradient(90deg,{% if active_plan.days_remaining < 30 %}#fca5a5,#ef4444{% elif active_plan.days_remaining < 60 %}#fcd34d,#f59e0b{% else %}#86efac,#22c55e{% endif %});">
+              </div>
+            {% endwith %}{% else %}{% with total_days=365 %}
+              <div class="progress-bar rounded-pill" role="progressbar"
+                   style="width: {% widthratio active_plan.days_remaining total_days 100 %}%;
+                          background: linear-gradient(90deg,{% if active_plan.days_remaining < 30 %}#fca5a5,#ef4444{% elif active_plan.days_remaining < 60 %}#fcd34d,#f59e0b{% else %}#86efac,#22c55e{% endif %});">
+              </div>
+            {% endwith %}{% endif %}
+          </div>
+          <div class="row mt-3 text-center">
+            <div class="col-6">
+              <small class="text-muted d-block">Plan Started</small>
+              <strong style="color: #831843;">{{ active_plan.valid_from|date:"d M Y" }}</strong>
+            </div>
+            <div class="col-6">
+              <small class="text-muted d-block">Expires On</small>
+              <strong style="color: #831843;">{{ active_plan.valid_until|date:"d M Y" }}</strong>
+            </div>
+          </div>
+          {% if can_upgrade %}
+          <div class="d-flex align-items-center mt-3 p-3 rounded-3" style="background: #fdf2f8;">
+            <span class="me-2" style="color: #db2777;">💡</span>
+            <p class="mb-0 small" style="color: #831843;">
+              You've used {{ views_used }} profile views. Upgrade your plan to unlock more!
+            </p>
+          </div>
+          {% endif %}
+          {% if active_plan.days_remaining < 30 %}
+          <div class="d-flex align-items-center mt-3 p-3 rounded-3" style="background: #fff3cd;">
+            <span class="me-2">⚠️</span>
+            <p class="mb-0 small" style="color: #856404;">
+              Your plan expires in <strong>{{ active_plan.days_remaining }} day{{ active_plan.days_remaining|pluralize }}</strong>. Renew now to avoid losing access.
+            </p>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Guest CTA -->
+    {% if not user.is_authenticated %}
+    <div class="row justify-content-center mt-5">
+      <div class="col-12 col-lg-7">
+        <div class="card border-0 rounded-4 p-4 text-center"
+             style="background: white; box-shadow: 0 4px 24px rgba(219,39,119,0.1);">
+          <div class="mb-3" style="font-size: 2.5rem;">💝</div>
+          <h5 class="fw-bold mb-2" style="color: #831843;">Ready to Find Your Perfect Match?</h5>
+          <p class="text-muted mb-4">Login or create an account to get started.</p>
+          <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <a href="{% url 'mck_auth:website_signin' %}" class="btn px-4 py-2 rounded-3"
+               style="background: #db2777; color: white; font-weight: 500;">Login</a>
+            <a href="{% url 'mck_auth:website_signup' %}" class="btn px-4 py-2 rounded-3"
+               style="background: white; color: #db2777; border: 2px solid #db2777; font-weight: 500;">
+              Create Account
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-5">
+      <a href="#" class="text-decoration-none" style="color: #be185d;">
+        View detailed feature comparison <span class="ms-1">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     UPI PAYMENT MODAL
+══════════════════════════════════════════ -->
+{% if user.is_authenticated %}
+<div class="modal fade" id="upiPaymentModal" tabindex="-1" aria-labelledby="upiModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content border-0 rounded-4 overflow-hidden">
+
+      <!-- Modal Header -->
+      <div class="modal-header border-0 py-4 px-4"
+           style="background: linear-gradient(135deg, #fdf2f8, #fce4ec);">
+        <div>
+          <h5 class="modal-title fw-bold mb-1" id="upiModalLabel" style="color: #831843;">
+            💳 Complete Your Payment
+          </h5>
+          <p class="mb-0 small" style="color: #9d174d;">
+            Scan the QR code · Pay · Upload screenshot
+          </p>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-0">
+
+        <!-- Step indicator -->
+        <div class="d-flex border-bottom" style="background: #fff9fb;">
+          <div class="step-tab flex-fill text-center py-3 active-step" id="step1-tab">
+            <span class="step-num me-2">1</span><small class="fw-semibold">Scan & Pay</small>
+          </div>
+          <div class="step-tab flex-fill text-center py-3" id="step2-tab">
+            <span class="step-num me-2">2</span><small class="fw-semibold">Upload Screenshot</small>
+          </div>
+          <div class="step-tab flex-fill text-center py-3" id="step3-tab">
+            <span class="step-num me-2">3</span><small class="fw-semibold">Confirmation</small>
+          </div>
+        </div>
+
+        <!-- STEP 1: QR + Plan Summary -->
+        <div id="upi-step-1" class="p-4">
+          <div class="row align-items-center g-4">
+
+            <!-- QR Code -->
+            <div class="col-12 col-md-5 text-center">
+              <div class="qr-wrapper d-inline-block p-3 rounded-3"
+                   style="background: white; border: 2px solid #fce4ec; box-shadow: 0 4px 16px rgba(219,39,119,.1);">
+                {% if upi_qr_url %}
+                  <img src="{% static 'images/scan.jpeg' %}" alt="UPI QR Code"
+                       style="width:180px; height:180px; object-fit:contain; display:block;">
+                {% else %}
+                  <!-- Placeholder if no QR image configured -->
+                  <div style="width:180px;height:180px;background:#fdf2f8;border-radius:8px;
+                              display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                    <img src="{% static 'images/scan.jpeg' %}" alt="UPI QR Code"
+                       style="width:180px; height:180px; object-fit:contain; display:block;">
+                    <small style="color:#9d174d;margin-top:8px;">QR Code</small>
+                  </div>
+                {% endif %}
+              </div>
+              <p class="mt-3 mb-1 fw-semibold" style="color: #831843;">Scan with any UPI app</p>
+              <div class="d-flex align-items-center justify-content-center gap-2 flex-wrap mt-2">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/200px-UPI-Logo-vector.svg.png"
+                     alt="UPI" style="height:20px; object-fit:contain;" onerror="this.style.display='none'">
+              </div>
+            </div>
+
+            <!-- Plan + UPI details -->
+            <div class="col-12 col-md-7">
+              <div class="rounded-3 p-3 mb-3" style="background: #fdf2f8;">
+                <p class="mb-1 small text-muted">Selected Plan</p>
+                <h5 class="mb-0 fw-bold" id="modal-plan-label" style="color: #831843;">—</h5>
+              </div>
+              <div class="rounded-3 p-3 mb-3" style="background: #fdf2f8;">
+                <p class="mb-1 small text-muted">Amount to Pay</p>
+                <h4 class="mb-0 fw-bold" id="modal-plan-amount" style="color: #db2777;">—</h4>
+              </div>
+              <div class="rounded-3 p-3 mb-3" style="background: #fdf2f8;">
+                <p class="mb-1 small text-muted">UPI ID</p>
+                <div class="d-flex align-items-center justify-content-between">
+                  <span class="fw-semibold" id="upi-id-display"
+                        style="color: #831843; font-size: 15px; word-break:break-all;">
+                    {{ upi_id|default:"srivarammanamalai4495@sbi" }}
+                  </span>
+                  <button class="btn btn-sm ms-2 px-2 py-1 rounded-2" id="copy-upi-btn"
+                          style="background: #db2777; color: white; font-size: 11px; white-space:nowrap;"
+                          onclick="copyUpiId()">Copy</button>
+                </div>
+              </div>
+              <div class="rounded-3 p-3" style="background: #fff3cd; border-left: 3px solid #f59e0b;">
+                <p class="mb-0 small" style="color: #856404;">
+                  ⚠️ Please pay the <strong>exact amount</strong> shown above.
+                  After payment, note your <strong>UTR / Transaction ID</strong> and proceed to the next step.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn px-5 py-2 rounded-3 fw-semibold"
+                    style="background: #db2777; color: white;"
+                    onclick="goToStep(2)">
+              I've Paid &nbsp;→
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: Upload Screenshot -->
+        <div id="upi-step-2" class="p-4" style="display:none;">
+          <h6 class="fw-semibold mb-4" style="color: #831843;">
+            📸 Upload Payment Screenshot
+          </h6>
+
+          <div class="mb-3">
+            <label class="form-label small fw-semibold" style="color: #9d174d;">
+              UTR / Transaction Reference Number <span class="text-muted fw-normal">(optional)</span>
+            </label>
+            <input type="text" id="utr-input" class="form-control rounded-3"
+                   placeholder="e.g. 427301928374"
+                   style="border: 1.5px solid #fce4ec; font-size: 14px;">
+            <div class="form-text">Found in your payment app under transaction details.</div>
+          </div>
+
+          <!-- Drag & Drop upload area -->
+          <div id="drop-zone"
+               class="rounded-3 text-center py-5 px-3 mb-3"
+               style="border: 2px dashed #f9a8d4; background: #fdf2f8; cursor: pointer; transition: all .2s;"
+               onclick="document.getElementById('screenshot-input').click()"
+               ondragover="handleDragOver(event)"
+               ondragleave="handleDragLeave(event)"
+               ondrop="handleDrop(event)">
+            <div id="drop-placeholder">
+              <div style="font-size: 2.5rem; margin-bottom: 8px;">📷</div>
+              <p class="mb-1 fw-semibold" style="color: #831843;">
+                Drag & drop your screenshot here
+              </p>
+              <p class="mb-3 small text-muted">or click to browse</p>
+              <span class="btn btn-sm px-4 py-2 rounded-3"
+                    style="background: #db2777; color: white; font-size: 13px;">
+                Browse File
+              </span>
+              <p class="mt-3 mb-0" style="font-size: 11px; color: #be185d;">
+                JPG, PNG or WEBP · Max 5 MB
+              </p>
+            </div>
+            <div id="preview-container" style="display:none;">
+              <img id="preview-img" src="" alt="Preview"
+                   style="max-height:200px; max-width:100%; border-radius:8px;
+                          box-shadow: 0 4px 12px rgba(219,39,119,.15);">
+              <p class="mt-2 mb-0 small" style="color: #831843;">
+                <span id="preview-filename"></span>
+                <button class="btn btn-link btn-sm p-0 ms-2" style="color:#ef4444;" onclick="removeFile(event)">
+                  ✕ Remove
+                </button>
+              </p>
+            </div>
+          </div>
+          <input type="file" id="screenshot-input" accept="image/*" style="display:none;"
+                 onchange="handleFileSelect(event)">
+
+          <div id="upload-error" class="alert alert-danger py-2 px-3 rounded-3 small" style="display:none;"></div>
+
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn px-4 py-2 rounded-3"
+                    style="background: #fdf2f8; color: #831843; border: 1px solid #fce4ec;"
+                    onclick="goToStep(1)">
+              ← Back
+            </button>
+            <button class="btn px-5 py-2 rounded-3 fw-semibold" id="submit-btn"
+                    style="background: #db2777; color: white;"
+                    onclick="submitScreenshot()">
+              Submit for Approval
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3: Pending Confirmation -->
+        <div id="upi-step-3" class="p-4 text-center" style="display:none;">
+          <div style="font-size: 4rem; margin-bottom: 16px;">⏳</div>
+          <h5 class="fw-bold mb-2" style="color: #831843;">Submitted! Pending Approval</h5>
+          <p class="text-muted mb-4" style="max-width: 400px; margin: 0 auto 24px;">
+            We've received your payment screenshot. Our team will verify and activate your
+            <strong id="confirmed-plan-label"></strong> within <strong>24 hours</strong>.
+          </p>
+          <div class="rounded-3 p-3 mb-4 d-inline-block"
+               style="background: #fdf2f8; border: 1px solid #fce4ec;">
+            <small class="text-muted d-block mb-1">Admin will be notified at</small>
+            <span class="fw-semibold" style="color: #831843;">{{ request.user.email }}</span>
+          </div>
+          <div class="d-flex gap-3 justify-content-center flex-wrap">
+            <button class="btn px-4 py-2 rounded-3"
+                    style="background: #db2777; color: white; font-weight: 500;"
+                    data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /modal-body -->
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+<!-- CSS -->
+<style>
+  .shadow-hover {
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  }
+  .shadow-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(219,39,119,0.1);
+  }
+  .card { transition: all 0.3s ease; }
+  .card:hover { box-shadow: 0 25px 50px -12px rgba(219,39,119,0.15) !important; }
+  .btn { font-weight: 500; transition: all 0.3s ease; }
+
+  /* Steps */
+  .step-tab { color: #9d174d; border-bottom: 3px solid transparent; transition: all .2s; }
+  .step-tab.active-step {
+    color: #831843;
+    border-bottom-color: #db2777;
+    background: #fdf2f8;
+    font-weight: 700;
+  }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #fce4ec; color: #be185d;
+    font-size: 11px; font-weight: 700;
+  }
+  .active-step .step-num { background: #db2777; color: white; }
+
+  /* Drop zone hover */
+  #drop-zone.drag-over {
+    border-color: #db2777;
+    background: #fce4ec;
+  }
+
+  @media (max-width: 768px) {
+    .display-5 { font-size: 2rem; }
+    .card:hover { transform: translateY(-2px); }
+  }
+</style>
+
+<!-- JS -->
+{% if user.is_authenticated %}
+<script>
+// ── Globals ──────────────────────────────────────────────────────────────────
+let selectedPlan   = null;
+let selectedAmount = null;
+let selectedLabel  = null;
+let selectedFile   = null;
+
+// ── Open modal on plan button click ─────────────────────────────────────────
+document.querySelectorAll('.btn-choose-plan').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    selectedPlan   = this.dataset.plan;
+    selectedAmount = this.dataset.amount;
+    selectedLabel  = this.dataset.label;
+
+    // Populate modal
+    document.getElementById('modal-plan-label').textContent  = selectedLabel;
+    document.getElementById('modal-plan-amount').textContent = selectedAmount;
+
+    // Reset to step 1
+    goToStep(1);
+    resetUpload();
+
+    const modal = new bootstrap.Modal(document.getElementById('upiPaymentModal'));
+    modal.show();
+  });
+});
+
+// ── Copy UPI ID ──────────────────────────────────────────────────────────────
+function copyUpiId() {
+  const upiId = document.getElementById('upi-id-display').textContent.trim();
+  navigator.clipboard.writeText(upiId).then(function() {
+    const btn = document.getElementById('copy-upi-btn');
+    btn.textContent = '✓ Copied';
+    btn.style.background = '#22c55e';
+    setTimeout(function() {
+      btn.textContent = 'Copy';
+      btn.style.background = '#db2777';
+    }, 2000);
+  });
+}
+
+// ── Step navigation ──────────────────────────────────────────────────────────
+function goToStep(n) {
+  [1, 2, 3].forEach(function(i) {
+    document.getElementById('upi-step-' + i).style.display = (i === n) ? 'block' : 'none';
+    const tab = document.getElementById('step' + i + '-tab');
+    if (i === n) tab.classList.add('active-step');
+    else         tab.classList.remove('active-step');
+  });
+}
+
+// ── File handling ────────────────────────────────────────────────────────────
+function handleFileSelect(event) {
+  setFile(event.target.files[0]);
+}
+
+function handleDragOver(event) {
+  event.preventDefault();
+  document.getElementById('drop-zone').classList.add('drag-over');
+}
+
+function handleDragLeave(event) {
+  document.getElementById('drop-zone').classList.remove('drag-over');
+}
+
+function handleDrop(event) {
+  event.preventDefault();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  const file = event.dataTransfer.files[0];
+  if (file) setFile(file);
+}
+
+function setFile(file) {
+  clearUploadError();
+  if (!file) return;
+
+  const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  if (!allowed.includes(file.type)) {
+    showUploadError('Only JPG, PNG, or WEBP images are accepted.');
+    return;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    showUploadError('File size must be under 5 MB.');
+    return;
+  }
+
+  selectedFile = file;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    document.getElementById('preview-img').src        = e.target.result;
+    document.getElementById('preview-filename').textContent = file.name;
+    document.getElementById('drop-placeholder').style.display  = 'none';
+    document.getElementById('preview-container').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removeFile(event) {
+  event.stopPropagation();
+  selectedFile = null;
+  document.getElementById('screenshot-input').value  = '';
+  document.getElementById('preview-img').src         = '';
+  document.getElementById('drop-placeholder').style.display  = 'block';
+  document.getElementById('preview-container').style.display = 'none';
+}
+
+function resetUpload() {
+  selectedFile = null;
+  document.getElementById('screenshot-input').value  = '';
+  document.getElementById('utr-input').value         = '';
+  document.getElementById('drop-placeholder').style.display  = 'block';
+  document.getElementById('preview-container').style.display = 'none';
+  clearUploadError();
+}
+
+function showUploadError(msg) {
+  const el = document.getElementById('upload-error');
+  el.textContent  = msg;
+  el.style.display = 'block';
+}
+
+function clearUploadError() {
+  const el = document.getElementById('upload-error');
+  el.textContent  = '';
+  el.style.display = 'none';
+}
+
+// ── Submit ───────────────────────────────────────────────────────────────────
+function submitScreenshot() {
+  clearUploadError();
+
+  if (!selectedFile) {
+    showUploadError('Please upload your payment screenshot before submitting.');
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled    = true;
+  btn.textContent = 'Uploading…';
+
+  const formData = new FormData();
+  formData.append('plan',         selectedPlan);
+  formData.append('utr_number',   document.getElementById('utr-input').value.trim());
+  formData.append('screenshot',   selectedFile);
+  formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+  fetch("", {
+    method: 'POST',
+    body:   formData,
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success) {
+      document.getElementById('confirmed-plan-label').textContent = selectedLabel;
+      goToStep(3);
+    } else {
+      showUploadError(data.message || 'Upload failed. Please try again.');
+      btn.disabled    = false;
+      btn.textContent = 'Submit for Approval';
+    }
+  })
+  .catch(function(err) {
+    console.error(err);
+    showUploadError('Network error. Please try again.');
+    btn.disabled    = false;
+    btn.textContent = 'Submit for Approval';
+  });
+}
+</script>
+{% endif %}
+
+{% endblock %}

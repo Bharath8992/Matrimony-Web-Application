@@ -1,0 +1,176 @@
+/*------------------------------------------------------------------
+[Master Stylesheet]
+
+Project        :   Sparic Bootstrap Admin Template
+Version        :   V.4
+Create Date    :   27/December/2022
+Copyright      :   Spruko Technologies Private Limited 
+Author         :   SprukoSoft
+Author URL     :   https://themeforest.net/user/spruko
+Support        :   sprukotechnolgies@gmail.com
+License        :   Licensed under ThemeForest License
+
+-------------------------------------------------------------------*/
+
+// custom font-family
+
+//nunito
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap');
+
+
+@import "variables";
+
+/*
+1.   Bootstrap-styles
+2.   Accordion
+3.   Alerts
+4.   Avatars
+5.   Badges
+6.   Breadcrumb
+7.   Button
+8.   Cards
+9.   Carousel
+10.  Dropdown
+11.  Forms
+12.  Grid
+13.  Inputgroup
+15.  Modal
+16.  Navigation
+17.  Pagination
+18.  Panel
+19.  Popover
+20.  Pricing
+21.  Progress
+22.  Table
+23.  Tags
+24.  Thumbnail
+25.  Tooltip
+26.  Components-col
+27.  Countdown
+28.  Custom-range
+29.  Custom-styles
+30.  Gallery
+31.  Highlight
+32.  Label
+33.  List-icons
+34.  Lists
+35.  Loader
+36.  Navbar
+37.  Product
+38.  Rating
+39.  Tabs-menu
+40.  Timeline
+41.  Footer
+42.  Header
+43.  Horizontal-menu
+44.  Sidemenu
+45.  Datepicker
+46.  Jvector
+47.  Select-group
+48.  Selectize
+49.  Calender
+50.  Charts
+51.  Chat
+52.  Errorpages
+53.  Range-slider
+54.  Ribbon
+55.  Widgets
+56.  Email
+57.  Alignments
+58.  Background
+59.  Border
+60.  Display
+61.  Float-elements
+62.  Height
+63.  Margin
+64.  Padding
+65.  Position
+66.  Typography
+67.  Width
+68.  Style-dark
+69.  Rtl
+70.  Switcher-styles
+*/
+
+/* ######## BOOTSTRAP ######## */
+@import "bootstrap/bootstrap-styles";
+@import "bootstrap/accordion";
+@import "bootstrap/alerts";
+@import "bootstrap/avatars";
+@import "bootstrap/badges";
+@import "bootstrap/breadcrumb";
+@import "bootstrap/button";
+@import "bootstrap/cards";
+@import "bootstrap/carousel";
+@import "bootstrap/dropdown";
+@import "bootstrap/forms";
+@import "bootstrap/grid";
+@import "bootstrap/inputgroup";
+@import "bootstrap/modal";
+@import "bootstrap/navigation";
+@import "bootstrap/pagination";
+@import "bootstrap/panel";
+@import "bootstrap/popover";
+@import "bootstrap/pricing";
+@import "bootstrap/progress";
+@import "bootstrap/table";
+@import "bootstrap/tags";
+@import "bootstrap/thumbnail";
+@import "bootstrap/tooltip";
+
+/*  ######## CUSTOM-STYLES ######## */
+@import "custom/components-col";
+@import "custom/countdown";
+@import "custom/custom-range";
+@import "custom/custom-styles";
+@import "custom/gallery";
+@import "custom/highlight";
+@import "custom/label";
+@import "custom/list-icons";
+@import "custom/lists";
+@import "custom/loader";
+@import "custom/navbar";
+@import "custom/product";
+@import "custom/rating";
+@import "custom/tabs-menu";
+@import "custom/timeline";
+
+/* ######## LAYOUT-STYLES ######## */
+@import "layout/footer";
+@import "layout/header";
+@import "layout/sidemenu";
+@import "layout/horizontal-menu";
+
+/* ######## LIB-STYLES ######## */
+@import "lib/datepicker";
+@import "lib/jvector";
+@import "lib/select-group";
+@import "lib/selectize";
+
+/* ######## TEMP-STYLES ######## */
+@import "template/calender";
+@import "template/charts";
+@import "template/chat";
+@import "template/errorpages";
+@import "template/range-slider";
+@import "template/ribbon";
+@import "template/widgets";
+@import "template/email";
+
+/* ######## UTILITIES-STYLES ######## */
+@import "utilities/alignments";
+@import "utilities/background";
+@import "utilities/border";
+@import "utilities/display";
+@import "utilities/float-elements";
+@import "utilities/height";
+@import "utilities/margin";
+@import "utilities/padding";
+@import "utilities/position";
+@import "utilities/typography";
+@import "utilities/width";
+
+/* ######## SWITCHER STYLES ######## */
+@import "switcher-styles/style-dark";
+@import "switcher-styles/rtl";
+@import "switcher-styles/switcher-styles";

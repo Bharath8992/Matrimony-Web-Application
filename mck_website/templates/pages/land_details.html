@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Land Plot | Elite Properties</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --dark-yellow: #FFC000;
+            --black: #000000;
+            --dark-gray: #222222;
+            --light-gray: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f9f9f9;
+            color: var(--black);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--black);
+            color: var(--primary-yellow);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--primary-yellow);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--primary-yellow);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: var(--primary-yellow);
+            color: var(--black);
+        }
+        
+        /* Hero Section */
+        .property-hero {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+        
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+        }
+        
+        .property-title {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-yellow);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .property-address {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .price-tag {
+            background-color: var(--primary-yellow);
+            color: var(--black);
+            font-size: 1.8rem;
+            font-weight: 700;
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Main Content */
+        .property-container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+        
+        .property-content {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .main-content {
+            flex: 2;
+        }
+        
+        .sidebar {
+            flex: 1;
+        }
+        
+        /* Features Grid (Land-Specific) */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-yellow);
+            margin-bottom: 1rem;
+        }
+        
+        /* Land Highlights */
+        .highlights {
+            margin: 2rem 0;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .highlight-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-yellow);
+            color: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Contact Form */
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-form input, 
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .contact-form button {
+            background: var(--black);
+            color: var(--primary-yellow);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .contact-form button:hover {
+            background: var(--primary-yellow);
+            color: var(--black);
+        }
+        
+        /* Agent Card */
+        .agent-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .agent-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-yellow);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: white;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+            margin-bottom: 1rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--primary-yellow);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .property-content {
+                flex-direction: column;
+            }
+            
+            .property-title {
+                font-size: 2rem;
+            }
+            
+            .price-tag {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <!-- Hero Section -->
+    <section class="property-hero">
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Land Plot" class="hero-image">
+        <div class="hero-content">
+            <h1 class="property-title">Premium Land Plot</h1>
+            <p class="property-address"><i class="fas fa-map-marker-alt"></i> 456 Green Valley Road, Austin, TX</p>
+            <div class="price-tag">$450,000</div>
+        </div>
+    </section>
+    
+    <!-- Main Content -->
+    <div class="property-container">
+        <div class="property-content">
+            <!-- Left Column (Main Content) -->
+            <div class="main-content">
+                <h2><i class="fas fa-info-circle"></i> Land Details</h2>
+                <p>This premium <strong>5-acre plot</strong> is ideal for residential or commercial development. Located in a rapidly growing area with excellent road access, utilities, and zoning flexibility.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fas fa-ruler-combined"></i></div>
+                        <h3>5 Acres</h3>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fas fa-tint"></i></div>
+                        <h3>Water Access</h3>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                        <h3>Electricity</h3>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon"><i class="fas fa-road"></i></div>
+                        <h3>Road Frontage</h3>
+                    </div>
+                </div>
+                
+                <div class="highlights">
+                    <h2><i class="fas fa-star"></i> Key Highlights</h2>
+                    <div class="highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <h3>Prime Location</h3>
+                            <p>Near future commercial hub with high appreciation potential.</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <h3>Zoning Flexibility</h3>
+                            <p>Approved for residential, agricultural, or light commercial use.</p>
+                        </div>
+                    </div>
+                    <div class="highlight-item">
+                        <div class="highlight-icon"><i class="fas fa-check"></i></div>
+                        <div>
+                            <h3>No Restrictions</h3>
+                            <p>No HOA or building restrictions.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2><i class="fas fa-images"></i> Gallery</h2>
+                <div class="gallery">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Land Plot">
+                    <img src="https://images.unsplash.com/photo-1470114716159-e389f8712fda?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Scenic View">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Survey Map">
+                    <img src="https://images.unsplash.com/photo-1470114716159-e389f8712fda?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Access Road">
+                </div>
+            </div>
+            
+            <!-- Right Column (Sidebar) -->
+            <div class="sidebar">
+                <div class="contact-form">
+                    <h2><i class="fas fa-calendar-alt"></i> Schedule a Site Visit</h2>
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <input type="tel" placeholder="Phone Number">
+                        <textarea placeholder="Message" rows="4"></textarea>
+                        <button type="submit"><i class="fas fa-paper-plane"></i> REQUEST DETAILS</button>
+                    </form>
+                </div>
+                
+                <div class="agent-card">
+                    <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Agent" class="agent-photo">
+                    <div>
+                        <h3>Michael Carter</h3>
+                        <p><i class="fas fa-phone"></i> (512) 555-7890</p>
+                        <p><i class="fas fa-envelope"></i> michael@eliteproperties.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    
+</body>
+</html>

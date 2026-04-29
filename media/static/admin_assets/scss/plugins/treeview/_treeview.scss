@@ -1,0 +1,116 @@
+.tree {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        margin-inline-start: 1em;
+        position: relative;
+
+        ul {
+            margin-inline-start: 0.5em;
+        }
+
+        &:before {
+            content: "";
+            display: block;
+            width: 0;
+            position: absolute;
+            inset-block: 0;
+            inset-inline-start: -10px;
+            border-inline-start: 2px solid #d8e0f7;
+        }
+    }
+
+    li {
+        margin: 0;
+        padding: 0.5em 0.6em;
+        line-height: 2em;
+        color: #17171b;
+        position: relative;
+        border: 1px solid $border;
+        margin: 10px 0;
+        border-radius: 5px;
+        line-height: 30px;
+    }
+
+    ul li {
+        &:before {
+            content: "";
+            display: block;
+            width: 10px;
+            height: 0;
+            border-block-start: 1px solid #d3dfea;
+            margin-block-start: -1px;
+            position: absolute;
+            inset-block-start: 22px;
+            inset-inline-start: -10px;
+        }
+
+        &:last-child:before {
+            background: transparent;
+            height: auto;
+            inset-block-start: 22px;
+            inset-block-end: 0;
+        }
+    }
+}
+
+.indicator {
+    margin-inline-end: 5px;
+    color: #4b10a4;
+}
+
+.tree li {
+    a {
+        text-decoration: none;
+        color: #424e79;
+        font-size: 15px;
+    }
+
+    button {
+        text-decoration: none;
+        color: #29273c;
+        border: none;
+        background: transparent;
+        margin: 0;
+        padding: 0;
+        outline: 0;
+
+        &:active,
+        &:focus {
+            text-decoration: none;
+            color: #29273c;
+            border: none;
+            background: transparent;
+            margin: 0;
+            padding: 0;
+            outline: 0;
+        }
+    }
+
+    &.branch {
+        background: rgba(70, 127, 207, 0.1);
+
+        li {
+            background: $white;
+        }
+    }
+}
+
+.tree li i {
+	margin-inline-end: 10px;
+	font-weight: bold;
+	font-size: 13px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+.irs-min,
+.irs-max,
+.tree li i {
+	color: $default-color;
+}

@@ -1,0 +1,341 @@
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+.btn-custom {
+      margin-top: 25px;
+      background: #FADA5E;
+      color: #111111;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background: #0e0d0d;
+      color: #fff;
+    }
+    body {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      color: #2c3e50;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .hero-s {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 60px 8%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    
+    .hero-s-content {
+      flex: 1;
+      max-width: 50%;
+      padding-right: 40px;
+      animation: fadeInLeft 1s ease forwards;
+    }
+
+    .hero-s-tag {
+      font-size: 18px;
+      color: #ffbf00;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .hero-s-title {
+      font-size: 64px;
+      font-weight: 800;
+      color: #2c3e50;
+      margin-bottom: 20px;
+      line-height: 1.1;
+      position: relative;
+    }
+
+    .hero-s-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 5px;
+      background: #ffbf00;
+      border-radius: 3px;
+    }
+
+    .hero-s-description {
+      font-size: 18px;
+      color: #555;
+      margin: 30px 0;
+      max-width: 450px;
+      line-height: 1.8;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 16px 36px;
+      background: #ffbf00;
+      color: #fff;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 191, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: all 0.6s ease;
+      z-index: -1;
+    }
+
+    .btn:hover {
+      background: #2c3e50;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(44, 62, 80, 0.3);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .hero-s-image {
+      flex: 1;
+      max-width: 50%;
+      position: relative;
+      animation: fadeInRight 1s ease forwards;
+    }
+
+    .hero-s-image img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      transition: all 0.5s ease;
+    }
+
+    .hero-s-image:hover img {
+      transform: scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Floating contact card */
+    .contact-overlay {
+      position: absolute;
+      bottom: 50px;
+      right: 30%;
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 16px;
+      display: flex;
+      gap: 60px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+      align-items: center;
+      animation: fadeInUp 1s ease forwards 0.5s;
+      opacity: 0;
+      z-index: 10;
+      min-width: 400px;
+      max-width: 90%;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contact-label {
+      font-weight: 700;
+      color: #2c3e50;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-label i {
+      color: #ffbf00;
+    }
+
+    .contact-text a {
+      color: #2c3e50;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-text a:hover {
+      color: #ffbf00;
+      transform: translateX(5px);
+    }
+
+    /* Animations */
+    @keyframes fadeInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .contact-overlay {
+        right: 20%;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .hero-s {
+        flex-direction: column;
+        text-align: center;
+        padding: 80px 5%;
+      }
+      
+      .hero-s-content {
+        max-width: 100%;
+        padding: 0;
+        margin-bottom: 40px;
+      }
+      
+      .hero-s-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .hero-s-image {
+        max-width: 100%;
+        margin-bottom: 30px;
+      }
+      
+      .contact-overlay {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin: 30px auto 0;
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+        min-width: unset;
+        width: 100%;
+        max-width: 500px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-s-title {
+        font-size: 42px;
+      }
+      
+      .hero-s-description {
+        font-size: 16px;
+      }
+      
+      .contact-overlay {
+        padding: 20px;
+        gap: 20px;
+      }
+      
+      .contact-text a {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero-s">
+    <!-- Left Content -->
+    <div class="hero-s-content">
+      <h1 class="hero-s-title">For Sale</h1>
+      <p class="hero-s-description">Finding a perfect property has never been this easy. Explore premium listings tailored for you.</p>
+      <a href="{% url 'mck_website:mck_property_page' %}?listing_type=sale" class="btn-custom">Check Properties</a>
+    </div>
+
+    <!-- Right Image -->
+    <div class="hero-s-image">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" alt="Modern Home">
+    </div>
+
+    <!-- Contact Overlay -->
+    <div class="contact-overlay">
+      <div class="contact-item">
+        <span class="contact-label"><i class="fas fa-envelope"></i> Email</span>
+        <div class="contact-text"><a href="mailto:2024squarebox@gmail.com"><i class="fas fa-arrow-right"></i> 2024squarebox@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label"><i class="fas fa-phone"></i> Phone</span>
+        <div class="contact-text"><a href="tel:+919994555962"><i class="fas fa-arrow-right"></i> +91 99945 55962</a></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Add some interactive effects
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactItems = document.querySelectorAll('.contact-text a');
+      
+      contactItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateX(5px)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateX(0)';
+        });
+      });
+    });
+  </script>
+
+</body>

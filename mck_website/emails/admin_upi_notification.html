@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New UPI Payment — MCK Matrimony</title>
+<style>
+  body { margin:0; padding:0; background:#f4f4f5; font-family: 'Segoe UI', Arial, sans-serif; }
+  .wrapper { max-width:600px; margin:32px auto; background:#fff; border-radius:12px;
+             box-shadow:0 2px 12px rgba(0,0,0,.08); overflow:hidden; }
+  .header  { background:linear-gradient(135deg,#db2777,#be185d); padding:32px 28px; text-align:center; }
+  .header h1 { margin:0; color:#fff; font-size:22px; font-weight:700; letter-spacing:.3px; }
+  .header p  { margin:6px 0 0; color:#fce7f3; font-size:13px; }
+  .badge { display:inline-block; background:rgba(255,255,255,.2); color:#fff;
+           padding:4px 14px; border-radius:20px; font-size:12px; margin-top:10px; }
+  .body   { padding:28px; }
+  .section-title { font-size:11px; font-weight:700; text-transform:uppercase;
+                   letter-spacing:1px; color:#9d174d; margin:0 0 12px; }
+  .info-table { width:100%; border-collapse:collapse; margin-bottom:20px; }
+  .info-table td { padding:9px 12px; font-size:14px; border-bottom:1px solid #fce7f3; }
+  .info-table td:first-child { color:#6b7280; width:42%; }
+  .info-table td:last-child  { color:#111827; font-weight:600; }
+  .status-pill { display:inline-block; background:#fff3cd; color:#856404;
+                 padding:3px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+  .screenshot-box { background:#fdf2f8; border:1px dashed #f9a8d4; border-radius:8px;
+                    padding:16px; text-align:center; margin:20px 0; }
+  .screenshot-box a { color:#db2777; font-weight:600; font-size:14px; text-decoration:none; }
+  .cta { text-align:center; margin:24px 0 4px; }
+  .cta a { display:inline-block; background:#db2777; color:#fff; text-decoration:none;
+            padding:12px 32px; border-radius:8px; font-weight:600; font-size:14px; }
+  .footer { background:#fdf2f8; padding:16px 28px; text-align:center;
+            font-size:12px; color:#9d174d; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>💝 MCK Matrimony</h1>
+    <p>New UPI Payment Screenshot Received</p>
+    <span class="badge">Action Required</span>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+
+    <p style="margin:0 0 20px;color:#374151;font-size:15px;">
+      A member has submitted a UPI payment screenshot and is awaiting plan activation.
+      Please review and approve or reject from the admin panel.
+    </p>
+
+    <!-- User Details -->
+    <p class="section-title">👤 Member Details</p>
+    <table class="info-table">
+      <tr><td>Full Name</td>  <td>{{ username }}</td></tr>
+      <tr><td>Email</td>      <td>{{ user.email }}</td></tr>
+      <tr><td>Username</td>   <td>{{ user.username }}</td></tr>
+      <tr><td>User ID</td>    <td>#{{ user.id }}</td></tr>
+    </table>
+
+    <!-- Payment Details -->
+    <p class="section-title">💳 Payment Details</p>
+    <table class="info-table">
+      <tr><td>Plan Selected</td> <td>{{ payment.plan_label }}</td></tr>
+      <tr><td>Amount</td>        <td>{{ payment.amount_display }}</td></tr>
+      <tr>
+        <td>UTR / Ref No.</td>
+        <td>{% if payment.utr_number %}{{ payment.utr_number }}{% else %}<span style="color:#9ca3af;font-weight:400;">Not provided</span>{% endif %}</td>
+      </tr>
+      <tr><td>Submitted At</td>  <td>{{ payment.submitted_at|date:"d M Y, h:i A" }}</td></tr>
+      <tr>
+        <td>Status</td>
+        <td><span class="status-pill">⏳ Pending Review</span></td>
+      </tr>
+    </table>
+
+    <!-- Screenshot -->
+    <div class="screenshot-box">
+      <p style="margin:0 0 8px;color:#831843;font-weight:600;font-size:14px;">📸 Payment Screenshot</p>
+      <p style="margin:0 0 12px;color:#9d174d;font-size:13px;">
+        Click the link below to view the uploaded screenshot:
+      </p>
+      <a href="{{ screenshot_url }}" target="_blank">🔗 View Screenshot →</a>
+    </div>
+
+    <!-- Admin CTA -->
+    <div class="cta">
+      <a href="{{ admin_url }}">Review in Admin Panel →</a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    This is an automated alert from MCK Matrimony. Do not reply to this email.<br>
+    © {% now "Y" %} MCK Matrimony. All rights reserved.
+  </div>
+
+</div>
+</body>
+</html>

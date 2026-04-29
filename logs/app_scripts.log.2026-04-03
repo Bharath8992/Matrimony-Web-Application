@@ -1,0 +1,54 @@
+2026-04-03 14:55:24,318 INFO Starting ...
+2026-04-03 14:55:24,318 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : dropDatabase
+2026-04-03 14:55:24,318 INFO django.db.backends.sqlite3
+2026-04-03 14:55:24,318 DEBUG dropping database...D:\Bharath\bharath\appsource\mck.sqlite3
+2026-04-03 14:55:24,318 DEBUG dropped database...D:\Bharath\bharath\appsource\mck.sqlite3
+2026-04-03 14:55:24,318 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : dropDatabase in 0:00:00 seconds
+2026-04-03 14:55:24,318 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : createDatabase
+2026-04-03 14:55:24,318 DEBUG creating database...D:\Bharath\bharath\appsource\mck.sqlite3
+2026-04-03 14:55:24,318 DEBUG created database...D:\Bharath\bharath\appsource\mck.sqlite3
+2026-04-03 14:55:24,318 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : createDatabase in 0:00:00 seconds
+2026-04-03 14:55:24,318 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : run_migrations
+2026-04-03 14:55:25,032 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : run_migrations in 0:00:00.713893 seconds
+2026-04-03 14:55:25,032 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : create_authusers
+2026-04-03 14:55:25,340 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : create_authusers in 0:00:00.307822 seconds
+2026-04-03 14:55:25,340 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : build_fixtures
+2026-04-03 14:55:25,340 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json
+2026-04-03 14:55:25,340 WARNING fixture_path: D:\Bharath\bharath\appsource\mck_master\fixtures\xlsx\mck_master.xlsx - Not Found
+2026-04-03 14:55:25,340 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json in 0:00:00 seconds
+2026-04-03 14:55:25,340 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json
+2026-04-03 14:55:25,340 WARNING fixture_path: D:\Bharath\bharath\appsource\mck_auth\fixtures\xlsx\mck_auth.xlsx - Not Found
+2026-04-03 14:55:25,340 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json in 0:00:00 seconds
+2026-04-03 14:55:25,340 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json
+2026-04-03 14:55:25,340 WARNING fixture_path: D:\Bharath\bharath\appsource\mck_admin_console\fixtures\xlsx\mck_admin_console.xlsx - Not Found
+2026-04-03 14:55:25,340 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json in 0:00:00 seconds
+2026-04-03 14:55:25,340 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json
+2026-04-03 14:55:25,340 WARNING fixture_path: D:\Bharath\bharath\appsource\mck_website\fixtures\xlsx\mck_website.xlsx - Not Found
+2026-04-03 14:55:25,340 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : xlsx_to_json in 0:00:00 seconds
+2026-04-03 14:55:25,340 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_build.py'] : build_fixtures in 0:00:00 seconds
+2026-04-03 14:55:25,340 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : run_fixtures
+2026-04-03 14:55:25,340 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture
+2026-04-03 14:55:25,340 INFO D:\Bharath\bharath\appsource\mck_master\fixtures\json\dxe_master-00-country.json
+2026-04-03 14:55:25,481 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture in 0:00:00.141289 seconds
+2026-04-03 14:55:25,481 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture
+2026-04-03 14:55:25,481 INFO D:\Bharath\bharath\appsource\mck_master\fixtures\json\dxe_master-01-state.json
+2026-04-03 14:55:25,509 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture in 0:00:00.027445 seconds
+2026-04-03 14:55:25,509 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture
+2026-04-03 14:55:25,509 INFO D:\Bharath\bharath\appsource\mck_master\fixtures\json\dxe_master-02-supportpagecontent.json
+2026-04-03 14:55:25,523 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture in 0:00:00.014203 seconds
+2026-04-03 14:55:25,523 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture
+2026-04-03 14:55:25,523 INFO D:\Bharath\bharath\appsource\mck_auth\fixtures\json\dxe_auth-00-accounttype.json
+2026-04-03 14:55:25,540 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture in 0:00:00.016905 seconds
+2026-04-03 14:55:25,540 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture
+2026-04-03 14:55:25,540 INFO D:\Bharath\bharath\appsource\mck_auth\fixtures\json\dxe_auth-01-accounttyperole.json
+2026-04-03 14:55:25,540 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : _load_fixture in 0:00:00 seconds
+2026-04-03 14:55:25,540 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_fixtures_run.py'] : run_fixtures in 0:00:00.199842 seconds
+2026-04-03 14:55:25,540 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : create_superuser_account
+2026-04-03 14:55:25,557 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : create_superuser_account in 0:00:00.017485 seconds
+2026-04-03 14:55:25,557 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\generate_master_permission.py'] : generate_master_permission
+2026-04-03 14:55:25,805 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\generate_master_permission.py'] : generate_master_permission in 0:00:00.247520 seconds
+2026-04-03 14:55:25,805 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\update_mck_role_master_permissions.py'] : update_role_master_permission
+2026-04-03 14:55:25,808 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\update_mck_role_master_permissions.py'] : update_role_master_permission in 0:00:00.003227 seconds
+2026-04-03 14:55:25,808 INFO *******Starting function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : create_company_profile
+2026-04-03 14:55:26,130 INFO *******Finished function ['D:\\Bharath\\bharath\\appsource\\scripts\\script_db_init.py'] : create_company_profile in 0:00:00.321441 seconds
+2026-04-03 14:55:26,130 INFO End !!!

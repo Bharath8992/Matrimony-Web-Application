@@ -1,0 +1,928 @@
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --primary-dark: #f0d646;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --lighter: #f1f5f9;
+            --gray: #64748b;
+            --gray-light: #94a3b8;
+            --accent: #f59e0b;
+        }
+        
+    
+        
+        /* Announcement Bar */
+        .announce {
+            position: relative;
+            background: #FFD700;
+            color: black;
+            padding: 0.5rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .announce__track {
+            white-space: nowrap;
+            animation: scrollAnnounce 30s linear infinite;
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        
+        @keyframes scrollAnnounce {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .announce__close {
+            position: absolute;
+            right: .75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: black;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .announce__close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: var(--darker);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+        }
+        
+        /* Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.5rem;
+        }
+        
+        .logo-mark {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo-text .highlight {
+            color: var(--primary);
+            font-weight: 800;
+        }
+        
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        
+        .desktop-nav a {
+            text-decoration: none;
+            color: var(--lighter);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .desktop-nav a:hover {
+            color: white;
+        }
+        
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .desktop-nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* Dropdown Styles */
+        .nav-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-toggle::after {
+            content: '▾';
+            margin-left: 0.25rem;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 0.75rem;
+            min-width: 220px;
+            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid var(--lighter);
+        }
+        
+        .nav-dropdown:hover .dropdown {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .dropdown a:hover {
+            background: var(--lighter);
+            color: black;
+            transform: translateX(5px);
+        }
+        
+        .dropdown a i {
+            color: var(--primary);
+            width: 18px;
+        }
+        
+        /* User Authentication */
+        .desktop-auth {
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+        
+        .auth-btn {
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .login-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .login-btn:hover {
+            background: var(--primary);
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .register-btn {
+            background: var(--primary);
+            border: 2px solid var(--primary);
+            color: black;
+        }
+        
+        .register-btn:hover {
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        /* User Dropdown */
+        .user-dropdown {
+            position: relative;
+        }
+        
+        .user-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .user-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .user-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            padding: 0.75rem;
+            min-width: 220px;
+            display: none;
+            z-index: 1000;
+            border: 1px solid var(--lighter);
+        }
+        
+        .user-dropdown:hover .user-menu {
+            display: block;
+        }
+        
+        .user-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--dark);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .user-menu a:hover {
+            background: var(--lighter);
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+        
+        .user-menu a i {
+            width: 18px;
+            color: var(--primary);
+        }
+        
+        .user-menu-divider {
+            height: 1px;
+            background: var(--lighter);
+            margin: 0.5rem 0;
+        }
+        
+        .logout-btn {
+            color: #dc3545 !important;
+        }
+        
+        .logout-btn:hover {
+            background: #fee2e2 !important;
+        }
+        
+        /* Hamburger Menu (Mobile) */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger:hover {
+            color: var(--primary);
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 320px;
+            height: 100vh;
+            background: var(--darker);
+            z-index: 10000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            box-shadow: -2px 0 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .mobile-nav-drawer.active {
+            right: 0;
+        }
+        
+        .mobile-nav-content {
+            padding: 1rem;
+            position: relative;
+            height: 100%;
+        }
+        
+        .mobile-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-close-btn:hover {
+            background: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        .mobile-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 2.5rem 0 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Mobile Auth Section */
+        .mobile-auth-section {
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .mobile-user-info i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .mobile-user-name {
+            font-weight: 600;
+            color: white;
+        }
+        
+        .mobile-user-email {
+            font-size: 0.9rem;
+            color: var(--gray-light);
+        }
+        
+        .mobile-auth-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .mobile-auth-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+        
+        .mobile-auth-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .logout-link {
+            color: #f87171 !important;
+        }
+        
+        .mobile-auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .mobile-auth-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.9rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-auth-btn.login-btn {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .mobile-auth-btn.login-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .mobile-auth-btn.register-btn {
+            background: var(--primary);
+            border: 2px solid var(--primary);
+            color: white;
+        }
+        
+        .mobile-auth-btn.register-btn:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+        
+        /* Mobile Navigation Menu */
+        .mobile-nav-menu {
+            margin-top: 1rem;
+        }
+        
+        .mobile-nav-item {
+            margin-bottom: 0.5rem;
+        }
+        
+        .mobile-nav-toggle {
+            width: 100%;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            padding: 1rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-toggle.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+        }
+        
+        .mobile-nav-toggle i {
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-nav-toggle.active i {
+            transform: rotate(180deg);
+        }
+        
+        .mobile-nav-dropdown {
+            display: none;
+            padding: 0.5rem 0 0.5rem 1rem;
+        }
+        
+        .mobile-nav-dropdown.active {
+            display: block;
+        }
+        
+        .mobile-nav-dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            color: var(--gray-light);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .mobile-nav-dropdown a:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            padding-left: 1.25rem;
+        }
+        
+        .mobile-nav-dropdown a i {
+            width: 18px;
+            color: var(--primary);
+        }
+        
+        .mobile-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-nav-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+            padding-left: 1.25rem;
+        }
+        
+        .mobile-nav-link i {
+            width: 18px;
+            color: var(--primary);
+        }
+        
+        /* Overlay for mobile menu */
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 9999;
+            display: none;
+        }
+        
+        .mobile-nav-overlay.active {
+            display: block;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .desktop-nav {
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .desktop-auth {
+                display: none;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-text {
+                font-size: 1.25rem;
+            }
+            
+            .logo-mark {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+            
+            .announce__track {
+                font-size: 0.8rem;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+
+<body class="m-5">
+    <!-- Top Announcement Bar -->
+    <div class="announce" id="announceBar" role="region" aria-label="Announcement">
+        <div class="announce__track">
+            <i class="fas fa-star" style="color: var(--accent); margin-right: 8px;"></i>
+            Vellore's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals •
+            <i class="fas fa-star" style="color: var(--accent); margin: 0 8px;"></i>
+            Vellore's No.1 Real Estate Platform • Find Homes, Plots & Commercial Spaces • Trusted Agents • Verified Listings • Secure Deals •
+        </div>
+        <button class="announce__close" id="announceClose" aria-label="Close announcement">
+            <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="">
+            <div class="nav-inner">
+                <!-- Logo -->
+                <a class="logo" href="#" aria-label="Homepage">
+                    <div class="logo-mark">SB</div>
+                    <div class="logo-text">
+                        Square<span class="highlight">Box</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <ul class="desktop-nav" role="menubar" aria-label="Primary">
+                    <!-- Buy Dropdown -->
+                    <li class="nav-dropdown">
+                        <a href="#" role="menuitem" aria-haspopup="true" class="dropdown-toggle">Buy</a>
+                        <div class="dropdown" role="menu">
+                            <a href="#"><i class="fas fa-building"></i>Apartments</a>
+                            <a href="#"><i class="fas fa-home"></i>Independent House</a>
+                            <a href="#"><i class="fas fa-vector-square"></i>Villa</a>
+                            <a href="#"><i class="fas fa-map-marked"></i>Plot / Land</a>
+                            <a href="#"><i class="fas fa-store"></i>Commercial Property</a>
+                            <a href="#"><i class="fas fa-rocket"></i>New Launch</a>
+                        </div>
+                    </li>
+                    
+                    <!-- Rent Dropdown -->
+                    <li class="nav-dropdown">
+                        <a href="#" role="menuitem" aria-haspopup="true" class="dropdown-toggle">Rent</a>
+                        <div class="dropdown" role="menu">
+                            <a href="#"><i class="fas fa-building"></i>Apartments</a>
+                            <a href="#"><i class="fas fa-home"></i>Independent House</a>
+                            <a href="#"><i class="fas fa-vector-square"></i>Villa</a>
+                            <a href="#"><i class="fas fa-map-marked"></i>Plot / Land</a>
+                            <a href="#"><i class="fas fa-store"></i>Commercial Property</a>
+                            <a href="#"><i class="fas fa-rocket"></i>New Launch</a>
+                        </div>
+                    </li>
+                    
+                    <li><a href="#"><i class="fas fa-dollar-sign"></i>Sell</a></li>
+                    <li><a href="#"><i class="fas fa-gavel"></i>Property Legal Services</a></li>
+                    <li><a href="#"><i class="fas fa-mountain"></i>Land Levelling</a></li>
+                    <li><a href="#"><i class="fas fa-border-style"></i>Fencing</a></li>
+                    <li><a href="#"><i class="fas fa-sun"></i>Solar Roadmap</a></li>
+                    <li><a href="#"><i class="fas fa-tools"></i>Property Maintenance</a></li>
+                </ul>
+
+                <!-- User Authentication Section - Desktop -->
+                <div class="desktop-auth">
+                    <div class="auth-buttons">
+                        <a href="#" class="auth-btn login-btn">
+                            <i class="fas fa-sign-in-alt"></i>Login
+                        </a>
+                        <a href="#" class="auth-btn register-btn">
+                            <i class="fas fa-user-plus"></i>Register
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hamburger (Mobile Only) -->
+                <button class="hamburger" aria-label="Open menu" id="openMobileNav">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <div class="mobile-nav-content">
+            <!-- Close Button -->
+            <button class="mobile-close-btn" id="closeMobileNav" aria-label="Close menu">✕</button>
+
+            <!-- Mobile Logo -->
+            <div class="mobile-logo">
+                <div class="logo-mark">SB</div>
+                <div class="logo-text">
+                    Square<span class="highlight">Box</span>
+                </div>
+            </div>
+
+            <!-- Mobile User Auth Section -->
+            <div class="mobile-auth-section">
+                <div class="mobile-auth-buttons">
+                    <a href="#" class="mobile-auth-btn login-btn">
+                        <i class="fas fa-sign-in-alt"></i>Login
+                    </a>
+                    <a href="#" class="mobile-auth-btn register-btn">
+                        <i class="fas fa-user-plus"></i>Register
+                    </a>
+                </div>
+            </div>
+
+            <div class="mobile-nav-menu">
+                <!-- Buy Dropdown -->
+                <div class="mobile-nav-item">
+                    <button class="mobile-nav-toggle" data-target="buy-dropdown">
+                        <span><i class="fas fa-shopping-cart"></i> Buy</span> <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="mobile-nav-dropdown" id="buy-dropdown">
+                        <a href="#"><i class="fas fa-building"></i>Apartments</a>
+                        <a href="#"><i class="fas fa-home"></i>Independent House</a>
+                        <a href="#"><i class="fas fa-vector-square"></i>Villa</a>
+                        <a href="#"><i class="fas fa-map-marked"></i>Plot / Land</a>
+                        <a href="#"><i class="fas fa-store"></i>Commercial Property</a>
+                        <a href="#"><i class="fas fa-rocket"></i>New Launch</a>
+                    </div>
+                </div>
+
+                <!-- Rent Dropdown -->
+                <div class="mobile-nav-item">
+                    <button class="mobile-nav-toggle" data-target="rent-dropdown">
+                        <span><i class="fas fa-key"></i> Rent</span> <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="mobile-nav-dropdown" id="rent-dropdown">
+                        <a href="#"><i class="fas fa-building"></i>Apartments</a>
+                        <a href="#"><i class="fas fa-home"></i>Independent House</a>
+                        <a href="#"><i class="fas fa-vector-square"></i>Villa</a>
+                        <a href="#"><i class="fas fa-map-marked"></i>Plot / Land</a>
+                        <a href="#"><i class="fas fa-store"></i>Commercial Property</a>
+                        <a href="#"><i class="fas fa-rocket"></i>New Launch</a>
+                    </div>
+                </div>
+
+                <!-- Other Links -->
+                <a class="mobile-nav-link" href="#"><i class="fas fa-dollar-sign"></i>Sell</a>
+                <a class="mobile-nav-link" href="#"><i class="fas fa-gavel"></i>Property Legal Services</a>
+                <a class="mobile-nav-link" href="#"><i class="fas fa-mountain"></i>Land Levelling</a>
+                <a class="mobile-nav-link" href="#"><i class="fas fa-border-style"></i>Fencing</a>
+                <a class="mobile-nav-link" href="#"><i class="fas fa-sun"></i>Solar Roadmap</a>
+                <a class="mobile-nav-link" href="#"><i class="fas fa-tools"></i>Property Maintenance</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for mobile menu -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Announcement bar close functionality
+            const announceBar = document.getElementById('announceBar');
+            const announceClose = document.getElementById('announceClose');
+
+            if (announceClose) {
+                announceClose.addEventListener('click', function() {
+                    announceBar.style.display = 'none';
+                });
+            }
+
+            // Mobile menu functionality
+            const openMobileNav = document.getElementById('openMobileNav');
+            const closeMobileNav = document.getElementById('closeMobileNav');
+            const mobileNavDrawer = document.getElementById('mobileNavDrawer');
+            const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+            // Open mobile menu
+            if (openMobileNav) {
+                openMobileNav.addEventListener('click', function() {
+                    mobileNavDrawer.classList.add('active');
+                    mobileNavOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            // Close mobile menu
+            function closeMobileMenu() {
+                mobileNavDrawer.classList.remove('active');
+                mobileNavOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.mobile-nav-dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+                
+                document.querySelectorAll('.mobile-nav-toggle').forEach(toggle => {
+                    toggle.classList.remove('active');
+                });
+            }
+
+            if (closeMobileNav) {
+                closeMobileNav.addEventListener('click', closeMobileMenu);
+            }
+
+            // Close mobile menu when clicking outside
+            mobileNavOverlay.addEventListener('click', closeMobileMenu);
+
+            // Mobile dropdown toggles
+            const mobileToggles = document.querySelectorAll('.mobile-nav-toggle');
+            mobileToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetDropdown = document.getElementById(targetId);
+                    
+                    // Toggle active class
+                    this.classList.toggle('active');
+                    targetDropdown.classList.toggle('active');
+                    
+                    // Close other dropdowns
+                    document.querySelectorAll('.mobile-nav-dropdown').forEach(dropdown => {
+                        if (dropdown.id !== targetId) {
+                            dropdown.classList.remove('active');
+                        }
+                    });
+                    
+                    document.querySelectorAll('.mobile-nav-toggle').forEach(otherToggle => {
+                        if (otherToggle !== toggle) {
+                            otherToggle.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // Desktop dropdown functionality
+            const navDropdowns = document.querySelectorAll('.nav-dropdown');
+            
+            navDropdowns.forEach(dropdown => {
+                dropdown.addEventListener('mouseenter', function() {
+                    const menu = this.querySelector('.dropdown');
+                    menu.style.display = 'block';
+                    setTimeout(() => {
+                        menu.style.opacity = '1';
+                        menu.style.visibility = 'visible';
+                        menu.style.transform = 'translateY(0)';
+                    }, 10);
+                });
+                
+                dropdown.addEventListener('mouseleave', function() {
+                    const menu = this.querySelector('.dropdown');
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                    menu.style.transform = 'translateY(10px)';
+                    setTimeout(() => {
+                        menu.style.display = 'none';
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
